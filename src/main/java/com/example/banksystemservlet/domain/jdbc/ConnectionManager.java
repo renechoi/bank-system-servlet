@@ -1,4 +1,4 @@
-package work.atm.step3.domain.jdbc;
+package com.example.banksystemservlet.domain.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,8 @@ public class ConnectionManager {
 
     private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String DB_USERNAME = "webdb";
-    private static final String DB_PW = "oracle";
+    private static final String DB_USERNAME = "bankservlet";
+    private static final String DB_PW = "1234";
 
     public static Connection getConnection() {
         try {

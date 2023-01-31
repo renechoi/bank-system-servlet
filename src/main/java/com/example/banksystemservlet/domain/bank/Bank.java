@@ -1,31 +1,61 @@
-package work.atm.step3.domain.bank;
+package com.example.banksystemservlet.domain.bank;
 
-import work.atm.step3.domain.member.AccountManager;
-import work.atm.step3.domain.member.Member;
-import work.atm.step3.domain.member.MemberManager;
+import com.example.banksystemservlet.domain.member.AccountDao;
+import com.example.banksystemservlet.domain.member.Member;
+import com.example.banksystemservlet.domain.member.MemberDao;
+
+import java.sql.SQLException;
 
 public class Bank {
 
-    public static final MemberManager MEMBER_MANAGER = new MemberManager();
-    public static final AccountManager ACCOUNT_MANAGER = new AccountManager();
+    private final MemberDao MEMBER_DAO;
+    private final AccountDao ACCOUNT_DAO;
     private String currentlyLogin = "-1";
+
+    public Bank(MemberDao MEMBER_DAO, AccountDao ACCOUNT_DAO) {
+        this.MEMBER_DAO = MEMBER_DAO;
+        this.ACCOUNT_DAO = ACCOUNT_DAO;
+    }
+
+    public Result register2(Member member) {
+        validateRegisterId(member);
+        try {
+            MEMBER_DAO.add2(member);
+            ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount());
+        } catch (RuntimeException | SQLException e) {
+            return new Result("회원 가입에 실패하였습니다", false);
+        }
+        return new Result("회원 가입에 성공하였습니다", true);
+    }
 
     public Result register(Member member) {
         validateRegisterId(member);
         try {
-            MEMBER_MANAGER.add(member);
-            ACCOUNT_MANAGER.create(member, MEMBER_MANAGER.getMemberCount());
+            MEMBER_DAO.add(member);
+            ACCOUNT_DAO.create(member, MEMBER_DAO.getMemberCount());
         } catch (RuntimeException e) {
             return new Result("회원 가입에 실패하였습니다", false);
         }
         return new Result("회원 가입에 성공하였습니다", true);
     }
 
+    public Result unRegister2() {
+        validateLoginOff();
+        try {
+            MEMBER_DAO.delete2(validateLoginId(currentlyLogin));
+            ACCOUNT_DAO.delete2(currentlyLogin);
+        } catch (RuntimeException | SQLException e) {
+            return new Result("회원 탈퇴에 실패하였습니다", false);
+        }
+        setLoginStatusNone();
+        return new Result("회원 탈퇴에 성공하였습니다", true);
+    }
+
     public Result unRegister() {
         validateLoginOff();
         try {
-            MEMBER_MANAGER.delete(validateLoginId(currentlyLogin));
-            ACCOUNT_MANAGER.delete(currentlyLogin);
+            MEMBER_DAO.delete(validateLoginId(currentlyLogin));
+            ACCOUNT_DAO.delete(currentlyLogin);
         } catch (RuntimeException e) {
             return new Result("회원 탈퇴에 실패하였습니다", false);
         }
@@ -53,22 +83,44 @@ public class Bank {
         return new Result("로그아웃에 성공하였습니다", true);
     }
 
+    public Result deposit2(int amount) {
+        validateLoginOff();
+        try {
+            Member member = MEMBER_DAO.getMember2(currentlyLogin);
+            ACCOUNT_DAO.deposit2(member, amount);
+        } catch (RuntimeException | SQLException e) {
+            return new Result("입금에 실패하였습니다", false);
+        }
+        return new Result("입금에 성공하였습니다", true);
+    }
+
     public Result deposit(int amount) {
         validateLoginOff();
         try {
-            Member member = MEMBER_MANAGER.getMember(currentlyLogin);
-            ACCOUNT_MANAGER.deposit(member, amount);
+            Member member = MEMBER_DAO.getMember(currentlyLogin);
+            ACCOUNT_DAO.deposit(member, amount);
         } catch (RuntimeException e) {
             return new Result("입금에 실패하였습니다", false);
         }
         return new Result("입금에 성공하였습니다", true);
     }
 
+    public Result withdraw2(int amount) {
+        validateLoginOff();
+        try {
+            Member member = MEMBER_DAO.getMember2(currentlyLogin);
+            ACCOUNT_DAO.withdraw(member, amount);
+        } catch (RuntimeException | SQLException e) {
+            return new Result("출금에 실패하였습니다", false);
+        }
+        return new Result("출금에 성공하였습니다", true);
+    }
+
     public Result withdraw(int amount) {
         validateLoginOff();
         try {
-            Member member = MEMBER_MANAGER.getMember(currentlyLogin);
-            ACCOUNT_MANAGER.withdraw(member, amount);
+            Member member = MEMBER_DAO.getMember(currentlyLogin);
+            ACCOUNT_DAO.withdraw(member, amount);
         } catch (RuntimeException e) {
             return new Result("출금에 실패하였습니다", false);
         }
@@ -78,8 +130,8 @@ public class Bank {
     public Result transfer(String requestMemberId, int requestTransferAmount) {
         validateLoginOff();
         try {
-            ACCOUNT_MANAGER.withdraw(MEMBER_MANAGER.getMember(currentlyLogin), requestTransferAmount);
-            ACCOUNT_MANAGER.deposit(MEMBER_MANAGER.getMember(requestMemberId), requestTransferAmount);
+            ACCOUNT_DAO.withdraw(MEMBER_DAO.getMember(currentlyLogin), requestTransferAmount);
+            ACCOUNT_DAO.deposit(MEMBER_DAO.getMember(requestMemberId), requestTransferAmount);
         } catch (RuntimeException e) {
             return new Result("송금에 실패하였습니다", false);
         }
@@ -100,7 +152,7 @@ public class Bank {
     }
 
     private void validateRegisterId(Member member) {
-        if (MEMBER_MANAGER.exist(member)) {
+        if (MEMBER_DAO.exist(member)) {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
     }
@@ -125,7 +177,7 @@ public class Bank {
     }
 
     public String validateLoginIdAndPassword(String requestedId, String requestedPassword) {
-        if (!MEMBER_MANAGER.match(requestedId, requestedPassword)) {
+        if (!MEMBER_DAO.match(requestedId, requestedPassword)) {
             throw new IllegalArgumentException("로그인 가능한 아이디가 없거나 비밀번호가 일치하지 않습니다");
         }
         return requestedId;
@@ -139,7 +191,7 @@ public class Bank {
     }
 
     public void showAccount() {
-        Member member = MEMBER_MANAGER.getMember(currentlyLogin);
+        Member member = MEMBER_DAO.getMember(currentlyLogin);
         System.out.println(String.format("""
                         <잔액 조회>
                         고객번호: %s
@@ -149,10 +201,10 @@ public class Bank {
                         잔액: %s
                         """,
                 member.getMemberNumber(),
-                ACCOUNT_MANAGER.getAccountNumber(member),
+                ACCOUNT_DAO.getAccountNumber(member),
                 member.getName(),
                 member.getMemberId(),
-                ACCOUNT_MANAGER.getBalance(member)
+                ACCOUNT_DAO.getBalance(member)
         ));
     }
 }

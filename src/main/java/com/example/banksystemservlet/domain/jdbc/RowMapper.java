@@ -1,4 +1,4 @@
-package work.atm.step3.domain.jdbc;
+package com.example.banksystemservlet.domain.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

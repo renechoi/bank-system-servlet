@@ -1,4 +1,4 @@
-package work.atm.step3.domain.member;
+package com.example.banksystemservlet.domain.member;
 
 import java.util.Objects;
 
@@ -9,6 +9,13 @@ public class Member {
     private String password;
 
     public Member(String name, String memberId, String password ) {
+        this.name = name;
+        this.memberId = memberId;
+        this.password = password;
+    }
+
+    public Member(int memberNumber, String name, String memberId, String password) {
+        this.memberNumber = memberNumber;
         this.name = name;
         this.memberId = memberId;
         this.password = password;
@@ -37,6 +44,10 @@ public class Member {
 
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

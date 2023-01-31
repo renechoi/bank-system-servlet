@@ -1,12 +1,17 @@
-package work.atm.step3.domain.bank;
+package com.example.banksystemservlet.domain.bank;
 
-import work.atm.step3.domain.command.*;
-import work.atm.step3.ui.InputView;
+
+import com.example.banksystemservlet.domain.command.*;
+import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
+import com.example.banksystemservlet.domain.member.AccountDao;
+import com.example.banksystemservlet.domain.member.MemberDao;
+import com.example.banksystemservlet.ui.InputView;
 
 public class Controller {
 
     public void openBank() {
-        Bank bank = new Bank();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        Bank bank = new Bank(new MemberDao(jdbcTemplate), new AccountDao(jdbcTemplate));
         CommandReader commandReader = new CommandReader(
                 new RegisterCommand(),
                 new UnregisterCommand(),

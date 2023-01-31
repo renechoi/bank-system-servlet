@@ -1,6 +1,7 @@
-package work.atm.step3;
+package com.example.banksystemservlet;
 
-import work.atm.step3.domain.bank.Controller;
+
+import com.example.banksystemservlet.domain.bank.Controller;
 
 public class Application {
     public static void main(String[] args) {

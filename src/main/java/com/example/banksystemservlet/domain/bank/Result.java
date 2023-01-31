@@ -1,4 +1,4 @@
-package work.atm.step3.domain.bank;
+package com.example.banksystemservlet.domain.bank;
 
 import java.util.Objects;
 

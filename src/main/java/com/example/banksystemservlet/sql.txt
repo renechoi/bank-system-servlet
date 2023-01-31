@@ -1,0 +1,16 @@
+CREATE TABLE member
+(
+    memberNumber    number(10),
+    name            varchar2(100) NOT NULL,
+    memberId        varchar2(100),
+    password        varchar2(100),
+    PRIMARY KEY (memberId)
+);
+
+create table account
+(
+    accountNumber number(10),
+    balance       number(10),
+    memberID      varchar2(100)
+);
+

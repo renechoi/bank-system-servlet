@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="89e6052c-67e4-4a72-af38-235284aaadc2">
+    <data-source source="LOCAL" name="bankservlet" uuid="6c1d7b4b-a009-48a4-9787-42bdd7187fd9">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>

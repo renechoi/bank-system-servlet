@@ -1,9 +1,10 @@
-package work.atm.step3.domain.command;
+package com.example.banksystemservlet.domain.command;
 
-import work.atm.step3.domain.bank.Bank;
-import work.atm.step3.domain.bank.Result;
-import work.atm.step3.domain.member.Member;
-import work.atm.step3.ui.InputView;
+
+import com.example.banksystemservlet.domain.bank.Bank;
+import com.example.banksystemservlet.domain.bank.Result;
+import com.example.banksystemservlet.domain.member.Member;
+import com.example.banksystemservlet.ui.InputView;
 
 public class RegisterCommand implements Command {
     @Override

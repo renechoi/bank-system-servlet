@@ -1,4 +1,4 @@
-package work.atm.step3.ui;
+package com.example.banksystemservlet.ui;
 
 import java.util.Scanner;
 

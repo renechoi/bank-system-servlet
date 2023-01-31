@@ -1,4 +1,4 @@
-package work.atm.step3.domain.member;
+package com.example.banksystemservlet.domain.member;
 
 public class Account {
     private int accountNumber;

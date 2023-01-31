@@ -1,8 +1,9 @@
-package work.atm.step3.domain.command;
+package com.example.banksystemservlet.domain.command;
 
-import work.atm.step3.domain.bank.Bank;
-import work.atm.step3.domain.bank.Result;
-import work.atm.step3.ui.InputView;
+
+import com.example.banksystemservlet.domain.bank.Bank;
+import com.example.banksystemservlet.domain.bank.Result;
+import com.example.banksystemservlet.ui.InputView;
 
 public class TransferCommand implements Command {
     @Override
