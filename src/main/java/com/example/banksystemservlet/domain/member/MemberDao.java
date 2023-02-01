@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class MemberDao {
     private JdbcTemplate jdbcTemplate;
@@ -62,10 +63,39 @@ public class MemberDao {
     public boolean exist(Member requestedMember) {
         return members.stream().anyMatch(member -> member.equals(requestedMember));
     }
+    public boolean match2(String requestedId, String requestedPassword) throws SQLException {
+        return fetchMembers().stream()
+                .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
+    }
 
-    public boolean match(String requestedId, String requestedPassword) {
+    public boolean match(String requestedId, String requestedPassword)  {
         return members.stream()
                 .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
+    }
+
+    private List<Member> fetchMembers() throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery(
+                """
+                        SELECT
+                        member.membernumber,
+                        member.name,
+                        member.memberid,
+                        member.password
+                        FROM Member member
+                        """);
+
+        List<Member> members = new ArrayList<>();
+
+        while (resultSet.next()) {
+            members.add(new Member(
+                    resultSet.getInt("membernumber"),
+                    resultSet.getString("name"),
+                    resultSet.getString("memberid"),
+                    resultSet.getString("password")));
+        }
+        return members;
+
+
     }
 
     public Member getMember2(String currentlyLogin) throws SQLException {
@@ -102,7 +132,7 @@ public class MemberDao {
                 from MEMBER
                 """);
         int count = 0;
-        while (resultSet.next()){
+        while (resultSet.next()) {
             count = resultSet.getInt(1);
         }
         return count;

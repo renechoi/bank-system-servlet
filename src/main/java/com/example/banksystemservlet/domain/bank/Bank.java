@@ -28,17 +28,6 @@ public class Bank {
         return new Result("회원 가입에 성공하였습니다", true);
     }
 
-    public Result register(Member member) {
-        validateRegisterId(member);
-        try {
-            MEMBER_DAO.add(member);
-            ACCOUNT_DAO.create(member, MEMBER_DAO.getMemberCount());
-        } catch (RuntimeException e) {
-            return new Result("회원 가입에 실패하였습니다", false);
-        }
-        return new Result("회원 가입에 성공하였습니다", true);
-    }
-
     public Result unRegister2() {
         validateLoginOff();
         try {
@@ -51,23 +40,11 @@ public class Bank {
         return new Result("회원 탈퇴에 성공하였습니다", true);
     }
 
-    public Result unRegister() {
-        validateLoginOff();
-        try {
-            MEMBER_DAO.delete(validateLoginId(currentlyLogin));
-            ACCOUNT_DAO.delete(currentlyLogin);
-        } catch (RuntimeException e) {
-            return new Result("회원 탈퇴에 실패하였습니다", false);
-        }
-        setLoginStatusNone();
-        return new Result("회원 탈퇴에 성공하였습니다", true);
-    }
-
-    public Result login(String requestedId, String requestedPassword) {
+    public Result login2(String requestedId, String requestedPassword) {
         try {
             validateLoginOn();
-            this.currentlyLogin = validateLoginIdAndPassword(requestedId, requestedPassword);
-        } catch (RuntimeException e) {
+            this.currentlyLogin = validateLoginIdAndPassword2(requestedId, requestedPassword);
+        } catch (RuntimeException | SQLException e) {
             return new Result("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
         return new Result("로그인에 성공하였습니다", true);
@@ -86,8 +63,7 @@ public class Bank {
     public Result deposit2(int amount) {
         validateLoginOff();
         try {
-            Member member = MEMBER_DAO.getMember2(currentlyLogin);
-            ACCOUNT_DAO.deposit2(member, amount);
+            ACCOUNT_DAO.deposit2(currentlyLogin, amount);
         } catch (RuntimeException | SQLException e) {
             return new Result("입금에 실패하였습니다", false);
         }
@@ -109,7 +85,7 @@ public class Bank {
         validateLoginOff();
         try {
             Member member = MEMBER_DAO.getMember2(currentlyLogin);
-            ACCOUNT_DAO.withdraw(member, amount);
+            ACCOUNT_DAO.withdraw2(currentlyLogin, amount);
         } catch (RuntimeException | SQLException e) {
             return new Result("출금에 실패하였습니다", false);
         }
@@ -127,6 +103,17 @@ public class Bank {
         return new Result("출금에 성공하였습니다", true);
     }
 
+    public Result transfer2(String requestMemberId, int requestTransferAmount) {
+        validateLoginOff();
+        try {
+            ACCOUNT_DAO.withdraw2(currentlyLogin, requestTransferAmount);
+            ACCOUNT_DAO.deposit2(requestMemberId, requestTransferAmount);
+        } catch (RuntimeException | SQLException e) {
+            return new Result("송금에 실패하였습니다", false);
+        }
+        return new Result("송금에 성공하였습니다", true);
+    }
+
     public Result transfer(String requestMemberId, int requestTransferAmount) {
         validateLoginOff();
         try {
@@ -136,6 +123,15 @@ public class Bank {
             return new Result("송금에 실패하였습니다", false);
         }
         return new Result("송금에 성공하였습니다", true);
+    }
+
+    public Result checkBalance2() {
+        try {
+            showAccount2();
+        } catch (SQLException e) {
+            return new Result("조회에 실패하였습니다", false);
+        }
+        return new Result("조회에 성공하였습니다", true);
     }
 
     public Result checkBalance() {
@@ -176,6 +172,13 @@ public class Bank {
         return requestedId;
     }
 
+    public String validateLoginIdAndPassword2(String requestedId, String requestedPassword) throws SQLException {
+        if (!MEMBER_DAO.match2(requestedId, requestedPassword)) {
+            throw new IllegalArgumentException("로그인 가능한 아이디가 없거나 비밀번호가 일치하지 않습니다");
+        }
+        return requestedId;
+    }
+
     public String validateLoginIdAndPassword(String requestedId, String requestedPassword) {
         if (!MEMBER_DAO.match(requestedId, requestedPassword)) {
             throw new IllegalArgumentException("로그인 가능한 아이디가 없거나 비밀번호가 일치하지 않습니다");
@@ -190,6 +193,24 @@ public class Bank {
         show.run();
     }
 
+    public void showAccount2() throws SQLException {
+        Member member = MEMBER_DAO.getMember2(currentlyLogin);
+        System.out.println(String.format("""
+                        <잔액 조회>
+                        고객번호: %s
+                        계좌번호: %s
+                        계좌명: %s
+                        아이디: %s
+                        잔액: %s
+                        """,
+                member.getMemberNumber(),
+                ACCOUNT_DAO.getAccountNumber2(member),
+                member.getName(),
+                member.getMemberId(),
+                ACCOUNT_DAO.getBalance2(member)
+        ));
+    }
+
     public void showAccount() {
         Member member = MEMBER_DAO.getMember(currentlyLogin);
         System.out.println(String.format("""
@@ -198,7 +219,7 @@ public class Bank {
                         계좌번호: %s
                         계좌명: %s
                         아이디: %s
-                        잔액: %s
+                        잔액: %s  
                         """,
                 member.getMemberNumber(),
                 ACCOUNT_DAO.getAccountNumber(member),

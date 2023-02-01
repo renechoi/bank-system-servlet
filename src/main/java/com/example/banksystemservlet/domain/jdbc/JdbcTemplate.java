@@ -19,7 +19,6 @@ public class JdbcTemplate {
     public int executeUpdate(String sqlQuery, PreparedStatementSetter preparedStatementSetter) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatementSetter.setPreparedStatement(preparedStatement);
-
         return preparedStatement.executeUpdate();
     }
 

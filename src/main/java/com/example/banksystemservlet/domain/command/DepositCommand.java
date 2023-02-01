@@ -13,7 +13,7 @@ public class DepositCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.deposit(requestDepositAmount());
+        return bank.deposit2(requestDepositAmount());
     }
 
     private int requestDepositAmount() {

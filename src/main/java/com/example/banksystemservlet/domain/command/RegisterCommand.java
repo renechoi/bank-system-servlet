@@ -14,7 +14,7 @@ public class RegisterCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.register(new Member(requestMemberName(), requestMemberId(), requestMemberPassword()));
+        return bank.register2(new Member(requestMemberName(), requestMemberId(), requestMemberPassword()));
     }
 
     private String requestMemberName() {

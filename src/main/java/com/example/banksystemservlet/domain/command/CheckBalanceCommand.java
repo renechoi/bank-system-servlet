@@ -12,6 +12,6 @@ public class CheckBalanceCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.checkBalance();
+        return bank.checkBalance2();
     }
 }

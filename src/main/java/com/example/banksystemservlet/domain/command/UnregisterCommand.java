@@ -12,6 +12,6 @@ public class UnregisterCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.unRegister();
+        return bank.unRegister2();
     }
 }

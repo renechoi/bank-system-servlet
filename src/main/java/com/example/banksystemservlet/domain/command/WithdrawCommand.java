@@ -13,7 +13,7 @@ public class WithdrawCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.withdraw(requestWithdrawAmount());
+        return bank.withdraw2(requestWithdrawAmount());
     }
 
     private int requestWithdrawAmount() {

@@ -13,7 +13,7 @@ public class TransferCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.transfer(requestMemberId(), requestTransferAmount());
+        return bank.transfer2(requestMemberId(), requestTransferAmount());
     }
 
     private int requestTransferAmount() {

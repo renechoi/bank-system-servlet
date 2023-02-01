@@ -51,20 +51,32 @@ public class AccountDao {
                 .get());
     }
 
-    public void deposit2(Member member, int amount) throws SQLException {
-        // TODO : update 하는 금액이 하드코딩되어 있다.
-        jdbcTemplate.executeUpdate("""
+    public void deposit2(String currentLoginId, int amount) throws SQLException {
+        // TODO : update 하는 금액이 하드코딩되어 있다.'
+        int i = jdbcTemplate.executeUpdate("""
                                 UPDATE ACCOUNT account
-                                SET author.accountbalance = ?,
+                                SET account.balance = ?
                                 WHERE account.memberid = ?
                 """, preparedStatement -> {
-            preparedStatement.setString(1, "1000");
-            preparedStatement.setString(2, member.getMemberId());
+            preparedStatement.setInt(1, amount);
+            preparedStatement.setString(2, currentLoginId);
         });
     }
 
     public void deposit(Member member, int amount) {
         getAccount(member).addAmount(amount);
+    }
+
+    public void withdraw2(String currentLoginId, int amount) throws SQLException {
+        // TODO : update 하는 금액이 하드코딩되어 있다.
+        jdbcTemplate.executeUpdate("""
+                                UPDATE ACCOUNT account
+                                SET account.balance = ?
+                                WHERE account.memberid = ?
+                """, preparedStatement -> {
+            preparedStatement.setInt(1, amount);
+            preparedStatement.setString(2, currentLoginId);
+        });
     }
 
     public void withdraw(Member member, int amount) {
@@ -82,8 +94,31 @@ public class AccountDao {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 아이디가 없습니다"));
     }
 
+    private Account getAccount2(Member member) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT accountnumber, balance, memberid
+                        FROM account
+                        WHERE memberId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, member.getMemberId()));
+
+        return matchAccount(resultSet, resultSet2 -> new Account(
+                resultSet2.getInt("accountnumber"),
+                resultSet2.getInt("balance"),
+                resultSet2.getString("memberId")
+        ));
+    }
+
+    public int getAccountNumber2(Member member) throws SQLException {
+        return getAccount2(member).getAccountNumber();
+    }
+
     public int getAccountNumber(Member member) {
         return getAccount(member).getAccountNumber();
+    }
+
+    public int getBalance2(Member member) throws SQLException {
+        return getAccount2(member).getBalance();
     }
 
     public int getBalance(Member member) {
