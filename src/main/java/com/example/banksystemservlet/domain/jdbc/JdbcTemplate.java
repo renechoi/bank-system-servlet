@@ -7,6 +7,15 @@ import java.sql.SQLException;
 
 public class JdbcTemplate {
 
+    private static final JdbcTemplate instance = new JdbcTemplate();
+
+    private JdbcTemplate() {
+    }
+
+    public static JdbcTemplate getInstance() {
+        return instance;
+    }
+
     private Connection connection = ConnectionManager.getConnection();
 
     public int executeInsert(String sqlQuery, PreparedStatementSetter preparedStatementSetter) throws SQLException {

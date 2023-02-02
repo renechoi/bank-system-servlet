@@ -19,7 +19,7 @@ class MemberDaoTest {
     @Test
     void insertTest() throws SQLException {
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
@@ -37,7 +37,7 @@ class MemberDaoTest {
     @DisplayName("멤버 저장 개수를 검증한다")
     @Test
     void countTest() throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
@@ -53,7 +53,7 @@ class MemberDaoTest {
 
     @Test
     void deleteTest() throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");

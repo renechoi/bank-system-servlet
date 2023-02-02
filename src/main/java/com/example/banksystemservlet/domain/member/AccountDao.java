@@ -10,10 +10,11 @@ import java.util.List;
 
 public class AccountDao {
     public static final int initialAmount = 1000;
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
     private List<Account> accounts = new ArrayList<>();
 
-    // accountnumber balance memberid
+    public AccountDao() {
+    }
 
     public AccountDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

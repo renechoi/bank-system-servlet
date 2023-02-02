@@ -10,7 +10,7 @@ import com.example.banksystemservlet.ui.InputView;
 public class Controller {
 
     public void openBank() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         Bank bank = new Bank(new MemberDao(jdbcTemplate), new AccountDao(jdbcTemplate));
         CommandReader commandReader = new CommandReader(
                 new RegisterCommand(),

@@ -1,20 +1,34 @@
 package com.example.banksystemservlet.domain.bank;
 
 import com.example.banksystemservlet.domain.member.AccountDao;
+import com.example.banksystemservlet.domain.member.InfoMessage;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 public class Bank {
 
-    private final MemberDao MEMBER_DAO;
-    private final AccountDao ACCOUNT_DAO;
+    private final MemberDao MEMBER_DAO = new MemberDao();
+    private final AccountDao ACCOUNT_DAO = new AccountDao();
     private String currentlyLogin = "-1";
 
+    private static final Bank instance = new Bank();
+
+    private Bank() {
+    }
+
+    public static Bank getInstance() {
+        return instance;
+    }
+
     public Bank(MemberDao MEMBER_DAO, AccountDao ACCOUNT_DAO) {
-        this.MEMBER_DAO = MEMBER_DAO;
-        this.ACCOUNT_DAO = ACCOUNT_DAO;
+//        this.MEMBER_DAO = MEMBER_DAO;
+//        this.ACCOUNT_DAO = ACCOUNT_DAO;
     }
 
     public Result register2(Member member) {
@@ -125,10 +139,10 @@ public class Bank {
         return new Result("송금에 성공하였습니다", true);
     }
 
-    public Result checkBalance2() {
+    public Result checkBalance2(HttpServletRequest request, HttpServletResponse response) {
         try {
-            showAccount2();
-        } catch (SQLException e) {
+            showAccount2(request, response);
+        } catch (SQLException | UnsupportedEncodingException | JsonProcessingException e) {
             return new Result("조회에 실패하였습니다", false);
         }
         return new Result("조회에 성공하였습니다", true);
@@ -193,9 +207,15 @@ public class Bank {
         show.run();
     }
 
-    public void showAccount2() throws SQLException {
+    public void showAccount2(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, JsonProcessingException {
         Member member = MEMBER_DAO.getMember2(currentlyLogin);
-        System.out.println(String.format("""
+        int memberNumber = member.getMemberNumber();
+        int accountNumber = ACCOUNT_DAO.getAccountNumber2(member);
+        String name = member.getName();
+        String memberId = member.getMemberId();
+        int balance = ACCOUNT_DAO.getBalance2(member);
+
+        String message = String.format("""
                         <잔액 조회>
                         고객번호: %s
                         계좌번호: %s
@@ -203,12 +223,15 @@ public class Bank {
                         아이디: %s
                         잔액: %s
                         """,
-                member.getMemberNumber(),
-                ACCOUNT_DAO.getAccountNumber2(member),
-                member.getName(),
-                member.getMemberId(),
-                ACCOUNT_DAO.getBalance2(member)
-        ));
+                memberNumber,
+                accountNumber,
+                name,
+                memberId,
+                balance
+        );
+
+        InfoMessage infoMessage = InfoMessage.of(memberNumber, accountNumber, name, memberId, balance);
+        request.setAttribute("infoMessage", infoMessage);
     }
 
     public void showAccount() {

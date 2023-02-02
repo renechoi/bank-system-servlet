@@ -17,7 +17,7 @@ class AccountTest {
     @Test
     void createTest() throws SQLException {
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
@@ -36,7 +36,7 @@ class AccountTest {
 
     @Test
     void deleteTest() throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         String memberId = "1234";

@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class MemberDao {
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
     private List<Member> members = new ArrayList<>();
 
-    // membernumber , name, memberId, password
 
     public MemberDao() {
     }
