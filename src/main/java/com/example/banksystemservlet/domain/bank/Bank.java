@@ -35,7 +35,7 @@ public class Bank {
         validateRegisterId(member);
         try {
             MEMBER_DAO.add2(member);
-            ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount());
+            ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount2());
         } catch (RuntimeException | SQLException e) {
             return new Result("회원 가입에 실패하였습니다", false);
         }
@@ -84,34 +84,11 @@ public class Bank {
         return new Result("입금에 성공하였습니다", true);
     }
 
-    public Result deposit(int amount) {
-        validateLoginOff();
-        try {
-            Member member = MEMBER_DAO.getMember(currentlyLogin);
-            ACCOUNT_DAO.deposit(member, amount);
-        } catch (RuntimeException e) {
-            return new Result("입금에 실패하였습니다", false);
-        }
-        return new Result("입금에 성공하였습니다", true);
-    }
-
     public Result withdraw2(int amount) {
         validateLoginOff();
         try {
-            Member member = MEMBER_DAO.getMember2(currentlyLogin);
             ACCOUNT_DAO.withdraw2(currentlyLogin, amount);
         } catch (RuntimeException | SQLException e) {
-            return new Result("출금에 실패하였습니다", false);
-        }
-        return new Result("출금에 성공하였습니다", true);
-    }
-
-    public Result withdraw(int amount) {
-        validateLoginOff();
-        try {
-            Member member = MEMBER_DAO.getMember(currentlyLogin);
-            ACCOUNT_DAO.withdraw(member, amount);
-        } catch (RuntimeException e) {
             return new Result("출금에 실패하였습니다", false);
         }
         return new Result("출금에 성공하였습니다", true);
@@ -128,33 +105,40 @@ public class Bank {
         return new Result("송금에 성공하였습니다", true);
     }
 
-    public Result transfer(String requestMemberId, int requestTransferAmount) {
-        validateLoginOff();
-        try {
-            ACCOUNT_DAO.withdraw(MEMBER_DAO.getMember(currentlyLogin), requestTransferAmount);
-            ACCOUNT_DAO.deposit(MEMBER_DAO.getMember(requestMemberId), requestTransferAmount);
-        } catch (RuntimeException e) {
-            return new Result("송금에 실패하였습니다", false);
-        }
-        return new Result("송금에 성공하였습니다", true);
-    }
-
     public Result checkBalance2(HttpServletRequest request, HttpServletResponse response) {
         try {
-            showAccount2(request, response);
+            setInfoMessage(request, response);
         } catch (SQLException | UnsupportedEncodingException | JsonProcessingException e) {
             return new Result("조회에 실패하였습니다", false);
         }
         return new Result("조회에 성공하였습니다", true);
     }
 
-    public Result checkBalance() {
-        showAccount();
-        return new Result("조회에 성공하였습니다", true);
-    }
-
     public Result quit() {
         return new Result("종료합니다", true);
+    }
+
+
+    public void showCurrentlyLogin() {
+        Runnable show = currentlyLogin.equals("-1") ?
+                () -> System.out.print("") :
+                () -> System.out.printf("[시스템] 현재 로그인한 계정: %s\n", currentlyLogin);
+        show.run();
+    }
+
+    public void setInfoMessage(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, JsonProcessingException {
+        InfoMessage infoMessage = createInfoMessage();
+        request.setAttribute("infoMessage", infoMessage);
+    }
+
+    private InfoMessage createInfoMessage() throws SQLException {
+        Member member = MEMBER_DAO.getMemberCurrentlyLogin(currentlyLogin);
+
+        return InfoMessage.of(member.getMemberNumber(),
+                ACCOUNT_DAO.getAccountNumber2(member),
+                member.getName(),
+                member.getMemberId(),
+                ACCOUNT_DAO.getBalance2(member));
     }
 
     private void setLoginStatusNone() {
@@ -191,64 +175,5 @@ public class Bank {
             throw new IllegalArgumentException("로그인 가능한 아이디가 없거나 비밀번호가 일치하지 않습니다");
         }
         return requestedId;
-    }
-
-    public String validateLoginIdAndPassword(String requestedId, String requestedPassword) {
-        if (!MEMBER_DAO.match(requestedId, requestedPassword)) {
-            throw new IllegalArgumentException("로그인 가능한 아이디가 없거나 비밀번호가 일치하지 않습니다");
-        }
-        return requestedId;
-    }
-
-    public void showCurrentlyLogin() {
-        Runnable show = currentlyLogin.equals("-1") ?
-                () -> System.out.print("") :
-                () -> System.out.printf("[시스템] 현재 로그인한 계정: %s\n", currentlyLogin);
-        show.run();
-    }
-
-    public void showAccount2(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, JsonProcessingException {
-        Member member = MEMBER_DAO.getMember2(currentlyLogin);
-        int memberNumber = member.getMemberNumber();
-        int accountNumber = ACCOUNT_DAO.getAccountNumber2(member);
-        String name = member.getName();
-        String memberId = member.getMemberId();
-        int balance = ACCOUNT_DAO.getBalance2(member);
-
-        String message = String.format("""
-                        <잔액 조회>
-                        고객번호: %s
-                        계좌번호: %s
-                        계좌명: %s
-                        아이디: %s
-                        잔액: %s
-                        """,
-                memberNumber,
-                accountNumber,
-                name,
-                memberId,
-                balance
-        );
-
-        InfoMessage infoMessage = InfoMessage.of(memberNumber, accountNumber, name, memberId, balance);
-        request.setAttribute("infoMessage", infoMessage);
-    }
-
-    public void showAccount() {
-        Member member = MEMBER_DAO.getMember(currentlyLogin);
-        System.out.println(String.format("""
-                        <잔액 조회>
-                        고객번호: %s
-                        계좌번호: %s
-                        계좌명: %s
-                        아이디: %s
-                        잔액: %s  
-                        """,
-                member.getMemberNumber(),
-                ACCOUNT_DAO.getAccountNumber(member),
-                member.getName(),
-                member.getMemberId(),
-                ACCOUNT_DAO.getBalance(member)
-        ));
     }
 }

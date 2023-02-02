@@ -15,7 +15,7 @@
 출금한 금액은 <%=request.getParameter("withdraw")%> 입니다.
 
 <br>
-<li><a href="../index.html">홈으로 가기</a></li>
+<li><a href="../index2.html">홈으로 가기</a></li>
 
 
 </body>

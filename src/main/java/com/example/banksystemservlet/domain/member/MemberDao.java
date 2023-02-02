@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class MemberDao {
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
     private List<Member> members = new ArrayList<>();
-
 
     public MemberDao() {
     }
@@ -40,23 +38,10 @@ public class MemberDao {
         return "1";
     }
 
-    public void add(Member member) {
-        members.add(member);
-        assignMemberNumber(member);
-    }
-
     public void delete2(String requestedId) throws SQLException {
         jdbcTemplate.executeDelete("DELETE FROM member WHERE memberid = ?", preparedStatement ->
                 preparedStatement.setString(1, requestedId));
 
-    }
-
-    public void delete(String requestedId) {
-        members.remove(getMember(requestedId));
-    }
-
-    public boolean exist(String requestedId) {
-        return members.stream().anyMatch(member -> member.matchId(requestedId));
     }
 
     public boolean exist(Member requestedMember) {
@@ -64,11 +49,6 @@ public class MemberDao {
     }
     public boolean match2(String requestedId, String requestedPassword) throws SQLException {
         return fetchMembers().stream()
-                .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
-    }
-
-    public boolean match(String requestedId, String requestedPassword)  {
-        return members.stream()
                 .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
     }
 
@@ -93,11 +73,9 @@ public class MemberDao {
                     resultSet.getString("password")));
         }
         return members;
-
-
     }
 
-    public Member getMember2(String currentlyLogin) throws SQLException {
+    public Member getMemberCurrentlyLogin(String currentlyLogin) throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                         SELECT membernumber, name, memberid, password
                         FROM member
@@ -113,19 +91,8 @@ public class MemberDao {
         ));
     }
 
-    public Member getMember(String currentlyLogin) {
-        return members.stream()
-                .filter(member -> member.matchId(currentlyLogin))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("찾는 아이디가 없습니다"));
-    }
-
-    public int getMemberCount() {
-        return members.size();
-    }
-
     public int getMemberCount2() throws SQLException {
-        // TODO : while 안 쓰고 하는 법이 있는지....
+        // TODO : while 안 쓰고 하는 법이 있는지.... ch14 memberMgr 확인
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                 select count(*)
                 from MEMBER
@@ -137,8 +104,8 @@ public class MemberDao {
         return count;
     }
 
-    private void assignMemberNumber(Member member) {
-        member.setMemberNumber(1000 + getMemberCount() - 1);
+    private void assignMemberNumber(Member member) throws SQLException {
+        member.setMemberNumber(1000 + getMemberCount2() - 1);
     }
 
     private Member matchMember(ResultSet resultSet, RowMapper rowMapper) throws SQLException {

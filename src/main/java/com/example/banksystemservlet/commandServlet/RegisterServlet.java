@@ -2,10 +2,7 @@ package com.example.banksystemservlet.commandServlet;
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
-import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
-import com.example.banksystemservlet.domain.member.AccountDao;
 import com.example.banksystemservlet.domain.member.Member;
-import com.example.banksystemservlet.domain.member.MemberDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +16,6 @@ import java.io.IOException;
 @WebServlet(name = "registerServlet", urlPatterns = "/view/register-result")
 public class RegisterServlet extends HttpServlet implements BankServlet {
 
-    // Todo : validation 로직 구현  -> db id 중복 체크시 ch14 memberMgr 확인
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
