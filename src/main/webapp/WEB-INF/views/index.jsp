@@ -1,7 +1,7 @@
 <%@ page import="com.example.banksystemservlet.domain.member.AccountDao" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@page errorPage="index.html" %>
+<%@page errorPage="../index.html" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +31,15 @@
 
 <%
     Cookie[] cookies = request.getCookies();
-
-    if (cookies != null){
-        for (int i =0; i<cookies.length; ++i){
-            if(cookies[i].getName().equals("currentlyLogin")){
-                System.out.println(cookies[i].getName());
-                System.out.println(cookies[i].getValue());
-            }
-        }
-    }
+//
+//    if (cookies != null){
+//        for (int i =0; i<cookies.length; ++i){
+//            if(cookies[i].getName().equals("currentlyLogin")){
+//                System.out.println(cookies[i].getName());
+//                System.out.println(cookies[i].getValue());
+//            }
+//        }
+//    }
     System.out.println(Arrays.toString(Arrays.stream(cookies).toArray()));
     System.out.println(cookies[0].getName());
     System.out.println(cookies[1].getName());

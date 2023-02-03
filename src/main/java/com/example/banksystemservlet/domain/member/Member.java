@@ -30,10 +30,6 @@ public class Member {
         return memberId.equals(requestedId) && password.equals(requestedPassword);
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
-    }
-
     public String getMemberId() {
         return memberId;
     }

@@ -9,13 +9,14 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 
 로그아웃 되었습니다.
 
 <br>
-<li><button onclick="goHome()">홈으로 가기</button></li>
+<button onclick="goHome()">홈으로 가기</button>
 
 
 </body>

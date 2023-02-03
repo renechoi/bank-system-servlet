@@ -11,7 +11,6 @@ import java.util.List;
 public class AccountDao {
     public static final int initialAmount = 1000;
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
-    private List<Account> accounts = new ArrayList<>();
 
     public AccountDao() {
     }
@@ -38,10 +37,9 @@ public class AccountDao {
     }
 
     public void deposit2(String currentLoginId, int amount) throws SQLException {
-        // TODO : update 하는 금액이 하드코딩되어 있다.'
         int i = jdbcTemplate.executeUpdate("""
                                 UPDATE ACCOUNT account
-                                SET account.balance = ?
+                                SET account.balance = balance + ?
                                 WHERE account.memberid = ?
                 """, preparedStatement -> {
             preparedStatement.setInt(1, amount);
@@ -50,10 +48,9 @@ public class AccountDao {
     }
 
     public void withdraw2(String currentLoginId, int amount) throws SQLException {
-        // TODO : update 하는 금액이 하드코딩되어 있다.
         jdbcTemplate.executeUpdate("""
                                 UPDATE ACCOUNT account
-                                SET account.balance = ?
+                                SET account.balance = balance - ?
                                 WHERE account.memberid = ?
                 """, preparedStatement -> {
             preparedStatement.setInt(1, amount);
@@ -62,7 +59,7 @@ public class AccountDao {
     }
 
     private static int generateAccountNumber(int memberCount) {
-        return 1111 + ((memberCount - 1) * 1111);
+        return 1111 + ((memberCount - 1) * 1000);
     }
 
     private Account getAccount2(Member member) throws SQLException {

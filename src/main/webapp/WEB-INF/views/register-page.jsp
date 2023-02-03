@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>register-page</title>
-
+    <script src='/register.js'></script>
 
 </head>
 <body>
@@ -108,6 +108,7 @@
     </table>
 </form>
 
-<li><button onclick="goHome()">홈으로 가기</button></li>
+<button onclick="goHome()">홈으로 가기</button>
+
 </body>
 </html>

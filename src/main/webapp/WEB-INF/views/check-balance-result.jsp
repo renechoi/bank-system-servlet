@@ -1,6 +1,6 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.net.URLDecoder" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%--<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>--%>
 <%@ page import="com.example.banksystemservlet.domain.member.InfoMessage" %><%--
   Created by IntelliJ IDEA.
   User: Rene
@@ -12,12 +12,13 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 
 <%
-    ObjectMapper objectMapper = new ObjectMapper();
+//    ObjectMapper objectMapper = new ObjectMapper();
     InfoMessage infoMessage = (InfoMessage) request.getAttribute("infoMessage");
-    String accountInfo = objectMapper.writeValueAsString(infoMessage);
+//    String accountInfo = objectMapper.writeValueAsString(infoMessage);
 %>
 <body>
 
@@ -33,7 +34,7 @@
     </tr>
 
     <tr>
-<%--        프로퍼티 접근법 : ${} 안써지는 이유는 ? --%>
+        <%--        프로퍼티 접근법 : ${} 안써지는 이유는 ? --%>
         <td><%=infoMessage.memberNumber()%></td>
         <td><%=infoMessage.accountNumber()%></td>
         <td><%=infoMessage.name()%></td>
@@ -44,7 +45,7 @@
 
 
 <br>
-<li><a href="../index.html">홈으로 가기</a></li>
+<button onclick="goHome()">홈으로 가기</button>
 
 
 </body>

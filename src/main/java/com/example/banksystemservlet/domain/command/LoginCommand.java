@@ -5,6 +5,8 @@ import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
 import com.example.banksystemservlet.ui.InputView;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class LoginCommand implements Command {
     @Override
     public boolean support(String userInput) {
@@ -13,7 +15,7 @@ public class LoginCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.login2(requestMemberId(), requestMemberPassword());
+        return bank.login( null, requestMemberId(), requestMemberPassword());
     }
 
     private String requestMemberId() {

@@ -15,7 +15,7 @@ import java.util.Map;
 @WebServlet(name = "frontControllerServlet", urlPatterns = "/bank/view/*")
 public class FrontControllerServlet extends HttpServlet {
 
-    private final Map<String, Controller> controllerMap = new HashMap<>();       // url과 컨트롤러 => 어떤 url이 호출될 때 controller를 꺼낸다.
+    private final Map<String, Controller> controllerMap = new HashMap<>();
 
     public FrontControllerServlet() {
         controllerMap.put("/bank/view/register-form", new RegisterFormController());

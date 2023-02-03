@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 회원가입 결과 !!! <br>
@@ -18,6 +19,7 @@
 당신의 비밀번호: <%=request.getParameter("password")%> <br>
 
 <br>
-<li><button onclick="goHome()">홈으로 가기</button></li>
+<button onclick="goHome()">홈으로 가기</button>
+
 </body>
 </html>

@@ -78,10 +78,24 @@ class MemberDaoTest {
         assertThat(memberFound).isNull();
     }
 
+    @Test
+    void existTest() throws SQLException {
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+        MemberDao memberDao = new MemberDao(jdbcTemplate);
+
+        Member member = new Member("홍길동","123333333", "1234");
+
+        memberDao.exist(member);
+    }
+
     private Member matchMember(ResultSet resultSet, RowMapper rowMapper) throws SQLException {
         if (resultSet.next()) {
             return (Member) rowMapper.mapRow(resultSet);
         }
         return null;
     }
+
+
+
+
 }

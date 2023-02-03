@@ -9,13 +9,14 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 
 출금한 금액은 <%=request.getParameter("withdraw")%> 입니다.
 
 <br>
-<li><a href="/index.html">홈으로 가기</a></li>
+<button onclick="goHome()">홈으로 가기</button>
 
 
 </body>

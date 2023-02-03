@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 
@@ -22,6 +23,9 @@
     <button id="transfer-submit" type="submit">송금</button>
     <br>
 </form>
+
+<br>
+<button onclick="goHome()">홈으로 가기</button>
 
 </body>
 </html>

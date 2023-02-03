@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 
@@ -20,7 +21,9 @@
 아이디 <%=member.getMemberId() %>
 
 <br>
-<li><button onclick="goHome()">홈으로 가기</a></li>
+<button onclick="goHome()">홈으로 가기</button>
+
+
 
 </body>
 </html>

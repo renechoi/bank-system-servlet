@@ -6,46 +6,44 @@ import com.example.banksystemservlet.domain.jdbc.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MemberDao {
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
-    private List<Member> members = new ArrayList<>();
 
     public MemberDao() {
     }
 
-    public MemberDao(Member... members) {
-        this.members = Arrays.asList(members);
-    }
+//    public MemberDao(Member... members) {
+//        this.members = Arrays.asList(members);
+//    }
 
     public MemberDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public void add2(Member member) throws SQLException {
-        String number = createMemberNumber(member);
         jdbcTemplate.executeInsert("INSERT INTO member VALUES (?, ?, ?, ?)", preparedStatement -> {
-            preparedStatement.setString(1, number);
+            preparedStatement.setString(1, assignMemberNumber());
             preparedStatement.setString(2, member.getName());
             preparedStatement.setString(3, member.getMemberId());
             preparedStatement.setString(4, member.getPassword());
         });
     }
 
-    private String createMemberNumber(Member member) {
-        return "1";
-    }
-
     public void delete2(String requestedId) throws SQLException {
         jdbcTemplate.executeDelete("DELETE FROM member WHERE memberid = ?", preparedStatement ->
                 preparedStatement.setString(1, requestedId));
-
     }
 
-    public boolean exist(Member requestedMember) {
-        return members.stream().anyMatch(member -> member.equals(requestedMember));
+    public boolean exist(Member requestedMember) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT memberId
+                        FROM member
+                        WHERE memberId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, requestedMember.getMemberId()));
+        return resultSet.next();
     }
     public boolean match2(String requestedId, String requestedPassword) throws SQLException {
         return findAllMembers().stream()
@@ -104,8 +102,8 @@ public class MemberDao {
         return count;
     }
 
-    private void assignMemberNumber(Member member) throws SQLException {
-        member.setMemberNumber(1000 + getMemberCount2() - 1);
+    private String assignMemberNumber() throws SQLException {
+        return String.valueOf(1000 + getMemberCount2() - 1);
     }
 
     private Member matchMember(ResultSet resultSet, RowMapper rowMapper) throws SQLException {

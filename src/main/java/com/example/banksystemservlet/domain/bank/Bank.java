@@ -4,8 +4,9 @@ import com.example.banksystemservlet.domain.member.AccountDao;
 import com.example.banksystemservlet.domain.member.InfoMessage;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
-import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -32,8 +33,8 @@ public class Bank {
     }
 
     public Result register2(Member member) {
-        validateRegisterId(member);
         try {
+            validateRegisterId(member);
             MEMBER_DAO.add2(member);
             ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount2());
         } catch (RuntimeException | SQLException e) {
@@ -54,10 +55,17 @@ public class Bank {
         return new Result("회원 탈퇴에 성공하였습니다", true);
     }
 
-    public Result login2(String requestedId, String requestedPassword) {
+    public Result login( HttpServletResponse response, String requestedId, String requestedPassword) {
         try {
             validateLoginOn();
             this.currentlyLogin = validateLoginIdAndPassword2(requestedId, requestedPassword);
+            Cookie cookie = new Cookie("currentlyLogin", currentlyLogin);
+            cookie.setValue(currentlyLogin);
+            cookie.setMaxAge(600);
+            response.addCookie(cookie);
+            System.out.println("set cookie ");
+
+
         } catch (RuntimeException | SQLException e) {
             return new Result("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
@@ -108,7 +116,7 @@ public class Bank {
     public Result checkBalance2(HttpServletRequest request, HttpServletResponse response) {
         try {
             setInfoMessage(request, response);
-        } catch (SQLException | UnsupportedEncodingException | JsonProcessingException e) {
+        } catch (SQLException | UnsupportedEncodingException e) {
             return new Result("조회에 실패하였습니다", false);
         }
         return new Result("조회에 성공하였습니다", true);
@@ -118,7 +126,6 @@ public class Bank {
         return new Result("종료합니다", true);
     }
 
-
     public void showCurrentlyLogin() {
         Runnable show = currentlyLogin.equals("-1") ?
                 () -> System.out.print("") :
@@ -126,7 +133,7 @@ public class Bank {
         show.run();
     }
 
-    public void setInfoMessage(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, JsonProcessingException {
+    public void setInfoMessage(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
         InfoMessage infoMessage = createInfoMessage();
         request.setAttribute("infoMessage", infoMessage);
     }
@@ -145,7 +152,7 @@ public class Bank {
         this.currentlyLogin = "-1";
     }
 
-    private void validateRegisterId(Member member) {
+    private void validateRegisterId(Member member) throws SQLException {
         if (MEMBER_DAO.exist(member)) {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }

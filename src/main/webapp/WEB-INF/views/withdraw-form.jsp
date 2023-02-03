@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src='/register.js'></script>
 </head>
 <body>
 
@@ -18,6 +19,9 @@
     <button id="withdraw-submit" type="submit">출금</button>
     <br>
 </form>
+
+<br>
+<button onclick="goHome()">홈으로 가기</button>
 
 </body>
 </html>
