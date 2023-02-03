@@ -1,11 +1,8 @@
-package com.example.banksystemservlet.commandServlet;
+package com.example.banksystemservlet.web.commandServlet;
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
-import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
-import com.example.banksystemservlet.domain.member.AccountDao;
 import com.example.banksystemservlet.domain.member.Member;
-import com.example.banksystemservlet.domain.member.MemberDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name ="loginServlet", urlPatterns = "/view/login-result")
+@WebServlet(name ="loginServlet", urlPatterns = "/view/login-result1")
 public class LoginServlet extends HttpServlet implements BankServlet{
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -15,7 +15,7 @@
 로그아웃 되었습니다.
 
 <br>
-<li><a href="../index2.html">홈으로 가기</a></li>
+<li><a href="../index.html">홈으로 가기</a></li>
 
 
 </body>

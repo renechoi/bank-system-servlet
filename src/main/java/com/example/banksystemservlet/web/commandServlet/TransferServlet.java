@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.commandServlet;
+package com.example.banksystemservlet.web.commandServlet;
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
@@ -10,20 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "checkBalanceServlet", urlPatterns = "/view/check-balance")
-public class CheckBalanceServlet extends HttpServlet implements BankServlet {
+@WebServlet(name = "transferServlet", urlPatterns = "/view/transfer1")
+public class TransferServlet extends HttpServlet implements BankServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Bank bank = Bank.getInstance();
         doBankJob(bank, request, response);
 
-        request.getRequestDispatcher("./check-balance-result.jsp")
+        request.getRequestDispatcher("./transfer-result.jsp")
                 .forward(request,response);
     }
 
     @Override
     public Result doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
-        return bank.checkBalance2(request, response);
+        String transferId = request.getParameter("transferId");
+        int transferAmount = Integer.parseInt(request.getParameter("transferAmount"));
+        return bank.transfer2(transferId, transferAmount);
     }
 }

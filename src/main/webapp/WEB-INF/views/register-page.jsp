@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<form id="join-form" action="view/register-result" method="get">
+<form id="join-form" action="register-result" method="get">
     <label for="memberName">성명</label>
     <input name="memberName" id="memberName" class="legend" type="text" required>
     <br>
@@ -108,6 +108,6 @@
     </table>
 </form>
 
-
+<li><button onclick="goHome()">홈으로 가기</button></li>
 </body>
 </html>

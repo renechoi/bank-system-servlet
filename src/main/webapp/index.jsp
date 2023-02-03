@@ -16,9 +16,9 @@
             crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
-    <link href="./frontpage/headers.css" rel="stylesheet">
+    <link href="headers.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script defer src='./frontpage/register.js'></script>
+    <script defer src='register.js'></script>
 </head>
 <body>
 

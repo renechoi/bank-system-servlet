@@ -48,11 +48,11 @@ public class MemberDao {
         return members.stream().anyMatch(member -> member.equals(requestedMember));
     }
     public boolean match2(String requestedId, String requestedPassword) throws SQLException {
-        return fetchMembers().stream()
+        return findAllMembers().stream()
                 .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
     }
 
-    private List<Member> fetchMembers() throws SQLException {
+    private List<Member> findAllMembers() throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery(
                 """
                         SELECT

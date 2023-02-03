@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.commandServlet;
+package com.example.banksystemservlet.web.commandServlet;
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;

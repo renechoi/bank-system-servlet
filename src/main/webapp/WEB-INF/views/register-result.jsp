@@ -18,6 +18,6 @@
 당신의 비밀번호: <%=request.getParameter("password")%> <br>
 
 <br>
-<li><a href="../index.html">홈으로 가기</a></li>
+<li><button onclick="goHome()">홈으로 가기</button></li>
 </body>
 </html>

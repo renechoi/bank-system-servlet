@@ -20,7 +20,7 @@
 아이디 <%=member.getMemberId() %>
 
 <br>
-<li><a href="../index.html">홈으로 가기</a></li>
+<li><button onclick="goHome()">홈으로 가기</a></li>
 
 </body>
 </html>

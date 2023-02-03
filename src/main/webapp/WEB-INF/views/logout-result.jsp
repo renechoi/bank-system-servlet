@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
-  Time: 4:12 PM
+  Time: 10:41 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,10 +12,10 @@
 </head>
 <body>
 
-송금한 금액은 <%=request.getParameter("transferAmount")%> 입니다.
+로그아웃 되었습니다.
 
 <br>
-<li><a href="../index.html">홈으로 가기</a></li>
+<li><button onclick="goHome()">홈으로 가기</button></li>
 
 
 </body>
