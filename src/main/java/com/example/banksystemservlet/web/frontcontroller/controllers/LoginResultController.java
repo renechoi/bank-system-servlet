@@ -3,7 +3,6 @@ package com.example.banksystemservlet.web.frontcontroller.controllers;
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
 import com.example.banksystemservlet.domain.member.Member;
-import com.example.banksystemservlet.web.frontcontroller.Controller;
 import com.example.banksystemservlet.web.frontcontroller.BankView;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +22,7 @@ public class LoginResultController implements Controller {
     public Result doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
         Member member = getMember(request);
         createSession(request, member);
-        return bank.login(response, member.getMemberId(), member.getPassword());
+        return bank.login(member.getMemberId(), member.getPassword());
     }
 
     private static Member getMember(HttpServletRequest request) {

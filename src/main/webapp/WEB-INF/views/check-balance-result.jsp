@@ -1,7 +1,10 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.net.URLDecoder" %>
 <%--<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>--%>
-<%@ page import="com.example.banksystemservlet.domain.member.InfoMessage" %><%--
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.Result" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -16,9 +19,8 @@
 </head>
 
 <%
-//    ObjectMapper objectMapper = new ObjectMapper();
-    InfoMessage infoMessage = (InfoMessage) request.getAttribute("infoMessage");
-//    String accountInfo = objectMapper.writeValueAsString(infoMessage);
+    Result result = (Result) session.getAttribute("result");
+    MemberData memberData = result.getMemberData();
 %>
 <body>
 
@@ -35,11 +37,11 @@
 
     <tr>
         <%--        프로퍼티 접근법 : ${} 안써지는 이유는 ? --%>
-        <td><%=infoMessage.memberNumber()%></td>
-        <td><%=infoMessage.accountNumber()%></td>
-        <td><%=infoMessage.name()%></td>
-        <td><%=infoMessage.memberId()%></td>
-        <td><%=infoMessage.balance()%></td>
+        <td><%=memberData.memberNumber()%></td>
+        <td><%=memberData.accountNumber()%></td>
+        <td><%=memberData.name()%></td>
+        <td><%=memberData.memberId()%></td>
+        <td><%=memberData.balance()%></td>
     </tr>
 </table>
 

@@ -24,6 +24,6 @@ public class CheckBalanceServlet extends HttpServlet implements BankServlet {
 
     @Override
     public Result doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
-        return bank.checkBalance2(request, response);
+        return bank.checkBalance2();
     }
 }

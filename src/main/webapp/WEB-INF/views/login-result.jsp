@@ -1,4 +1,6 @@
-<%@ page import="com.example.banksystemservlet.domain.member.Member" %><%--
+<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="java.util.Iterator" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -13,7 +15,11 @@
 </head>
 <body>
 
-<% Member member = (Member) session.getAttribute("member"); %>
+<% Member member = (Member) session.getAttribute("member");
+
+    session.getAttributeNames().asIterator()
+            .forEachRemaining(name-> System.out.println("name = " + name));
+%>
 
 로그인 되었습니다. <br>
 

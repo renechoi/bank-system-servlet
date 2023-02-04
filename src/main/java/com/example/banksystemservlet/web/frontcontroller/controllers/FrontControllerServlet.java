@@ -1,7 +1,7 @@
-package com.example.banksystemservlet.web.frontcontroller;
+package com.example.banksystemservlet.web.frontcontroller.controllers;
 
 import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.web.frontcontroller.controllers.*;
+import com.example.banksystemservlet.web.frontcontroller.BankView;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "frontControllerServlet", urlPatterns = "/bank/view/*")
+//@WebServlet(name = "frontControllerServlet", urlPatterns = "/1111bank/view/*")
 public class FrontControllerServlet extends HttpServlet {
 
     private final Map<String, Controller> controllerMap = new HashMap<>();
@@ -22,7 +22,7 @@ public class FrontControllerServlet extends HttpServlet {
         controllerMap.put("/bank/view/register-result", new RegisterResultController());
         controllerMap.put("/bank/view/login-form", new LoginFormController());
         controllerMap.put("/bank/view/login-result", new LoginResultController());
-        controllerMap.put("/bank/view/logout-form", new LogoutResultController());
+        controllerMap.put("/bank/view/logout-result", new LogoutResultController());
         controllerMap.put("/bank/view/deposit-form", new DepositFormController());
         controllerMap.put("/bank/view/deposit-result", new DepositResultController());
         controllerMap.put("/bank/view/withdraw-form", new WithdrawFormController());

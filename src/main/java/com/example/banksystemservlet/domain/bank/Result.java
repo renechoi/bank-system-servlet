@@ -1,18 +1,44 @@
 package com.example.banksystemservlet.domain.bank;
 
+import com.example.banksystemservlet.domain.member.MemberData;
+
 import java.util.Objects;
 
 public class Result {
-    private final boolean result;
     private final String message;
+    private final boolean result;
+    private final MemberData memberData;
 
     public Result(String message, boolean result) {
+        this(message, result, null);
+//        this.message = message;
+//        this.result = result;
+    }
+
+    public Result(String message, boolean result, MemberData memberData) {
         this.message = message;
         this.result = result;
+        this.memberData = memberData;
     }
 
     public boolean isSuccess() {
         return result;
+    }
+
+    public MemberData getMemberData() {
+        return memberData;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void show() {
+        System.out.println(message + "\n");
+    }
+
+    public boolean isQuit() {
+        return message.equals("종료합니다");
     }
 
     @Override
@@ -26,17 +52,5 @@ public class Result {
     @Override
     public int hashCode() {
         return Objects.hash(result, message);
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void show() {
-        System.out.println(message + "\n");
-    }
-
-    public boolean isQuit() {
-        return message.equals("종료합니다");
     }
 }

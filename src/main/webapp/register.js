@@ -18,7 +18,7 @@ function login() {
 }
 
 function logout() {
-    location.href = "/bank/view/logout-form"
+    location.href = "/bank/view/logout-result"
 }
 
 function deposit() {
@@ -48,4 +48,3 @@ function idCheck(id) {
 }
 
 function inputCheck(){}
-

@@ -15,7 +15,7 @@ public class LoginCommand implements Command {
 
     @Override
     public Result doBankJob(Bank bank) {
-        return bank.login( null, requestMemberId(), requestMemberPassword());
+        return bank.login(requestMemberId(), requestMemberPassword());
     }
 
     private String requestMemberId() {

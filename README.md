@@ -21,3 +21,5 @@
 ### Q. 
 - db 정보를 전체 가져올 때 리스트로 가져오는데 이것을 dao에서 public으로 열어서 한번에 가져온다..? 
 - members 복수형 객체를 만들어서 list collection을 갖도록 하는 것은 . .? 
+- 프론트 컨트롤러 패턴에서 model과 view를 분리 -> model에 request와 response를 주지 않아도 된다. 그런데 이렇게 했을 때의 문제점은 login이나 전체 조회와 같이 특정한 메시지를 전달해야 하는 경우 session을 통해 메시지를 전달했는데 session 객체에 값을 모델 내부에서 설정하지 못하게 된다. 
+- 

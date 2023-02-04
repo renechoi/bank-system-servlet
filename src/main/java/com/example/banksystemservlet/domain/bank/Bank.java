@@ -1,15 +1,11 @@
 package com.example.banksystemservlet.domain.bank;
 
 import com.example.banksystemservlet.domain.member.AccountDao;
-import com.example.banksystemservlet.domain.member.InfoMessage;
+import com.example.banksystemservlet.domain.member.MemberData;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 public class Bank {
@@ -55,21 +51,14 @@ public class Bank {
         return new Result("회원 탈퇴에 성공하였습니다", true);
     }
 
-    public Result login( HttpServletResponse response, String requestedId, String requestedPassword) {
+    public Result login(String requestedId, String requestedPassword) {
         try {
             validateLoginOn();
             this.currentlyLogin = validateLoginIdAndPassword2(requestedId, requestedPassword);
-            Cookie cookie = new Cookie("currentlyLogin", currentlyLogin);
-            cookie.setValue(currentlyLogin);
-            cookie.setMaxAge(600);
-            response.addCookie(cookie);
-            System.out.println("set cookie ");
-
-
+            return new Result("로그인에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
             return new Result("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
-        return new Result("로그인에 성공하였습니다", true);
     }
 
     public Result logout() {
@@ -113,13 +102,12 @@ public class Bank {
         return new Result("송금에 성공하였습니다", true);
     }
 
-    public Result checkBalance2(HttpServletRequest request, HttpServletResponse response) {
+    public Result checkBalance2() {
         try {
-            setInfoMessage(request, response);
-        } catch (SQLException | UnsupportedEncodingException e) {
+            return new Result("조회에 성공하였습니다", true, createMemberData());
+        } catch (SQLException e) {
             return new Result("조회에 실패하였습니다", false);
         }
-        return new Result("조회에 성공하였습니다", true);
     }
 
     public Result quit() {
@@ -133,19 +121,18 @@ public class Bank {
         show.run();
     }
 
-    public void setInfoMessage(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        InfoMessage infoMessage = createInfoMessage();
-        request.setAttribute("infoMessage", infoMessage);
-    }
-
-    private InfoMessage createInfoMessage() throws SQLException {
+    private MemberData createMemberData() throws SQLException {
         Member member = MEMBER_DAO.getMemberCurrentlyLogin(currentlyLogin);
 
-        return InfoMessage.of(member.getMemberNumber(),
-                ACCOUNT_DAO.getAccountNumber2(member),
+        return MemberData.of(
+                currentlyLogin,
+                member.getMemberNumber(),
                 member.getName(),
                 member.getMemberId(),
-                ACCOUNT_DAO.getBalance2(member));
+                member.getPassword(),
+                ACCOUNT_DAO.getAccountNumber2(member),
+                ACCOUNT_DAO.getBalance2(member)
+        );
     }
 
     private void setLoginStatusNone() {

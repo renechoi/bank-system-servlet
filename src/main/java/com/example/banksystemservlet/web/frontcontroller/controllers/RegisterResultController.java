@@ -3,7 +3,6 @@ package com.example.banksystemservlet.web.frontcontroller.controllers;
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.Result;
 import com.example.banksystemservlet.domain.member.Member;
-import com.example.banksystemservlet.web.frontcontroller.Controller;
 import com.example.banksystemservlet.web.frontcontroller.BankView;
 
 import javax.servlet.ServletException;
