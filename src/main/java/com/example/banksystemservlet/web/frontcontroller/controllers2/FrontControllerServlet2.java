@@ -47,6 +47,7 @@ public class FrontControllerServlet2 extends HttpServlet {
         }
 
         Bank bank = Bank.getInstance();
+        bank.showCurrentlyLogin();
 
         Map<String, String> paramMap = createParamMap(request);
         ModelView modelView = controller2.process(bank, paramMap);

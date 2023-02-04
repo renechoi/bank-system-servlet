@@ -11,19 +11,28 @@
 <html>
 <head>
     <title>Title</title>
-    <script src='/register.js'></script>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="/headers.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer src='/register.js'></script>
 </head>
 <body>
 
 <% Member member = (Member) session.getAttribute("member");
 
-    session.getAttributeNames().asIterator()
-            .forEachRemaining(name-> System.out.println("name = " + name));
 %>
 
 로그인 되었습니다. <br>
 
-이름 <%=member.getName() %>
 아이디 <%=member.getMemberId() %>
 
 <br>
