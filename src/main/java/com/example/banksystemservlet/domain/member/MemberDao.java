@@ -14,15 +14,11 @@ public class MemberDao {
     public MemberDao() {
     }
 
-//    public MemberDao(Member... members) {
-//        this.members = Arrays.asList(members);
-//    }
-
     public MemberDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void add2(Member member) throws SQLException {
+    public void add(Member member) throws SQLException {
         jdbcTemplate.executeInsert("INSERT INTO member VALUES (?, ?, ?, ?)", preparedStatement -> {
             preparedStatement.setString(1, assignMemberNumber());
             preparedStatement.setString(2, member.getName());
@@ -31,26 +27,7 @@ public class MemberDao {
         });
     }
 
-    public void delete2(String requestedId) throws SQLException {
-        jdbcTemplate.executeDelete("DELETE FROM member WHERE memberid = ?", preparedStatement ->
-                preparedStatement.setString(1, requestedId));
-    }
-
-    public boolean exist(Member requestedMember) throws SQLException {
-        ResultSet resultSet = jdbcTemplate.executeQuery("""
-                        SELECT memberId
-                        FROM member
-                        WHERE memberId = ?
-                        """,
-                preparedStatement -> preparedStatement.setString(1, requestedMember.getMemberId()));
-        return resultSet.next();
-    }
-    public boolean match2(String requestedId, String requestedPassword) throws SQLException {
-        return findAllMembers().stream()
-                .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
-    }
-
-    private List<Member> findAllMembers() throws SQLException {
+    private List<Member> readAll() throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery(
                 """
                         SELECT
@@ -73,6 +50,21 @@ public class MemberDao {
         return members;
     }
 
+    public void delete(String requestedId) throws SQLException {
+        jdbcTemplate.executeDelete("DELETE FROM member WHERE memberid = ?", preparedStatement ->
+                preparedStatement.setString(1, requestedId));
+    }
+
+    public boolean exist(Member requestedMember) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT memberId
+                        FROM member
+                        WHERE memberId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, requestedMember.getMemberId()));
+        return resultSet.next();
+    }
+
     public Member getMemberCurrentlyLogin(String currentlyLogin) throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                         SELECT membernumber, name, memberid, password
@@ -89,8 +81,8 @@ public class MemberDao {
         ));
     }
 
-    public int getMemberCount2() throws SQLException {
-        // TODO : while 안 쓰고 하는 법이 있는지.... ch14 memberMgr 확인
+    public int getMemberCount() throws SQLException {
+        // TODO : while 안 쓰고 하는 법.... ch14 memberMgr 확인
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                 select count(*)
                 from MEMBER
@@ -103,7 +95,12 @@ public class MemberDao {
     }
 
     private String assignMemberNumber() throws SQLException {
-        return String.valueOf(1000 + getMemberCount2() - 1);
+        return String.valueOf(1000 + getMemberCount() - 1);
+    }
+
+    public boolean match(String requestedId, String requestedPassword) throws SQLException {
+        return readAll().stream()
+                .anyMatch(member -> member.matchIdAndPassword(requestedId, requestedPassword));
     }
 
     private Member matchMember(ResultSet resultSet, RowMapper rowMapper) throws SQLException {
