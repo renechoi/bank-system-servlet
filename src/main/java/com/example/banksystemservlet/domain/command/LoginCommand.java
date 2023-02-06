@@ -2,10 +2,8 @@ package com.example.banksystemservlet.domain.command;
 
 
 import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.domain.bank.Result;
+import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.ui.InputView;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements Command {
     @Override
@@ -14,7 +12,7 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public Result doBankJob(Bank bank) {
+    public BankResult doBankJob(Bank bank) {
         return bank.login(requestMemberId(), requestMemberPassword());
     }
 

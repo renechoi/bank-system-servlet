@@ -15,97 +15,96 @@ public class Bank {
 
     private static final Bank instance = new Bank();
 
-    private Bank() {
+    public Bank() {
     }
 
     public static Bank getInstance() {
         return instance;
     }
 
-    public Result register(Member member) {
+    public BankResult register(Member member) {
         try {
             validateRegisterId(member);
             MEMBER_DAO.add(member);
             ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount());
+            return new BankResult("회원 가입에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("회원 가입에 실패하였습니다", false);
+            return new BankResult("회원 가입에 실패하였습니다", false);
         }
-        return new Result("회원 가입에 성공하였습니다", true);
     }
 
-    public Result unRegister() {
+    public BankResult unRegister() {
         validateLoginOff();
         try {
             MEMBER_DAO.delete(validateLoginId(currentlyLogin));
             ACCOUNT_DAO.delete2(currentlyLogin);
+            setLoginStatusNone();
+            return new BankResult("회원 탈퇴에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("회원 탈퇴에 실패하였습니다", false);
+            return new BankResult("회원 탈퇴에 실패하였습니다", false);
         }
-        setLoginStatusNone();
-        return new Result("회원 탈퇴에 성공하였습니다", true);
     }
 
-    public Result login(String requestedId, String requestedPassword) {
+    public BankResult login(String requestedId, String requestedPassword) {
         try {
             validateLoginOn();
             this.currentlyLogin = validateLoginIdAndPassword(requestedId, requestedPassword);
-            return new Result("로그인에 성공하였습니다", true, createMemberData());
+            return new BankResult("로그인에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("로그인에 실패하였습니다 \n" + e.getMessage(), false);
+            return new BankResult("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
     }
 
-    public Result logout() {
+    public BankResult logout() {
         try {
-            validateLoginId(currentlyLogin);
+            setLoginStatusNone();
+            return new BankResult("로그아웃에 성공하였습니다", true);
         } catch (RuntimeException e) {
-            return new Result("로그아웃에 실패하였습니다", false);
+            return new BankResult("로그아웃에 실패하였습니다", false);
         }
-        setLoginStatusNone();
-        return new Result("로그아웃에 성공하였습니다", true);
     }
 
-    public Result deposit(int amount) {
+    public BankResult deposit(int amount) {
         validateLoginOff();
         try {
             ACCOUNT_DAO.deposit2(currentlyLogin, amount);
+            return new BankResult("입금에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("입금에 실패하였습니다", false);
+            return new BankResult("입금에 실패하였습니다", false);
         }
-        return new Result("입금에 성공하였습니다", true);
     }
 
-    public Result withdraw(int amount) {
+    public BankResult withdraw(int amount) {
         validateLoginOff();
         try {
             ACCOUNT_DAO.withdraw2(currentlyLogin, amount);
+            return new BankResult("출금에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("출금에 실패하였습니다", false);
+            return new BankResult("출금에 실패하였습니다", false);
         }
-        return new Result("출금에 성공하였습니다", true);
     }
 
-    public Result transfer(String requestMemberId, int requestTransferAmount) {
+    public BankResult transfer(String requestMemberId, int requestTransferAmount) {
         validateLoginOff();
         try {
             ACCOUNT_DAO.withdraw2(currentlyLogin, requestTransferAmount);
             ACCOUNT_DAO.deposit2(requestMemberId, requestTransferAmount);
+            return new BankResult("송금에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
-            return new Result("송금에 실패하였습니다", false);
+            return new BankResult("송금에 실패하였습니다", false);
         }
-        return new Result("송금에 성공하였습니다", true);
     }
 
-    public Result checkBalance() {
+    public BankResult checkBalance() {
         try {
-            return new Result("조회에 성공하였습니다", true, createMemberData());
+            return new BankResult("조회에 성공하였습니다", true, createMemberData());
         } catch (SQLException e) {
-            return new Result("조회에 실패하였습니다", false);
+            return new BankResult("조회에 실패하였습니다", false);
         }
     }
 
-    public Result quit() {
-        return new Result("종료합니다", true);
+    public BankResult quit() {
+        return new BankResult("종료합니다", true);
     }
 
     public void showCurrentlyLogin() {

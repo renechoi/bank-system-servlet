@@ -1,6 +1,8 @@
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.Iterator" %><%--
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -27,14 +29,10 @@
 </head>
 <body>
 
-<% Member member = (Member) session.getAttribute("member");
-
-%>
 
 로그인 되었습니다. <br>
 
-아이디 <%=member.getMemberId() %>
-
+<jsp:include page="bankCheckStatus.jsp" />
 <br>
 <button onclick="goHome()">홈으로 가기</button>
 

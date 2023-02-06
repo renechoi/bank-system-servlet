@@ -23,7 +23,7 @@ class MemberDaoTest {
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
-        memberDao.add2(member);
+        memberDao.add(member);
 
         ResultSet resultSet = jdbcTemplate.executeQuery("SELECT memberid FROM member");
         String memberId="";
@@ -42,11 +42,11 @@ class MemberDaoTest {
 
         Member member = new Member("홍길동","1234", "1234");
 
-        int previous = memberDao.getMemberCount2();
+        int previous = memberDao.getMemberCount();
 
-        memberDao.add2(member);
+        memberDao.add(member);
 
-        int afterwards = memberDao.getMemberCount2();
+        int afterwards = memberDao.getMemberCount();
 
         assertThat(afterwards).isEqualTo(previous + 1);
     }
@@ -57,9 +57,9 @@ class MemberDaoTest {
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
-        memberDao.add2(member);
+        memberDao.add(member);
 
-        memberDao.delete2(member.getMemberId());
+        memberDao.delete(member.getMemberId());
 
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                         SELECT membernumber, name, memberid, password

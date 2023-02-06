@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -31,7 +32,11 @@
     <br>
 </form>
 
-<br>
+
+
+
+<jsp:include page="bankCheckStatus.jsp" />
+
 <button onclick="goHome()">홈으로 가기</button>
 
 </body>

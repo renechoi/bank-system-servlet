@@ -7,10 +7,10 @@
 
 input --> command --     -----  ------      memberDao --> member
             |                       |       ||
-            | --> result            | ----- accountManager - account 
+            | --> bankResult            | ----- accountManager - account 
                                             ||
                                             ||  
-                                            result
+                                            bankResult
 
 [img](step2.png)
 

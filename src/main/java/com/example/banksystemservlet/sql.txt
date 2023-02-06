@@ -7,10 +7,44 @@ CREATE TABLE member
     PRIMARY KEY (memberId)
 );
 
+ALTER TABLE member ADD memo VARCHAR(255);
+
 create table account
 (
     accountNumber number(10),
     balance       number(10),
     memberID      varchar2(100)
 );
+
+
+
+CREATE TABLE ARTICLE_COMMENT
+(
+    id         number(10),
+    articleId  number(10),
+    memberId   varchar2(100),
+    memberName varchar2(100),
+    content    varchar2(100) NOT NULL ,
+    createdAt  date,
+    createdBy  varchar2(100),
+    modifiedAt date,
+    modifiedBy varchar2(100)
+)
+
+
+CREATE TABLE ARTICLE
+(
+    id         number(10),
+    memberId   varchar2(100),
+    memberName varchar2(100),
+    title      varchar2(100) NOT NULL ,
+    content    varchar2(100) NOT NULL ,
+    hashtag    varchar2(100),
+    createdAt  date,
+    createdBy  varchar2(100),
+    modifiedAt date,
+    modifiedBy varchar2(100)
+)
+
+
 

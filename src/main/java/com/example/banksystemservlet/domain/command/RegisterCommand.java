@@ -2,7 +2,7 @@ package com.example.banksystemservlet.domain.command;
 
 
 import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.domain.bank.Result;
+import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.ui.InputView;
 
@@ -13,8 +13,8 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public Result doBankJob(Bank bank) {
-        return bank.register2(new Member(requestMemberName(), requestMemberId(), requestMemberPassword()));
+    public BankResult doBankJob(Bank bank) {
+        return bank.register(new Member(requestMemberName(), requestMemberId(), requestMemberPassword()));
     }
 
     private String requestMemberName() {

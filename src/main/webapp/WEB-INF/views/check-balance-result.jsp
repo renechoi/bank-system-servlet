@@ -4,7 +4,8 @@
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
-<%@ page import="com.example.banksystemservlet.domain.bank.Result" %><%--
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -14,7 +15,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>check balance result</title>
+    <title>check balance bankResult</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
 
@@ -30,10 +31,12 @@
     <script defer src='/register.js'></script>
 </head>
 
+
 <%
-    Result result = (Result) session.getAttribute("result");
-    MemberData memberData = result.getMemberData();
+    BankResult bankResult = (BankResult) session.getAttribute("bankResult");
+    MemberData memberData = bankResult.getData();
 %>
+
 <body>
 
 잔액 조회하기 <br>
@@ -56,6 +59,9 @@
         <td><%=memberData.balance()%></td>
     </tr>
 </table>
+
+
+<jsp:include page="bankCheckStatus.jsp" />
 
 
 <br>

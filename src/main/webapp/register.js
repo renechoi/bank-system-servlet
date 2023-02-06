@@ -4,7 +4,7 @@ $("header").load("/header.html header");
 
 
 function goHome() {
-    location.href='/index.html'
+    location.href='/'
     // location.href = '../bank/register-page.jsp'
 }
 
@@ -35,6 +35,24 @@ function transfer() {
 
 function checkBalance() {
     location.href = "/bank/view/check-balance-result"
+}
+
+function writeArticle(){
+    location.href = "/board/article-write-form"
+}
+
+function articleSave(){
+    location.href = "/board/article-save-result"
+}
+
+function articleCancel(){
+    location.href = "/"
+}
+
+function articleShow(articleId){
+
+    location.href = "/board/article-content" + "/" + articleId
+    // window.open('/board/article-content','','');
 }
 
 function idCheck(id) {

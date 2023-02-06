@@ -21,10 +21,10 @@ class AccountTest {
         MemberDao memberDao = new MemberDao(jdbcTemplate);
 
         Member member = new Member("홍길동","1234", "1234");
-        memberDao.add2(member);
+        memberDao.add(member);
 
         AccountDao accountDao = new AccountDao(jdbcTemplate);
-        accountDao.create2(member, memberDao.getMemberCount2());
+        accountDao.create2(member, memberDao.getMemberCount());
 
         ResultSet resultSet = jdbcTemplate.executeQuery("SELECT memberid FROM account");
         String memberId="";
@@ -41,10 +41,10 @@ class AccountTest {
 
         String memberId = "1234";
         Member member = new Member("홍길동",memberId, "1234");
-        memberDao.add2(member);
+        memberDao.add(member);
 
         AccountDao accountDao = new AccountDao(jdbcTemplate);
-        accountDao.create2(member, memberDao.getMemberCount2());
+        accountDao.create2(member, memberDao.getMemberCount());
 
         accountDao.delete2(memberId);
 

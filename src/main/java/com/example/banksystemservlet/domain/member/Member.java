@@ -7,6 +7,7 @@ public class Member {
     private String name;
     private String memberId;
     private String password;
+    private String memo;
 
     public Member(String name, String memberId, String password ) {
         this.name = name;
@@ -20,6 +21,16 @@ public class Member {
         this.memberId = memberId;
         this.password = password;
     }
+
+    public Member(int memberNumber, String name, String memberId, String password, String memo) {
+        this.memberNumber = memberNumber;
+        this.name = name;
+        this.memberId = memberId;
+        this.password = password;
+        this.memo = memo;
+    }
+
+
 
     public boolean matchId(String requestedId) {
         return memberId.equals(requestedId);

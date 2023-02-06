@@ -1,9 +1,10 @@
 package com.example.banksystemservlet.domain.member;
 
 public class Account {
+    private final String memberId;
     private int accountNumber;
     private int balance;
-    private final String memberId;
+
 
     public Account(int balance, String memberId) {
         this.balance = balance;

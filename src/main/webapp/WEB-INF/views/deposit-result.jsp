@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/02
@@ -8,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>deposit result</title>
+    <title>deposit bankResult</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
 
@@ -28,6 +30,11 @@
 입금한 금액은 <%=request.getParameter("deposit")%> 입니다.
 
 <br>
+
+
+<br>
+<jsp:include page="bankCheckStatus.jsp" />
+
 <button onclick="goHome()">홈으로 가기</button>
 
 

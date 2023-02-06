@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/01
@@ -8,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>register result</title>
+    <title>register bankResult</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
 
@@ -31,6 +35,9 @@
 당신의 비밀번호: <%=request.getParameter("password")%> <br>
 
 <br>
+
+<jsp:include page="bankCheckStatus.jsp" />
+
 <button onclick="goHome()">홈으로 가기</button>
 
 </body>

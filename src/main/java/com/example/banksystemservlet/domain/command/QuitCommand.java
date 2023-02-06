@@ -2,7 +2,7 @@ package com.example.banksystemservlet.domain.command;
 
 
 import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.domain.bank.Result;
+import com.example.banksystemservlet.domain.bank.BankResult;
 
 public class QuitCommand implements Command {
     @Override
@@ -11,7 +11,7 @@ public class QuitCommand implements Command {
     }
 
     @Override
-    public Result doBankJob(Bank bank) {
+    public BankResult doBankJob(Bank bank) {
         return bank.quit();
     }
 }

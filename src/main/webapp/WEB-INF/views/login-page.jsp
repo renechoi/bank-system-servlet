@@ -1,4 +1,6 @@
-<%@ page import="java.util.Arrays" %><%--
+<%@ page import="java.util.Arrays" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/01
@@ -41,6 +43,8 @@
             .findFirst().orElse(new Cookie("none", "현재 로그인 되어 있지 않습니다."));
 
     String value = currentIdCookie.getValue();
+
+
 %>
 
 <br>
