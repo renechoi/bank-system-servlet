@@ -1,23 +1,25 @@
 package com.example.banksystemservlet.domain.board;
 
-import com.example.banksystemservlet.domain.member.MemberData;
-
 public class BoardResult {
 
     private final String message;
     private final boolean result;
     private final Object boardData;
+    private final Object boardCommentData;
 
     public BoardResult(String message, boolean result) {
         this(message, result, null);
-//        this.message = message;
-//        this.result = result;
     }
 
     public BoardResult(String message, boolean result, Object boardData) {
+        this(message, result, boardData, null);
+    }
+
+    public BoardResult(String message, boolean result, Object boardData, Object boardCommentData) {
         this.message = message;
         this.result = result;
         this.boardData = boardData;
+        this.boardCommentData = boardCommentData;
     }
 
     public String getMessage() {
@@ -30,5 +32,9 @@ public class BoardResult {
 
     public Object getBoardData() {
         return boardData;
+    }
+
+    public Object getBoardCommentData() {
+        return boardCommentData;
     }
 }

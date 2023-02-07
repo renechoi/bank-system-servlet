@@ -55,6 +55,10 @@ function articleShow(articleId){
     // window.open('/board/article-content','','');
 }
 
+function writeComment(articleId){
+    location.href = "/comment-write-result?id=" + articleId
+}
+
 function idCheck(id) {
     if (id == "") {
         alert("아이디를 입력해 주세요.");

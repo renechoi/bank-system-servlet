@@ -14,13 +14,11 @@ public class LoginResultBankController implements BankController {
 
         String memberId = parameterMap.get("memberId");
         String password = parameterMap.get("password");
-        Member member = new Member("임시 이름", memberId, password);
 
-        BankResult bankResult = bank.login(member.getMemberId(), member.getPassword());
+        BankResult bankResult = bank.login(memberId, password);
 
         BankModelView bankModelView = new BankModelView("login-result");
 
-        bankModelView.getModel().put("member", member);
         bankModelView.getModel().put("bankResult", bankResult);
         return bankModelView;
     }

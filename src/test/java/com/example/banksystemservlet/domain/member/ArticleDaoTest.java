@@ -12,7 +12,7 @@ class ArticleDaoTest
         ArticleDao articleDao = new ArticleDao();
         String title = " ";
         String content = "";
-        articleDao.post(title, content);
+//        articleDao.writeArticle(title, content);
 
     }
 

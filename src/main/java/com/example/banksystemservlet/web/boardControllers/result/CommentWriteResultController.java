@@ -1,22 +1,30 @@
 package com.example.banksystemservlet.web.boardControllers.result;
 
+import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.domain.board.BoardManager;
 import com.example.banksystemservlet.domain.board.BoardResult;
+import com.example.banksystemservlet.domain.member.MemberData;
 import com.example.banksystemservlet.web.boardControllers.BoardController;
 import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 
 import java.util.Map;
 
-public class ArticleContentController implements BoardController {
+public class CommentWriteResultController implements BoardController {
     @Override
     public BoardModelView process(BoardManager boardManager, Map<String, String> parameterMap, Object result) {
 
         String articleId = parameterMap.get("id");
+        String commentContent = parameterMap.get("comment-content");
 
-        BoardResult boardResult = boardManager.getArticleAndComments(articleId);
+        MemberData bankMemberData = getBankData((BankResult) result);
+        BoardResult boardResult = boardManager.writeComment(bankMemberData, commentContent, articleId);
 
         BoardModelView boardModelView = new BoardModelView("article-content");
         boardModelView.getModel().put("boardResult", boardResult);
         return boardModelView;
+    }
+
+    private static MemberData getBankData(BankResult result) {
+        return result.getData();
     }
 }

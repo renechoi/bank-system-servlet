@@ -407,7 +407,7 @@ JSP 파일 !!!!!
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-primary me-md-2" role="button" href="/board/article-write-form" id="write-article">글쓰기</a>
-            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result" id="read-article-form">목록보기</a>
+            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result" id="article-list-submit">목록보기</a>
         </div>
     </div>
 

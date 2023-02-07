@@ -10,14 +10,16 @@ import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 
 import java.util.Map;
 
-public class ArticleSaveResultController implements BoardController {
+public class ArticleUpdateResultController implements BoardController {
     @Override
     public BoardModelView process(BoardManager boardManager, Map<String, String> parameterMap, Object result) {
 
         String title = parameterMap.get("title");
         String content = parameterMap.get("content");
 
+//        MemberData bankMemberData = getBankData((BankResult) result);
         MemberData bankMemberData = ((BankResult) ResultRepository.result).getData();
+
 
         BoardResult boardResult = boardManager.post(title, content, bankMemberData);
 
@@ -26,4 +28,7 @@ public class ArticleSaveResultController implements BoardController {
         return boardModelView;
     }
 
+    private static MemberData getBankData(BankResult result) {
+        return result.getData();
+    }
 }

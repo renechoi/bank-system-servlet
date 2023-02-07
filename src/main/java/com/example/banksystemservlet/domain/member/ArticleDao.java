@@ -14,7 +14,7 @@ public class ArticleDao {
 
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
-    public void post(String title, String content, MemberData bankMemberData) throws SQLException {
+    public void writeArticle(String title, String content, MemberData bankMemberData) throws SQLException {
         jdbcTemplate.executeInsert("INSERT INTO article VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
             preparedStatement.setLong(1, assignArticleNumber());
             preparedStatement.setString(2, bankMemberData.currentlyLogin());
@@ -29,7 +29,7 @@ public class ArticleDao {
         });
     }
 
-    public List<Article> readAll() throws SQLException {
+    public List<Article> readAllArticles() throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery(
                 """
                         SELECT
@@ -81,13 +81,9 @@ public class ArticleDao {
         });
     }
 
-    public void delete() throws SQLException {
-            jdbcTemplate.executeDelete("DELETE FROM article WHERE memberid = ?",
-                    preparedStatement -> preparedStatement.setString(1, "memberId1"));
-    }
-
-    private long assignArticleNumber() throws SQLException {
-        return  getArticleCount();
+    public void delete(String articleId) throws SQLException {
+        jdbcTemplate.executeDelete("DELETE FROM article WHERE id = ?",
+                preparedStatement -> preparedStatement.setString(1, articleId));
     }
 
     public int getArticleCount() throws SQLException {
@@ -102,20 +98,93 @@ public class ArticleDao {
         return count;
     }
 
-    public void getArticleById(String articleId) throws SQLException {
-//        ResultSet resultSet = jdbcTemplate.executeQuery("""
-//                        SELECT memberName, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy
-//                        FROM ARTICLE
-//                        WHERE id = ?
-//                        """,
-//                preparedStatement -> preparedStatement.setString(1, articleId));
-//
-//        return matchArticle(resultSet, resultSet2 -> new Article(
-//                resultSet2.getInt("accountnumber"),
-//                resultSet2.getInt("balance"),
-//                resultSet2.getString("memberId")
-//        ));
+    public Article getArticleById(String articleId) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT id, memberId, memberName, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy
+                        FROM ARTICLE
+                        WHERE id = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, articleId));
 
+        return matchArticle(resultSet, resultSet2 -> Article.of(
+                resultSet2.getLong("id"),
+                resultSet2.getString("memberId"),
+                resultSet2.getString("memberName"),
+                resultSet2.getString("title"),
+                resultSet2.getString("content"),
+                resultSet2.getString("hashtag"),
+                resultSet2.getDate("createdAt"),
+                resultSet2.getString("createdBy"),
+                resultSet2.getDate("modifiedAt"),
+                resultSet2.getString("modifiedBy")
+        ));
+    }
+
+    public Article writeComment(String articleId, String content, MemberData bankMemberData) throws SQLException {
+        jdbcTemplate.executeInsert("INSERT INTO article_comment VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
+            preparedStatement.setLong(1, 1);
+            preparedStatement.setString(2, articleId);
+            preparedStatement.setString(3, bankMemberData.memberId());
+            preparedStatement.setString(4, bankMemberData.name());
+            preparedStatement.setString(5, content);
+            preparedStatement.setDate(6, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(7, bankMemberData.name());
+            preparedStatement.setDate(8, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(9, bankMemberData.name());
+        });
+
+        return getArticleById(articleId);
+    }
+
+    public List<ArticleComment> getAllCommentsByArticleId(String articleId) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT id, articleId, memberId, memberName, content, createdAt, createdBy, modifiedAt, modifiedBy
+                        FROM ARTICLE_COMMENT
+                        WHERE articleId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, articleId));
+
+        List<ArticleComment> comments = new ArrayList<>();
+
+        while (resultSet.next()) {
+            comments.add(ArticleComment.of(
+                    resultSet.getLong("id"),
+                    resultSet.getString("articleId"),
+                    resultSet.getString("memberId"),
+                    resultSet.getString("memberName"),
+                    resultSet.getString("content"),
+                    resultSet.getDate("createdAt"),
+                    resultSet.getString("createdBy"),
+                    resultSet.getDate("modifiedAt"),
+                    resultSet.getString("modifiedBy")
+            ));
+        }
+        return comments;
+    }
+
+    public ArticleComment getCommentByArticleId(String articleId) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT id, articleId, memberId, memberName, content, createdAt, createdBy, modifiedAt, modifiedBy
+                        FROM ARTICLE_COMMENT
+                        WHERE articleId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, articleId));
+
+        return matchArticleComment(resultSet, resultSet2 -> ArticleComment.of(
+                resultSet2.getLong("id"),
+                resultSet2.getString("articleId"),
+                resultSet2.getString("memberId"),
+                resultSet2.getString("memberName"),
+                resultSet2.getString("content"),
+                resultSet2.getDate("createdAt"),
+                resultSet2.getString("createdBy"),
+                resultSet2.getDate("modifiedAt"),
+                resultSet2.getString("modifiedBy")
+        ));
+    }
+
+    private long assignArticleNumber() throws SQLException {
+        return getArticleCount();
     }
 
     private Article matchArticle(ResultSet resultSet, RowMapper rowMapper) throws SQLException {
@@ -123,19 +192,37 @@ public class ArticleDao {
             return (Article) rowMapper.mapRow(resultSet);
         }
         return null;
+    }
 
+    private ArticleComment matchArticleComment(ResultSet resultSet, RowMapper rowMapper) throws SQLException {
+        if (resultSet.next()) {
+            return (ArticleComment) rowMapper.mapRow(resultSet);
+        }
+        return null;
     }
 
 }
 
+// article
+//    Long id,
+//    String memberId,
+//    String memberName,
+//    String title,
+//    String content,
+//    String hashtag,
+//    Date createdAt,
+//    String createdBy,
+//    Date modifiedAt,
+//    String modifiedBy
 
-//        Long id,
-//        String memberId,
-//        String memberName,
-//        String title,
-//        String content,
-//        String hashtag,
-//        LocalDateTime createdAt,
-//        String createdBy,
-//        LocalDateTime modifiedAt,
-//        String modifiedBy
+
+// article comment
+//    Long id,
+//    Long articleId,
+//    String memberId,
+//    String memberName,
+//    String content,
+//    LocalDateTime createdAt,
+//    String createdBy,
+//    LocalDateTime modifiedAt,
+//    String modifiedBy

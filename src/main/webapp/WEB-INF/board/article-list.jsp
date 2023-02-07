@@ -23,11 +23,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <!--    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
     <!-- Custom styles for this template -->
-    <link href="headers.css" rel="stylesheet">
+    <link href="/headers.css" rel="stylesheet">
     <link href="body-stats.css" rel="stylesheet">
     <link href="body-note.css.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script defer src='register.js'></script>
+    <script defer src='/register.js'></script>
     <script defer src='body-note.js.js'></script>
 </head>
 <body>
@@ -56,7 +56,7 @@
 <%
     BoardResult boardResult = (BoardResult) session.getAttribute("boardResult");
     List<Article> boardData = (List<Article>) boardResult.getBoardData();
-    boardData.stream().forEach(v -> System.out.println("v = " + v));
+//    boardData.stream().forEach(v -> System.out.println("v = " + v));
 
     pageContext.setAttribute("boardData", boardData);
 

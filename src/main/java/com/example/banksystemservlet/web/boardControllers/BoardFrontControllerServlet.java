@@ -3,10 +3,8 @@ package com.example.banksystemservlet.web.boardControllers;
 import com.example.banksystemservlet.Result;
 import com.example.banksystemservlet.ResultRepository;
 import com.example.banksystemservlet.domain.board.BoardManager;
-import com.example.banksystemservlet.web.boardControllers.result.ArticleContentController;
-import com.example.banksystemservlet.web.boardControllers.result.ArticleReadResultController;
+import com.example.banksystemservlet.web.boardControllers.result.*;
 import com.example.banksystemservlet.web.boardControllers.form.ArticleWriteFormController;
-import com.example.banksystemservlet.web.boardControllers.result.ArticleSaveResultController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,10 +25,15 @@ public class BoardFrontControllerServlet extends HttpServlet {
         controllerMap.put("/board/article-save-result", new ArticleSaveResultController());
         controllerMap.put("/board/article-read-result", new ArticleReadResultController());
         controllerMap.put("/board/article-content", new ArticleContentController());
+        controllerMap.put("/board/article-delete-result", new ArticleDeleteResultController());
+        controllerMap.put("/board/article-update-result", new ArticleUpdateResultController());
+
+        controllerMap.put("/board/comment-write-result", new CommentWriteResultController());
     }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String requestURI = request.getRequestURI();
         BoardController boardController = controllerMap.get(requestURI);
         if (boardController == null) {

@@ -10,20 +10,19 @@ import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 
 import java.util.Map;
 
-public class ArticleSaveResultController implements BoardController {
+public class ArticleDeleteResultController implements BoardController {
     @Override
     public BoardModelView process(BoardManager boardManager, Map<String, String> parameterMap, Object result) {
 
-        String title = parameterMap.get("title");
-        String content = parameterMap.get("content");
-
+        String articleId = parameterMap.get("id");
         MemberData bankMemberData = ((BankResult) ResultRepository.result).getData();
 
-        BoardResult boardResult = boardManager.post(title, content, bankMemberData);
+        // TODO : 삭제 기능을 수행해 준다음에 read 작업을 해서 받아주어야 다시 리스트 화면으로 출력이 가능해진다. 하지만 이렇게 했을 때 중복코드...로직상 맞지 않다.
+        boardManager.delete(articleId);
+        BoardResult boardResult = boardManager.read();
 
-        BoardModelView boardModelView = new BoardModelView("article-save-result");
+        BoardModelView boardModelView = new BoardModelView("article-list");
         boardModelView.getModel().put("boardResult", boardResult);
         return boardModelView;
     }
-
 }
