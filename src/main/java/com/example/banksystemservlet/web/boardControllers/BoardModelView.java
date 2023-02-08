@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.web.boardController;
+package com.example.banksystemservlet.web.boardControllers;
 
 import java.util.HashMap;
 import java.util.Map;

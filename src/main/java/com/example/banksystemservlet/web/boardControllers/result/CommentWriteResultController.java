@@ -1,11 +1,11 @@
-package com.example.banksystemservlet.web.boardController.result;
+package com.example.banksystemservlet.web.boardControllers.result;
 
 import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.domain.board.BoardManager;
 import com.example.banksystemservlet.domain.board.BoardResult;
 import com.example.banksystemservlet.domain.member.MemberData;
-import com.example.banksystemservlet.web.boardController.BoardController;
-import com.example.banksystemservlet.web.boardController.BoardModelView;
+import com.example.banksystemservlet.web.boardControllers.BoardController;
+import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 
 import java.util.Map;
 
