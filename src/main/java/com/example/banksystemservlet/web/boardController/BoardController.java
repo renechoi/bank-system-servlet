@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.web.boardControllers;
+package com.example.banksystemservlet.web.boardController;
 
 import com.example.banksystemservlet.domain.board.BoardManager;
 

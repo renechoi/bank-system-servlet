@@ -2,10 +2,8 @@ package com.example.banksystemservlet;
 
 import com.example.banksystemservlet.domain.board.BoardManager;
 import com.example.banksystemservlet.domain.board.BoardResult;
-import com.example.banksystemservlet.web.boardControllers.BoardModelView;
-import com.example.banksystemservlet.web.boardControllers.BoardView;
+import com.example.banksystemservlet.web.boardController.BoardView;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

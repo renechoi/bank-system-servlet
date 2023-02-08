@@ -1,10 +1,10 @@
-package com.example.banksystemservlet.web.boardControllers;
+package com.example.banksystemservlet.web.boardController;
 
 import com.example.banksystemservlet.result.Result;
 import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.domain.board.BoardManager;
-import com.example.banksystemservlet.web.boardControllers.result.*;
-import com.example.banksystemservlet.web.boardControllers.form.ArticleWriteFormController;
+import com.example.banksystemservlet.web.boardController.result.*;
+import com.example.banksystemservlet.web.boardController.form.ArticleWriteFormController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

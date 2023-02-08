@@ -1,6 +1,4 @@
-package com.example.banksystemservlet.web.boardControllers;
-
-import com.example.banksystemservlet.domain.member.Member;
+package com.example.banksystemservlet.web.boardController;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 
 public class BoardView {
     private String viewPath;
