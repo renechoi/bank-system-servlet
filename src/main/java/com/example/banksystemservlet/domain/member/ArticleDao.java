@@ -15,17 +15,17 @@ public class ArticleDao {
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
     public void writeArticle(String title, String content, MemberData bankMemberData) throws SQLException {
-        jdbcTemplate.executeInsert("INSERT INTO article VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
-            preparedStatement.setLong(1, assignArticleNumber());
-            preparedStatement.setString(2, bankMemberData.currentlyLogin());
-            preparedStatement.setString(3, bankMemberData.name());
-            preparedStatement.setString(4, title);
-            preparedStatement.setString(5, content);
-            preparedStatement.setString(6, "hashtag1");
-            preparedStatement.setDate(7, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(8, bankMemberData.name());
-            preparedStatement.setDate(9, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(10, bankMemberData.name());
+        jdbcTemplate.executeInsert("INSERT INTO article VALUES (article_id_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
+//            preparedStatement.setLong(1, assignArticleNumber());
+            preparedStatement.setString(1, bankMemberData.currentlyLogin());
+            preparedStatement.setString(2, bankMemberData.name());
+            preparedStatement.setString(3, title);
+            preparedStatement.setString(4, content);
+            preparedStatement.setString(5, "hashtag1");
+            preparedStatement.setDate(6, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(7, bankMemberData.name());
+            preparedStatement.setDate(8, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(9, bankMemberData.name());
         });
     }
 
@@ -45,6 +45,39 @@ public class ArticleDao {
                         article.modifiedBy
                         FROM Article article
                         """);
+
+        List<Article> articles = new ArrayList<>();
+
+        while (resultSet.next()) {
+            articles.add(new Article(
+                    resultSet.getLong("id"),
+                    resultSet.getString("memberId"),
+                    resultSet.getString("memberName"),
+                    resultSet.getString("title"),
+                    resultSet.getString("content"),
+                    resultSet.getString("hashtag"),
+                    resultSet.getDate("createdAt"),
+                    resultSet.getString("createdBy"),
+                    resultSet.getDate("modifiedAt"),
+                    resultSet.getString("modifiedBy")
+            ));
+        }
+        return articles;
+    }
+
+    public List<Article> readArticlesByPagination(Pagination pagination) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery(
+                """
+                        SELECT article_inline.*
+                        from (SELECT ROWNUM rnum, id, memberid, membername, title, content, hashtag, createdat, createdby, modifiedat, modifiedby
+                        from article
+                        order by ID) article_inline
+                        where article_inline.rnum >= ? and article_inline.rnum <= ?
+                        """, preparedStatement -> {
+                    preparedStatement.setLong(1, pagination.getArticleStart());
+                    preparedStatement.setLong(2, pagination.getArticleEnd());
+                });
+
 
         List<Article> articles = new ArrayList<>();
 
@@ -121,16 +154,16 @@ public class ArticleDao {
     }
 
     public Article writeComment(String articleId, String content, MemberData bankMemberData) throws SQLException {
-        jdbcTemplate.executeInsert("INSERT INTO article_comment VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
-            preparedStatement.setLong(1, 1);
-            preparedStatement.setString(2, articleId);
-            preparedStatement.setString(3, bankMemberData.memberId());
-            preparedStatement.setString(4, bankMemberData.name());
-            preparedStatement.setString(5, content);
-            preparedStatement.setDate(6, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(7, bankMemberData.name());
-            preparedStatement.setDate(8, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(9, bankMemberData.name());
+        jdbcTemplate.executeInsert("INSERT INTO article_comment VALUES (article_comment_id_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
+//            preparedStatement.setLong(1, 1);
+            preparedStatement.setString(1, articleId);
+            preparedStatement.setString(2, bankMemberData.memberId());
+            preparedStatement.setString(3, bankMemberData.name());
+            preparedStatement.setString(4, content);
+            preparedStatement.setDate(5, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(6, bankMemberData.name());
+            preparedStatement.setDate(7, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(8, bankMemberData.name());
         });
 
         return getArticleById(articleId);
@@ -199,6 +232,23 @@ public class ArticleDao {
             return (ArticleComment) rowMapper.mapRow(resultSet);
         }
         return null;
+    }
+
+
+    public String getPrevOrNextArticleId(String articleId, String value) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery(
+                """
+                        select id, prev, next from (SELECT id
+                             , LAG(id) OVER (ORDER BY id)  AS prev
+                             , LEAD(id) OVER (ORDER BY id) AS next
+                        FROM ARTICLE)
+                        where id = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, articleId));
+
+        resultSet.next();
+        int prevOrNext = resultSet.getInt(value);
+        return String.valueOf(prevOrNext);
     }
 
 }

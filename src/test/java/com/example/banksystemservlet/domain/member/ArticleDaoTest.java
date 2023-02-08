@@ -21,4 +21,11 @@ class ArticleDaoTest
         ArticleDao articleDao = new ArticleDao();
         articleDao.update();
     }
+
+    @Test
+    void getPrev() throws SQLException {
+        ArticleDao articleDao = new ArticleDao();
+//        String prevArticleId = articleDao.getPrevOrNextArticleId("1", p);
+//        System.out.println("prevArticleId = " + prevArticleId);
+    }
 }

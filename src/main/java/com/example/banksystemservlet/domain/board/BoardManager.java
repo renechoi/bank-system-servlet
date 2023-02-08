@@ -1,9 +1,6 @@
 package com.example.banksystemservlet.domain.board;
 
-import com.example.banksystemservlet.domain.member.Article;
-import com.example.banksystemservlet.domain.member.ArticleComment;
-import com.example.banksystemservlet.domain.member.ArticleDao;
-import com.example.banksystemservlet.domain.member.MemberData;
+import com.example.banksystemservlet.domain.member.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,10 +21,20 @@ public class BoardManager {
         }
     }
 
-    public BoardResult read() {
+    public BoardResult readAll() {
         try {
             List<Article> articles = ARTICLE_DAO.readAllArticles();
             return new BoardResult("게시글 불러오기 성공하였습니다", true, articles);
+        } catch (RuntimeException | SQLException e) {
+            return new BoardResult("게시글 불러오기 실패하였습니다", false);
+        }
+    }
+
+    public BoardResult readWithPageLimit(int pageLimit, int pageStart) {
+        try {
+            Pagination pagination = new Pagination(pageLimit, pageStart, ARTICLE_DAO.getArticleCount());
+            List<Article> articles = ARTICLE_DAO.readArticlesByPagination(pagination);
+            return new BoardResult("게시글 불러오기 성공하였습니다", true, articles, null, pagination);
         } catch (RuntimeException | SQLException e) {
             return new BoardResult("게시글 불러오기 실패하였습니다", false);
         }
@@ -45,10 +52,8 @@ public class BoardManager {
     public BoardResult delete(String articleId){
         try {
             ARTICLE_DAO.delete(articleId);
-            System.out.println("삭제 성공");
             return new BoardResult("게시글 삭제 성공하였습니다", true);
         } catch (RuntimeException | SQLException e) {
-            System.out.println("삭제 실패");
             return new BoardResult("게시글 삭제 실패하였습니다", false);
         }
     }
@@ -57,11 +62,21 @@ public class BoardManager {
         try {
             Article article = ARTICLE_DAO.getArticleById(articleId);
             List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(articleId);
-            System.out.println("불러오기 성공");
             return new BoardResult("게시글 불러오기 성공하였습니다", true, article, comments);
         } catch (RuntimeException | SQLException e) {
-            System.out.println("불러오기 실패");
             return new BoardResult("게시글 불러오기 실패하였습니다", false);
+        }
+    }
+
+    public BoardResult getPrevOrNextArticleAndComments(String articleId, String value){
+        try {
+            String prevOrNextArticleId = ARTICLE_DAO.getPrevOrNextArticleId(articleId, value);
+            Article article = ARTICLE_DAO.getArticleById(prevOrNextArticleId);
+            List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(prevOrNextArticleId);
+            return new BoardResult(String.format("이전/이후 게시글 불러오기 성공하였습니다",value), true, article, comments);
+        } catch (RuntimeException | SQLException e) {
+            System.out.println("실패 e = " + e);
+            return new BoardResult(String.format("이전/이후 게시글 불러오기 실패하였습니다",value), false);
         }
     }
 
@@ -69,10 +84,8 @@ public class BoardManager {
         try {
             Article article = ARTICLE_DAO.writeComment(articleId, content, memberData);
             List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(articleId);
-            System.out.println("댓글 성공");
             return new BoardResult("댓글 작성 성공하였습니다", true, article, comments);
         } catch (RuntimeException | SQLException e) {
-            System.out.println("댓글 실패");
             return new BoardResult("댓글 작성 실패하였습니다", false);
         }
     }

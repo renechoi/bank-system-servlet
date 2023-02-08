@@ -1,11 +1,14 @@
 package com.example.banksystemservlet.domain.board;
 
+import com.example.banksystemservlet.domain.member.Pagination;
+
 public class BoardResult {
 
     private final String message;
     private final boolean result;
     private final Object boardData;
     private final Object boardCommentData;
+    private final Pagination pagination;
 
     public BoardResult(String message, boolean result) {
         this(message, result, null);
@@ -16,10 +19,15 @@ public class BoardResult {
     }
 
     public BoardResult(String message, boolean result, Object boardData, Object boardCommentData) {
+        this(message, result, boardData, boardCommentData, null);
+
+    }
+    public BoardResult(String message, boolean result, Object boardData, Object boardCommentData, Pagination pagination) {
         this.message = message;
         this.result = result;
         this.boardData = boardData;
         this.boardCommentData = boardCommentData;
+        this.pagination = pagination;
     }
 
     public String getMessage() {
@@ -36,5 +44,9 @@ public class BoardResult {
 
     public Object getBoardCommentData() {
         return boardCommentData;
+    }
+
+    public Pagination getPagination() {
+        return pagination;
     }
 }

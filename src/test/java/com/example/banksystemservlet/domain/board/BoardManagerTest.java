@@ -9,7 +9,7 @@ class BoardManagerTest {
     @Test
     void readAllFunction() {
         BoardManager boardManager = new BoardManager();
-        BoardResult boardResult = boardManager.read();
+        BoardResult boardResult = boardManager.readAll();
         List<Article> articles = (List<Article>) boardResult.getBoardData();
 
         articles.forEach(article -> System.out.println("article = " + article));

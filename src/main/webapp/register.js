@@ -59,6 +59,14 @@ function writeComment(articleId){
     location.href = "/comment-write-result?id=" + articleId
 }
 
+
+function listPageMove(pageCount, currentPage){
+    if (currentPage <= 0 ||currentPage > pageCount ) {
+        return;
+    }
+    location.href = "/board/article-read-result?page=" + currentPage;
+}
+
 function idCheck(id) {
     if (id == "") {
         alert("아이디를 입력해 주세요.");

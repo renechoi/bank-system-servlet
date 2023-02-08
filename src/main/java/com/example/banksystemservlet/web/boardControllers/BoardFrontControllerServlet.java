@@ -29,6 +29,9 @@ public class BoardFrontControllerServlet extends HttpServlet {
         controllerMap.put("/board/article-update-result", new ArticleUpdateResultController());
 
         controllerMap.put("/board/comment-write-result", new CommentWriteResultController());
+
+        controllerMap.put("/board/article-prev-result", new ArticlePrevResultController());
+        controllerMap.put("/board/article-next-result", new ArticleNextResultController());
     }
 
     @Override

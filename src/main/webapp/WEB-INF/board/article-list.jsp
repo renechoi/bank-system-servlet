@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.banksystemservlet.domain.board.BoardResult" %>
 <%@ page import="static sun.java2d.cmm.ColorTransform.Out" %>
+<%@ page import="com.example.banksystemservlet.domain.member.Pagination" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -56,9 +57,13 @@
 <%
     BoardResult boardResult = (BoardResult) session.getAttribute("boardResult");
     List<Article> boardData = (List<Article>) boardResult.getBoardData();
+    Pagination pagination = boardResult.getPagination();
 //    boardData.stream().forEach(v -> System.out.println("v = " + v));
 
     pageContext.setAttribute("boardData", boardData);
+    pageContext.setAttribute("pagination", pagination);
+
+    System.out.println(pagination);
 
 %>
 <c:set var="boardData" value="${pageScope.boardData}"/>
@@ -142,12 +147,19 @@
         </div>
     </div>
 
+
     <div class="row">
         <nav id="pagination" aria-label="Page navigation">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item"><a class="page-link" onclick="listPageMove(${pagination.pageCount},${pagination.currentPage-1})"  style="cursor:hand">Previous</a></li>
+<%--                href="/board/article-read-result?page=${pagination.currentPage-1}"--%>
+
+                <c:forEach var="i" begin="1" end="${pagination.pageCount}">
+                    <li class="page-item"><a class="page-link" href="/board/article-read-result?page=${i}">${i}</a></li>
+                </c:forEach>
+
+                <li class="page-item"><a class="page-link" onclick="listPageMove(${pagination.pageCount},${pagination.currentPage+1})"  style="cursor:hand">Next</a></li>
+<%--                href="/board/article-read-result?page=${pagination.currentPage+1}"--%>
             </ul>
         </nav>
     </div>

@@ -1,11 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Rene
-  Date: 2023/02/06
-  Time: 2:18 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.banksystemservlet.domain.member.Article" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.banksystemservlet.domain.board.BoardResult" %>
+<%@ page import="static sun.java2d.cmm.ColorTransform.Out" %>
+<%@ page import="com.example.banksystemservlet.domain.member.Pagination" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <html>
 
 <Head>
@@ -36,11 +38,22 @@
 
 
 <body>
-<!--<button onclick="login()">login</button>-->
-<!--<button onclick="register()">register</button>-->
-<!--<a href="index.html">bank </a>-->
 
-JSP 파일 !!!!!
+
+<%
+    BoardResult boardResult = (BoardResult) session.getAttribute("boardResult");
+    List<Article> boardData = (List<Article>) boardResult.getBoardData();
+    Pagination pagination = boardResult.getPagination();
+//    boardData.stream().forEach(v -> System.out.println("v = " + v));
+
+    pageContext.setAttribute("boardData", boardData);
+    pageContext.setAttribute("pagination", pagination);
+
+    System.out.println(pagination);
+%>
+
+
+<JSP 파일>
 
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
@@ -321,18 +334,24 @@ JSP 파일 !!!!!
 </div>
 
 
+
+<br>
+
+
+
+
 <main class="container">
 
     <div class="row">
         <div class="card card-margin search-form">
             <div class="card-body p-0">
-                <form id="search-form">
+                <form id="search-form2">
                     <div class="row">
                         <div class="col-12">
                             <div class="row no-gutters">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <label for="search-type" hidden>검색 유형</label>
-                                    <select class="form-control" id="search-type" name="searchType">
+                                    <select class="form-control" id="search-type2" name="searchType">
                                         <option>제목</option>
                                         <option>본문</option>
                                         <option>id</option>
@@ -342,7 +361,7 @@ JSP 파일 !!!!!
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
                                     <label for="search-value" hidden>검색어</label>
-                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value"
+                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value2"
                                            name="searchValue">
                                 </div>
                                 <div class="col-lg-1 col-md-3 col-sm-12 p-0">
@@ -365,7 +384,7 @@ JSP 파일 !!!!!
     </div>
 
     <div class="row">
-        <table class="table" id="article-table">
+        <table class="table" id="article-table2">
             <thead>
             <tr>
                 <th class="title col-6"><a>제목</a></th>
@@ -374,55 +393,38 @@ JSP 파일 !!!!!
                 <th class="created-at"><a>작성일</a></th>
             </tr>
             </thead>
+
+
             <tbody>
-            <tr>
-                <td class="title"><a>첫글</a></td>
-                <td class="hashtag"><span class="badge text-bg-secondary mx-1"><a class="text-reset">#java</a></span>
-                </td>
-                <td class="user-id">안성민1</td>
-                <td class="created-at">
-                    <time>2022-01-01</time>
-                </td>
-            </tr>
-            <tr>
-                <td>두번째글</td>
-                <td>#spring</td>
-                <td>안성민2</td>
-                <td>
-                    <time>2022-01-02</time>
-                </td>
-            </tr>
-            <tr>
-                <td>세번째글</td>
-                <td>#java</td>
-                <td>안성민3</td>
-                <td>
-                    <time>2022-01-03</time>
-                </td>
-            </tr>
+            <c:forEach var="item" items="${pageScope.boardData}">
+                <tr>
+                    <td class="title"><a onclick="articleShow(${item.id()})" href = "/board/article-content?id=${item.id()}"  style="cursor:hand">${item.title()}</a></td>
+                    <td class="hashtag"><span class="badge text-bg-secondary mx-1"><a
+                            class="text-reset">#java</a></span></td>
+                    <td class="user-id">${item.memberName()}</td>
+                    <td class="created-at">
+                        <time>${item.createdAt()}</time>
+                    </td>
+                </tr>
+            </c:forEach>
+
             </tbody>
         </table>
     </div>
 
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-primary me-md-2" role="button" href="/board/article-write-form" id="write-article">글쓰기</a>
-            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result" id="article-list-submit">목록보기</a>
+<%--            <a class="btn btn-primary me-md-2" role="button" href="/board/article-write-form" id="write-article">글쓰기</a>--%>
+            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result?page=default" id="article-list-submit2">목록보기</a>
         </div>
     </div>
 
-    <div class="row">
-        <nav id="pagination" aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
+
 </main>
 
-<br>
+
+
+
 
 <footer>
     <hr>

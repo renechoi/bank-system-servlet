@@ -47,4 +47,30 @@ CREATE TABLE ARTICLE
 )
 
 
+alter table article
+    add primary key (id)
 
+
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE, TABLE_NAME, A.*
+FROM ALL_CONSTRAINTS A
+WHERE TABLE_NAME = 'article_comment'
+
+
+ALTER TABLE ARTICLE_COMMENT
+    ADD CONSTRAINT child_fk
+        FOREIGN KEY (ARTICLEID)
+            REFERENCES ARTICLE(id)
+                ON DELETE CASCADE;
+
+
+
+DROP SEQUENCE article_id_sequence;
+
+CREATE SEQUENCE article_id_sequence
+    INCREMENT BY 1
+    START WITH 1 ;
+
+
+CREATE SEQUENCE article_comment_id_sequence
+    INCREMENT BY 1
+    START WITH 1 ;

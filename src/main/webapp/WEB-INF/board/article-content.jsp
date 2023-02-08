@@ -111,12 +111,12 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link" href="/board/article-prev-result?id=${boardData.id()}" aria-label="Previous">
                         <span aria-hidden="true">&laquo; prev</span>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                    <a class="page-link" href="/board/article-next-result?id=${boardData.id()}" aria-label="Next">
                         <span aria-hidden="true">next &raquo;</span>
                     </a>
                 </li>
@@ -132,7 +132,7 @@
         </div>
     </form>
 
-    <form class="row g-3" method="post" action="/board/article-read-result">
+    <form class="row g-3" method="post" action="/board/article-read-result?page=default">
         <div class="col-auto">
             <label for="article-list-submit" hidden>목록</label>
             <button class="btn btn-primary" id="article-list-submit" type="submit">목록</button>

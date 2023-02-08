@@ -7,18 +7,15 @@ import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 
 import java.util.Map;
 
-public class ArticleReadResultController implements BoardController {
+public class ArticleNextResultController implements BoardController {
     @Override
     public BoardModelView process(BoardManager boardManager, Map<String, String> parameterMap, Object result) {
 
+        String articleId = parameterMap.get("id");
 
-        String page = parameterMap.get("page");
-        int pageStart = page.equals("default") ? 1 : Integer.parseInt(page);
+        BoardResult boardResult = boardManager.getPrevOrNextArticleAndComments(articleId, "next");
 
-//        BoardResult boardResult = boardManager.readAll();
-        BoardResult boardResult = boardManager.readWithPageLimit(3, pageStart);
-
-        BoardModelView boardModelView = new BoardModelView("article-list");
+        BoardModelView boardModelView = new BoardModelView("article-content");
         boardModelView.getModel().put("boardResult", boardResult);
         return boardModelView;
     }
