@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ArticleDao {
@@ -95,6 +96,46 @@ public class ArticleDao {
                     resultSet.getString("modifiedBy")
             ));
         }
+        return articles;
+    }
+
+    public List<Article> readArticlesBySearchCondition(Pagination pagination, String searchType, String searchValue) throws SQLException {
+
+        ResultSet resultSet = jdbcTemplate.executeQuery(
+                String.format("""
+                        SELECT article_inline.*
+                        from (SELECT ROWNUM rnum, id, memberid, membername, title, content, hashtag, createdat, createdby, modifiedat, modifiedby
+                              from article
+                        WHERE %s = ?
+                        order by ID
+                              ) article_inline
+                        where article_inline.rnum >= ? and article_inline.rnum <= ?
+                        """,searchType), preparedStatement -> {
+//                    preparedStatement.setString(1, "memberId");
+                    preparedStatement.setString(1, searchValue);
+                    preparedStatement.setLong(2, pagination.getArticleStart());
+                    preparedStatement.setLong(3, pagination.getArticleEnd());
+                });
+
+
+        List<Article> articles = new ArrayList<>();
+
+        while (resultSet.next()) {
+            articles.add(new Article(
+                    resultSet.getLong("id"),
+                    resultSet.getString("memberId"),
+                    resultSet.getString("memberName"),
+                    resultSet.getString("title"),
+                    resultSet.getString("content"),
+                    resultSet.getString("hashtag"),
+                    resultSet.getDate("createdAt"),
+                    resultSet.getString("createdBy"),
+                    resultSet.getDate("modifiedAt"),
+                    resultSet.getString("modifiedBy")
+            ));
+        }
+
+        System.out.println(Arrays.toString(articles.toArray()));
         return articles;
     }
 
@@ -250,6 +291,7 @@ public class ArticleDao {
         int prevOrNext = resultSet.getInt(value);
         return String.valueOf(prevOrNext);
     }
+
 
 }
 

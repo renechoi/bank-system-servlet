@@ -40,6 +40,17 @@ public class BoardManager {
         }
     }
 
+    public BoardResult readWithSearch(String searchType, String searchValue, int pageLimit) {
+        try {
+            Pagination pagination = new Pagination(pageLimit, 1, ARTICLE_DAO.getArticleCount());
+            List<Article> articles = ARTICLE_DAO.readArticlesBySearchCondition(pagination, searchType, searchValue);
+            Pagination pagination2 = new Pagination(pageLimit, 1, articles.size());
+            return new BoardResult("게시글 검색 성공하였습니다", true, articles, null, pagination2);
+        } catch (RuntimeException | SQLException e) {
+            return new BoardResult("게시글 검색 실패하였습니다", false);
+        }
+    }
+
     public BoardResult update(){
         try {
             ARTICLE_DAO.update();
@@ -95,5 +106,6 @@ public class BoardManager {
             throw new IllegalArgumentException("not login");
         }
     }
+
 
 }

@@ -71,6 +71,10 @@ public class Pagination {
         return currentPage;
     }
 
+    public void setArticleTotalCount(int articleTotalCount) {
+        this.articleTotalCount = articleTotalCount;
+    }
+
     @Override
     public String toString() {
         return "Pagination{" +

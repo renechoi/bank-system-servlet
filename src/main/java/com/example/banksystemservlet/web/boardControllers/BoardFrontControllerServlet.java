@@ -32,6 +32,8 @@ public class BoardFrontControllerServlet extends HttpServlet {
 
         controllerMap.put("/board/article-prev-result", new ArticlePrevResultController());
         controllerMap.put("/board/article-next-result", new ArticleNextResultController());
+
+        controllerMap.put("/board/article-search", new ArticleSearchController());
     }
 
     @Override

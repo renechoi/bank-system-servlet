@@ -58,7 +58,7 @@
     BoardResult boardResult = (BoardResult) session.getAttribute("boardResult");
     List<Article> boardData = (List<Article>) boardResult.getBoardData();
     Pagination pagination = boardResult.getPagination();
-//    boardData.stream().forEach(v -> System.out.println("v = " + v));
+//    boardData.stream().forEach(v -> System.out.pri    ntln("v = " + v));
 
     pageContext.setAttribute("boardData", boardData);
     pageContext.setAttribute("pagination", pagination);
@@ -74,18 +74,18 @@
     <div class="row">
         <div class="card card-margin search-form">
             <div class="card-body p-0">
-                <form id="search-form">
+                <form id="search-form" action="article-search">
                     <div class="row">
                         <div class="col-12">
                             <div class="row no-gutters">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <label for="search-type" hidden>검색 유형</label>
                                     <select class="form-control" id="search-type" name="searchType">
-                                        <option>제목</option>
-                                        <option>본문</option>
-                                        <option>id</option>
-                                        <option>닉네임</option>
-                                        <option>해시태그</option>
+                                        <option>title</option>
+                                        <option>content</option>
+                                        <option>memberId</option>
+                                        <option>memberName</option>
+                                        <option>hashtag</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">

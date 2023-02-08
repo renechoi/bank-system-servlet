@@ -345,23 +345,23 @@
     <div class="row">
         <div class="card card-margin search-form">
             <div class="card-body p-0">
-                <form id="search-form2">
+                <form id="search-form" action="/board/article-search">
                     <div class="row">
                         <div class="col-12">
                             <div class="row no-gutters">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <label for="search-type" hidden>검색 유형</label>
-                                    <select class="form-control" id="search-type2" name="searchType">
-                                        <option>제목</option>
-                                        <option>본문</option>
-                                        <option>id</option>
-                                        <option>닉네임</option>
-                                        <option>해시태그</option>
+                                    <select class="form-control" id="search-type" name="searchType">
+                                        <option>title</option>
+                                        <option>content</option>
+                                        <option>memberId</option>
+                                        <option>memberName</option>
+                                        <option>hashtag</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
                                     <label for="search-value" hidden>검색어</label>
-                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value2"
+                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value"
                                            name="searchValue">
                                 </div>
                                 <div class="col-lg-1 col-md-3 col-sm-12 p-0">
