@@ -14,25 +14,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "frontControllerServlet", urlPatterns = "/bank/view/*")
+@WebServlet(name = "frontControllerServlet", urlPatterns = "/bank/*")
 public class BankFrontControllerServlet extends HttpServlet {
 
     private final Map<String, BankController> controllerMap2 = new HashMap<>();
 
     public BankFrontControllerServlet() {
-        controllerMap2.put("/bank/view/register-form", new RegisterFormBankController());
-        controllerMap2.put("/bank/view/login-form", new LoginFormBankController());
-        controllerMap2.put("/bank/view/deposit-form", new DepositFormBankController());
-        controllerMap2.put("/bank/view/withdraw-form", new WithdrawFormBankController());
-        controllerMap2.put("/bank/view/transfer-form", new TransferFormBankController());
+        controllerMap2.put("/bank/register-form", new RegisterFormBankController());
+        controllerMap2.put("/bank/login-form", new LoginFormBankController());
+        controllerMap2.put("/bank/deposit-form", new DepositFormBankController());
+        controllerMap2.put("/bank/withdraw-form", new WithdrawFormBankController());
+        controllerMap2.put("/bank/transfer-form", new TransferFormBankController());
 
-        controllerMap2.put("/bank/view/register-result", new RegisterResultBankController());
-        controllerMap2.put("/bank/view/login-result", new LoginResultBankController());
-        controllerMap2.put("/bank/view/logout-result", new LogoutResultBankController());
-        controllerMap2.put("/bank/view/deposit-result", new DepositResultBankController());
-        controllerMap2.put("/bank/view/withdraw-result", new WithdrawResultBankController());
-        controllerMap2.put("/bank/view/transfer-result", new TransferResultBankController());
-        controllerMap2.put("/bank/view/check-balance-result", new CheckBalanceResultBankController());
+        controllerMap2.put("/bank/register-result", new RegisterResultBankController());
+        controllerMap2.put("/bank/login-result", new LoginResultBankController());
+        controllerMap2.put("/bank/logout-result", new LogoutResultBankController());
+        controllerMap2.put("/bank/deposit-result", new DepositResultBankController());
+        controllerMap2.put("/bank/withdraw-result", new WithdrawResultBankController());
+        controllerMap2.put("/bank/transfer-result", new TransferResultBankController());
+        controllerMap2.put("/bank/check-balance-result", new CheckBalanceResultBankController());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BankFrontControllerServlet extends HttpServlet {
     }
 
     private static BankView viewResolver(String viewName) {
-        return new BankView("/WEB-INF/views/" + viewName + ".jsp");
+        return new BankView("/WEB-INF/bank/" + viewName + ".jsp");
     }
 
     private static Map<String, String> createParamMap(HttpServletRequest request) {

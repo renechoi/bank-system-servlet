@@ -1,4 +1,4 @@
-package com.example.banksystemservlet;
+package com.example.banksystemservlet.console;
 
 
 import com.example.banksystemservlet.console.Controller;

@@ -9,32 +9,32 @@ function goHome() {
 }
 
 function register() {
-    location.href='/bank/view/register-form'
+    location.href='/bank/register-form'
     // location.href = '../bank/register-page.jsp'
 }
 
 function login() {
-    location.href = "/bank/view/login-form"
+    location.href = "/bank/login-form"
 }
 
 function logout() {
-    location.href = "/bank/view/logout-result"
+    location.href = "/bank/logout-result"
 }
 
 function deposit() {
-    location.href = "/bank/view/deposit-form"
+    location.href = "/bank/deposit-form"
 }
 
 function withdraw() {
-    location.href = "/bank/view/withdraw-form"
+    location.href = "/bank/withdraw-form"
 }
 
 function transfer() {
-    location.href = "/bank/view/transfer-form"
+    location.href = "/bank/transfer-form"
 }
 
 function checkBalance() {
-    location.href = "/bank/view/check-balance-result"
+    location.href = "/bank/check-balance-result"
 }
 
 function writeArticle(){
