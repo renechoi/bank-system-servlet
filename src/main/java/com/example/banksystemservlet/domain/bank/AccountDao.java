@@ -1,12 +1,11 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.domain.bank;
 
 import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
 import com.example.banksystemservlet.domain.jdbc.RowMapper;
+import com.example.banksystemservlet.domain.member.Member;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AccountDao {
     public static final int initialAmount = 1000;

@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.domain.bank;
 
 public class Account {
     private final String memberId;

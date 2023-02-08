@@ -1,4 +1,4 @@
-<%@ page import="com.example.banksystemservlet.domain.member.AccountDao" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.AccountDao" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page errorPage="../index.html" %>

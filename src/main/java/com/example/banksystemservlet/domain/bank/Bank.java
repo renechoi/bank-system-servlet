@@ -1,6 +1,5 @@
 package com.example.banksystemservlet.domain.bank;
 
-import com.example.banksystemservlet.domain.member.AccountDao;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
 import com.example.banksystemservlet.domain.member.MemberData;
