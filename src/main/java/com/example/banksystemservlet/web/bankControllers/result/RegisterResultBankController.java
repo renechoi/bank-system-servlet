@@ -15,7 +15,9 @@ public class RegisterResultBankController implements BankController {
         Member member = new Member(
                 parameterMap.get("memberName"),
                 parameterMap.get("memberId"),
-                parameterMap.get("password"));
+                parameterMap.get("password"),
+                parameterMap.get("email"),
+                parameterMap.get("address"));
 
         BankResult bankResult = bank.register(member);
         BankModelView bankModelView = new BankModelView("register-result");

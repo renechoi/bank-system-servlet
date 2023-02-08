@@ -7,7 +7,8 @@ public class Member {
     private String name;
     private String memberId;
     private String password;
-    private String memo;
+    private String email;
+    private String address;
 
     public Member(String name, String memberId, String password ) {
         this.name = name;
@@ -22,15 +23,13 @@ public class Member {
         this.password = password;
     }
 
-    public Member(int memberNumber, String name, String memberId, String password, String memo) {
-        this.memberNumber = memberNumber;
+    public Member(String name, String memberId, String password, String email, String address) {
         this.name = name;
         this.memberId = memberId;
         this.password = password;
-        this.memo = memo;
+        this.email = email;
+        this.address = address;
     }
-
-
 
     public boolean matchId(String requestedId) {
         return memberId.equals(requestedId);
@@ -55,6 +54,14 @@ public class Member {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.example.banksystemservlet.web.memberControllers;
 
-import com.example.banksystemservlet.domain.board.BoardManager;
+import com.example.banksystemservlet.domain.member.MemberManager;
 
 import java.util.Map;
 
 public interface MemberController {
 
-    MemberModelView process(BoardManager boardManager, Map<String, String> parameterMap, Object result);
+    MemberModelView process(MemberManager memberManager, Map<String, String> parameterMap, Object result);
 }

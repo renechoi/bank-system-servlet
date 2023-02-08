@@ -19,11 +19,13 @@ public class MemberDao {
     }
 
     public void add(Member member) throws SQLException {
-        jdbcTemplate.executeInsert("INSERT INTO member VALUES (?, ?, ?, ?)", preparedStatement -> {
+        jdbcTemplate.executeInsert("INSERT INTO member VALUES (?, ?, ?, ?, ?, ?)", preparedStatement -> {
             preparedStatement.setString(1, assignMemberNumber());
             preparedStatement.setString(2, member.getName());
             preparedStatement.setString(3, member.getMemberId());
             preparedStatement.setString(4, member.getPassword());
+            preparedStatement.setString(5, member.getEmail());
+            preparedStatement.setString(6, member.getAddress());
         });
     }
 
@@ -82,7 +84,6 @@ public class MemberDao {
     }
 
     public int getMemberCount() throws SQLException {
-        // TODO : while 안 쓰고 하는 법.... ch14 memberMgr 확인
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                 select count(*)
                 from MEMBER

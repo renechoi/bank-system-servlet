@@ -1,0 +1,54 @@
+#join-form {
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #666;
+    border-radius: 10px;
+    margin: 50px auto;
+}
+
+
+label.block-label					{ display:block }
+label.block-label, fieldset			{ margin:5px 0 3px 0 }
+label.block-label, fieldset legend	{ margin-bottom:3px }
+
+fieldset				{ border:none }
+
+
+
+#memberName {
+    width: 150px;
+    margin-bottom: 10px;
+    align-items: center;
+
+}
+
+#memberId {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#email {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+#password {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#passwordCheck {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#birthYear {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+#register-submit {
+    width:50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

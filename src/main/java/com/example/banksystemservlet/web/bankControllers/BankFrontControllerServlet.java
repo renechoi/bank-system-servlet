@@ -20,8 +20,7 @@ public class BankFrontControllerServlet extends HttpServlet {
     private final Map<String, BankController> controllerMap2 = new HashMap<>();
 
     public BankFrontControllerServlet() {
-        controllerMap2.put("/bank/register-form", new RegisterFormBankController());
-        controllerMap2.put("/bank/login-form", new LoginFormBankController());
+
         controllerMap2.put("/bank/deposit-form", new DepositFormBankController());
         controllerMap2.put("/bank/withdraw-form", new WithdrawFormBankController());
         controllerMap2.put("/bank/transfer-form", new TransferFormBankController());

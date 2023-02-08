@@ -1,14 +1,15 @@
 package com.example.banksystemservlet.web.memberControllers;
 
-import com.example.banksystemservlet.domain.board.BoardManager;
 import com.example.banksystemservlet.domain.member.MemberManager;
 import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.result.Result;
-import com.example.banksystemservlet.web.bankControllers.result.LoginResultBankController;
-import com.example.banksystemservlet.web.bankControllers.result.LogoutResultBankController;
-import com.example.banksystemservlet.web.bankControllers.result.RegisterResultBankController;
-import com.example.banksystemservlet.web.boardControllers.BoardModelView;
-import com.example.banksystemservlet.web.boardControllers.BoardView;
+import com.example.banksystemservlet.web.bankControllers.form.LoginFormBankController;
+import com.example.banksystemservlet.web.bankControllers.form.RegisterFormBankController;
+import com.example.banksystemservlet.web.memberControllers.form.LoginFormController;
+import com.example.banksystemservlet.web.memberControllers.form.RegisterFormController;
+import com.example.banksystemservlet.web.memberControllers.result.LoginResultController;
+import com.example.banksystemservlet.web.memberControllers.result.LogoutResultController;
+import com.example.banksystemservlet.web.memberControllers.result.RegisterResultController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +26,13 @@ public class MemberFrontControllerServlet extends HttpServlet {
     private final Map<String, MemberController> controllerMap = new HashMap<>();
 
     public MemberFrontControllerServlet() {
-        controllerMap.put("/member/register-result", new RegisterResultBankController());
-        controllerMap.put("/member/login-result", new LoginResultBankController());
-        controllerMap.put("/member/logout-result", new LogoutResultBankController());
 
+        controllerMap.put("/member/register-form", new RegisterFormController());
+        controllerMap.put("/member/login-form", new LoginFormController());
+
+        controllerMap.put("/member/register-result", new RegisterResultController());
+        controllerMap.put("/member/login-result", new LoginResultController());
+        controllerMap.put("/member/logout-result", new LogoutResultController());
     }
 
     @Override
@@ -43,7 +47,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
 
         MemberManager memberManager = new MemberManager();
 
-
         Result result = BankResultRepository.result;
 
         Map<String, String> paramMap = createParamMap(request);
@@ -53,8 +56,8 @@ public class MemberFrontControllerServlet extends HttpServlet {
         memberView.render(memberModelView.getModel(), request, response);
     }
 
-    private static BoardView viewResolver(String viewName) {
-        return new BoardView("/WEB-INF/member/" + viewName + ".jsp");
+    private static MemberView viewResolver(String viewName) {
+        return new MemberView("/WEB-INF/member/" + viewName + ".jsp");
     }
 
     private static Map<String, String> createParamMap(HttpServletRequest request) {

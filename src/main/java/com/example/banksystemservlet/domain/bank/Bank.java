@@ -26,6 +26,7 @@ public class Bank {
             validateRegisterId(member);
             MEMBER_DAO.add(member);
             ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount());
+            this.currentlyLogin = member.getMemberId();
             return new BankResult("회원 가입에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
             return new BankResult("회원 가입에 실패하였습니다", false);

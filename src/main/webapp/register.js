@@ -9,12 +9,12 @@ function goHome() {
 }
 
 function register() {
-    location.href='/bank/register-form'
+    location.href='/member/register-form'
     // location.href = '../bank/register-page.jsp'
 }
 
 function login() {
-    location.href = "/bank/login-form"
+    location.href = "/member/login-form"
 }
 
 function logout() {
