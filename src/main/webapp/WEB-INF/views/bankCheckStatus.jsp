@@ -15,6 +15,7 @@
     try {
         BankResult bankResult = (BankResult) session.getAttribute("bankResult");
         MemberData memberData = bankResult.getData();
+        printWriter.println("\n");
         printWriter.println("\n<--- 관리자 확인용 --->\n");
         printWriter.printf("성공 여부: %s %s\n", bankResult.getMessage(), bankResult.isSuccess());
         printWriter.printf("현재 로그인 된 아이디: %s\n", memberData.currentlyLogin());

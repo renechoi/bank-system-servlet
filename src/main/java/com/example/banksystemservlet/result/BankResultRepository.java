@@ -1,14 +1,14 @@
-package com.example.banksystemservlet;
+package com.example.banksystemservlet.result;
 
 import com.example.banksystemservlet.domain.bank.BankResult;
 
 import java.util.Map;
 
-public class ResultRepository {
+public class BankResultRepository {
 
     public static Result result;
 
-    public ResultRepository() {
+    public BankResultRepository() {
     }
 
     public static void saveBankResult(Map<String, Object> model){

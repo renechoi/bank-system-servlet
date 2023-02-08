@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.command;
+package com.example.banksystemservlet.console.command;
 
 
 

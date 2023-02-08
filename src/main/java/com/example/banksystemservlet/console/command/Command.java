@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.command;
+package com.example.banksystemservlet.console.command;
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.BankResult;

@@ -1,8 +1,8 @@
 package com.example.banksystemservlet.web.bankControllers.result;
 
+import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.BankResult;
-import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.web.bankControllers.BankController;
 import com.example.banksystemservlet.web.bankControllers.BankModelView;
 
@@ -20,6 +20,12 @@ public class LoginResultBankController implements BankController {
         BankModelView bankModelView = new BankModelView("login-result");
 
         bankModelView.getModel().put("bankResult", bankResult);
+
         return bankModelView;
     }
+
+    private static void saveResult(Map<String, Object> model) {
+        BankResultRepository.saveBankResult(model);
+    }
+
 }

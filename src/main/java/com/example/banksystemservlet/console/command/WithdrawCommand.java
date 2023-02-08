@@ -1,9 +1,9 @@
-package com.example.banksystemservlet.domain.command;
+package com.example.banksystemservlet.console.command;
 
 
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.domain.bank.BankResult;
-import com.example.banksystemservlet.ui.InputView;
+import com.example.banksystemservlet.console.ui.InputView;
 
 public class WithdrawCommand implements Command {
     @Override

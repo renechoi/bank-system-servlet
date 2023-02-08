@@ -1,6 +1,6 @@
 package com.example.banksystemservlet.web.boardControllers.result;
 
-import com.example.banksystemservlet.ResultRepository;
+import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.domain.board.BoardManager;
 import com.example.banksystemservlet.domain.board.BoardResult;
@@ -17,7 +17,7 @@ public class ArticleSaveResultController implements BoardController {
         String title = parameterMap.get("title");
         String content = parameterMap.get("content");
 
-        MemberData bankMemberData = ((BankResult) ResultRepository.result).getData();
+        MemberData bankMemberData = ((BankResult) BankResultRepository.result).getData();
 
         BoardResult boardResult = boardManager.post(title, content, bankMemberData);
 

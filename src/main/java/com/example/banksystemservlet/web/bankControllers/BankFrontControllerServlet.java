@@ -1,6 +1,6 @@
 package com.example.banksystemservlet.web.bankControllers;
 
-import com.example.banksystemservlet.ResultRepository;
+import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.domain.bank.Bank;
 import com.example.banksystemservlet.web.bankControllers.form.*;
 import com.example.banksystemservlet.web.bankControllers.result.*;
@@ -57,7 +57,7 @@ public class BankFrontControllerServlet extends HttpServlet {
     }
 
     private static void saveResult(Map<String, Object> model) {
-        ResultRepository.saveBankResult(model);
+        BankResultRepository.saveBankResult(model);
     }
 
     private static BankView viewResolver(String viewName) {

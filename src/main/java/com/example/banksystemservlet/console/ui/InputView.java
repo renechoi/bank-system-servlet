@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.ui;
+package com.example.banksystemservlet.console.ui;
 
 import java.util.Scanner;
 
