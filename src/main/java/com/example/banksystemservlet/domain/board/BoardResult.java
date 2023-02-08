@@ -1,7 +1,5 @@
 package com.example.banksystemservlet.domain.board;
 
-import com.example.banksystemservlet.domain.member.Pagination;
-
 public class BoardResult {
 
     private final String message;

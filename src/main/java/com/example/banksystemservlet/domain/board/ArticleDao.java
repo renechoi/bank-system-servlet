@@ -1,7 +1,8 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.domain.board;
 
 import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
 import com.example.banksystemservlet.domain.jdbc.RowMapper;
+import com.example.banksystemservlet.domain.member.MemberData;
 
 import java.sql.Date;
 import java.sql.ResultSet;

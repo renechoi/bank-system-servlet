@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.domain.board;
 
 public class Pagination {
     private int articleTotalCount;

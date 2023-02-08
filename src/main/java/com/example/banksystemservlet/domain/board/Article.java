@@ -1,7 +1,6 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.domain.board;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 public record Article(
         Long id,

@@ -1,5 +1,6 @@
 package com.example.banksystemservlet.domain.member;
 
+import com.example.banksystemservlet.domain.board.ArticleDao;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

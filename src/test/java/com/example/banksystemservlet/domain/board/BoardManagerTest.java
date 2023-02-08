@@ -1,6 +1,5 @@
 package com.example.banksystemservlet.domain.board;
 
-import com.example.banksystemservlet.domain.member.Article;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
