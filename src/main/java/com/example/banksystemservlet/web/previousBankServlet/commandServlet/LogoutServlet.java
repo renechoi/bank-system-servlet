@@ -30,6 +30,7 @@ public class LogoutServlet extends HttpServlet implements BankServlet{
 
     @Override
     public BankResult doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
-        return bank.logout();
+//        return bank.logout();
+    return null;
     }
 }

@@ -3,6 +3,7 @@ package com.example.banksystemservlet.domain.bank;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
 import com.example.banksystemservlet.domain.member.MemberData;
+import com.example.banksystemservlet.domain.member.MemberResult;
 
 import java.sql.SQLException;
 
@@ -21,11 +22,21 @@ public class Bank {
         return instance;
     }
 
+    public BankResult createAccount(String memberId, String password) {
+        try {
+            // TODO : password 검증 로직 구현
+            Account account = ACCOUNT_DAO.create(memberId);
+            return new BankResult("계좌 생성 성공하였습니다", true, null, account);
+        } catch (RuntimeException | SQLException e) {
+            return new BankResult("계좌 생성 실패하였습니다", false);
+        }
+    }
+
     public BankResult register(Member member) {
         try {
             validateRegisterId(member);
             MEMBER_DAO.add(member);
-            ACCOUNT_DAO.create2(member, MEMBER_DAO.getMemberCount());
+//            ACCOUNT_DAO.create(member, MEMBER_DAO.getMemberCount());
             this.currentlyLogin = member.getMemberId();
             return new BankResult("회원 가입에 성공하였습니다", true, createMemberData());
         } catch (RuntimeException | SQLException e) {
@@ -33,34 +44,36 @@ public class Bank {
         }
     }
 
-    public BankResult unRegister() {
+
+    public MemberResult unRegister() {
         validateLoginOff();
         try {
             MEMBER_DAO.delete(validateLoginId(currentlyLogin));
-            ACCOUNT_DAO.delete2(currentlyLogin);
             setLoginStatusNone();
-            return new BankResult("회원 탈퇴에 성공하였습니다", true, createMemberData());
+            return new MemberResult("회원 탈퇴에 성공하였습니다", true);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("회원 탈퇴에 실패하였습니다", false);
+            return new MemberResult("회원 탈퇴에 실패하였습니다", false);
         }
     }
 
-    public BankResult login(String requestedId, String requestedPassword) {
+    public MemberResult login(String requestedId, String requestedPassword) {
         try {
             validateLoginOn();
+//            Member member = getMember(requestedId, requestedPassword);
+//            member.setLoginStatus(true);
             this.currentlyLogin = validateLoginIdAndPassword(requestedId, requestedPassword);
-            return new BankResult("로그인에 성공하였습니다", true, createMemberData());
+            return new MemberResult("로그인에 성공하였습니다", true, null);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("로그인에 실패하였습니다 \n" + e.getMessage(), false);
+            return new MemberResult("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
     }
 
-    public BankResult logout() {
+    public MemberResult logout() {
         try {
             setLoginStatusNone();
-            return new BankResult("로그아웃에 성공하였습니다", true);
+            return new MemberResult("로그아웃에 성공하였습니다", true, null);
         } catch (RuntimeException e) {
-            return new BankResult("로그아웃에 실패하였습니다", false);
+            return new MemberResult("로그아웃에 실패하였습니다", false);
         }
     }
 
@@ -163,4 +176,6 @@ public class Bank {
         }
         return requestedId;
     }
+
+
 }

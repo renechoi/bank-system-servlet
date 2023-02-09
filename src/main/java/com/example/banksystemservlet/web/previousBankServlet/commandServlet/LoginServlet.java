@@ -30,7 +30,8 @@ public class LoginServlet extends HttpServlet implements BankServlet{
     public BankResult doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
         Member member = getMember(request);
         createSession(request, member);
-        return bank.login(member.getMemberId(), member.getPassword());
+//        return bank.login(member.getMemberId(), member.getPassword());
+        return null;
     }
 
     private static Member getMember(HttpServletRequest request) {

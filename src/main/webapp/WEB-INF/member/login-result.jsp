@@ -32,7 +32,7 @@
 
 로그인 되었습니다. <br>
 
-<jsp:include page="bankCheckStatus.jsp" />
+<jsp:include page="memberCheckStatus.jsp" />
 <br>
 <button onclick="goHome()">홈으로 가기</button>
 

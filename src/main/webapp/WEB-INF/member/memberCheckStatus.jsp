@@ -16,10 +16,10 @@
     PrintWriter printWriter = response.getWriter();
     try {
         MemberResult memberResult = (MemberResult) session.getAttribute("memberResult");
-        Member member = memberResult.getMember();
+        Member member = memberResult.member();
         printWriter.println("\n");
         printWriter.println("\n<--- 관리자 확인용 --->\n");
-        printWriter.printf("성공 여부: %s %s\n", memberResult.getMessage(), memberResult.isSuccess());
+        printWriter.printf("성공 여부: %s %s\n", memberResult.message(), memberResult.isSuccess());
         printWriter.printf("현재 로그인 된 아이디: %s\n", member.isLoginStatus() ? member.getMemberId() : "not login");
     } catch (Exception e){
         printWriter.println("<--- 관리자 확인용 --->\n\n");

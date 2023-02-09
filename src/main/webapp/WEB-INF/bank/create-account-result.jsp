@@ -1,18 +1,16 @@
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
-  Date: 2023/02/01
-  Time: 9:01 PM
+  Date: 2023/02/02
+  Time: 4:12 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>register bankResult</title>
+    <title>deposit bankResult</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
 
@@ -24,22 +22,21 @@
 
     <!-- Custom styles for this template -->
     <link href="/headers.css" rel="stylesheet">
-    <link href="/member.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script defer src='/register.js'></script>
 </head>
 <body>
-회원가입 결과 !!! <br>
 
-당신의 이름: <%=request.getParameter("memberName")%> <br>
-당신의 아이디: <%=request.getParameter("memberId")%> <br>
-당신의 비밀번호: <%=request.getParameter("password")%> <br>
+계좌 생성하기
 
 <br>
 
+
+<br>
 <jsp:include page="bankCheckStatus.jsp" />
 
 <button onclick="goHome()">홈으로 가기</button>
+
 
 </body>
 </html>

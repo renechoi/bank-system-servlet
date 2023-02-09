@@ -9,6 +9,7 @@ public class BankResult implements Result {
     private final String message;
     private final boolean result;
     private final MemberData memberData;
+    private final Account account;
 
     public BankResult(String message, boolean result) {
         this(message, result, MemberData.of(
@@ -22,9 +23,14 @@ public class BankResult implements Result {
     }
 
     public BankResult(String message, boolean result, MemberData memberData) {
+        this(message, result, memberData, null);
+    }
+
+    public BankResult(String message, boolean result, MemberData memberData, Account account) {
         this.message = message;
         this.result = result;
         this.memberData = memberData;
+        this.account = account;
     }
 
     public boolean isSuccess() {
@@ -45,6 +51,10 @@ public class BankResult implements Result {
 
     public boolean isQuit() {
         return message.equals("종료합니다");
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     @Override

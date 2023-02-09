@@ -22,6 +22,7 @@ public class LogoutResultController implements Controller {
     }
 
     public BankResult doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
-        return bank.logout();
+//        return bank.logout();
+        return null;
     }
 }

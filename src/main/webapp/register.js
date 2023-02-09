@@ -21,6 +21,14 @@ function logout() {
     location.href = "/member/logout-result"
 }
 
+
+
+
+
+function createAccount() {
+    location.href = "/bank/create-account-form"
+}
+
 function deposit() {
     location.href = "/bank/deposit-form"
 }

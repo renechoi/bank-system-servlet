@@ -22,7 +22,8 @@ public class LoginResultController implements Controller {
     public BankResult doBankJob(Bank bank, HttpServletRequest request, HttpServletResponse response) {
         Member member = getMember(request);
         createSession(request, member);
-        return bank.login(member.getMemberId(), member.getPassword());
+//        return bank.login(member.getMemberId(), member.getPassword());
+        return null;
     }
 
     private static Member getMember(HttpServletRequest request) {

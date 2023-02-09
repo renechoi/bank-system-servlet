@@ -1,18 +1,16 @@
-<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene
-  Date: 2023/02/02
-  Time: 9:39 AM
+  Date: 2023/02/01
+  Time: 6:33 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>login form</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
 
@@ -30,13 +28,14 @@
 <body>
 
 
-로그인 되었습니다. <br>
+<form action="create-account-result" method="post">
+    memberId: <input type="text" name="memberId"/><br>
+    password: <input type="text" name="password"/>
+    <button type="submit">계좌 생성</button>
+</form>
 
-<jsp:include page="bankCheckStatus.jsp" />
 <br>
+<jsp:include page="bankCheckStatus.jsp"/>
 <button onclick="goHome()">홈으로 가기</button>
-
-
-
 </body>
 </html>

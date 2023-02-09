@@ -13,7 +13,8 @@ public class LogoutCommand implements Command {
 
     @Override
     public BankResult doBankJob(Bank bank) {
-        return bank.logout();
+//        return bank.logout();
+        return null;
     }
 
     private String requestMemberId() {

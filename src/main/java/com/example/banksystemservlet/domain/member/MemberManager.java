@@ -1,10 +1,5 @@
 package com.example.banksystemservlet.domain.member;
 
-import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.domain.bank.BankResult;
-import com.example.banksystemservlet.domain.board.ArticleDao;
-import com.example.banksystemservlet.domain.board.BoardManager;
-
 import java.sql.SQLException;
 
 public class MemberManager {
@@ -24,7 +19,7 @@ public class MemberManager {
             MEMBER_DAO.add(member);
             this.currentlyLogin = member.getMemberId();
             member.setLoginStatus(true);
-            return new MemberResult("회원 가입에 성공하였습니다", true, null, member);
+            return new MemberResult("회원 가입에 성공하였습니다", true, member);
         } catch (RuntimeException | SQLException e) {
             return new MemberResult("회원 가입에 실패하였습니다", false);
         }
@@ -35,7 +30,7 @@ public class MemberManager {
         try {
             MEMBER_DAO.delete(validateLoginId(currentlyLogin));
             setLoginStatusNone();
-            return new MemberResult("회원 탈퇴에 성공하였습니다", true, createMemberData());
+            return new MemberResult("회원 탈퇴에 성공하였습니다", true);
         } catch (RuntimeException | SQLException e) {
             return new MemberResult("회원 탈퇴에 실패하였습니다", false);
         }
@@ -47,7 +42,7 @@ public class MemberManager {
             Member member = getMember(requestedId, requestedPassword);
             member.setLoginStatus(true);
             this.currentlyLogin = validateLoginIdAndPassword(requestedId, requestedPassword);
-            return new MemberResult("로그인에 성공하였습니다", true, null, member);
+            return new MemberResult("로그인에 성공하였습니다", true, member);
         } catch (RuntimeException | SQLException e) {
             return new MemberResult("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
@@ -56,7 +51,7 @@ public class MemberManager {
     public MemberResult logout() {
         try {
             setLoginStatusNone();
-            return new MemberResult("로그아웃에 성공하였습니다", true, null, null);
+            return new MemberResult("로그아웃에 성공하였습니다", true, null);
         } catch (RuntimeException e) {
             return new MemberResult("로그아웃에 실패하였습니다", false);
         }
@@ -64,20 +59,6 @@ public class MemberManager {
 
     private Member getMember(String requestedId, String requestedPassword) throws SQLException {
         return MEMBER_DAO.getMember(requestedId, requestedPassword);
-    }
-
-    private MemberData createMemberData() throws SQLException {
-        Member member = MEMBER_DAO.getMemberCurrentlyLogin(currentlyLogin);
-
-        return MemberData.of(
-                currentlyLogin,
-                member.getMemberNumber(),
-                member.getName(),
-                member.getMemberId(),
-                member.getPassword(),
-                1,
-                1
-        );
     }
 
     private void setLoginStatusNone() {

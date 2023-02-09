@@ -1,8 +1,9 @@
 package com.example.banksystemservlet.web.memberControllers;
 
 import com.example.banksystemservlet.domain.member.MemberManager;
-import com.example.banksystemservlet.result.BankResultRepository;
+import com.example.banksystemservlet.result.MemberResultRepository;
 import com.example.banksystemservlet.result.Result;
+import com.example.banksystemservlet.result.ResultRepository;
 import com.example.banksystemservlet.web.memberControllers.form.LoginFormController;
 import com.example.banksystemservlet.web.memberControllers.form.RegisterFormController;
 import com.example.banksystemservlet.web.memberControllers.result.LoginResultController;
@@ -43,12 +44,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
             return;
         }
 
-        MemberManager memberManager = new MemberManager();
-
-        Result result = BankResultRepository.result;
-
-        Map<String, String> paramMap = createParamMap(request);
-        MemberModelView memberModelView = memberController.process(memberManager, paramMap);
+        MemberModelView memberModelView = memberController
+                .process(new MemberManager(), createParamMap(request));
+        saveRepository(memberModelView);
 
         MemberView memberView = viewResolver(memberModelView.getViewName());
         memberView.render(memberModelView.getModel(), request, response);
@@ -62,5 +60,9 @@ public class MemberFrontControllerServlet extends HttpServlet {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator().forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
         return paramMap;
+    }
+
+    private static void saveRepository(MemberModelView memberModelView){
+        ResultRepository.saveBankResult(memberModelView.getModel());
     }
 }

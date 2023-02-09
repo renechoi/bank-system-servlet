@@ -26,7 +26,7 @@ class AccountTest {
         memberDao.add(member);
 
         AccountDao accountDao = new AccountDao(jdbcTemplate);
-        accountDao.create2(member, memberDao.getMemberCount());
+        accountDao.create(member, memberDao.getMemberCount());
 
         ResultSet resultSet = jdbcTemplate.executeQuery("SELECT memberid FROM account");
         String memberId="";
@@ -46,7 +46,7 @@ class AccountTest {
         memberDao.add(member);
 
         AccountDao accountDao = new AccountDao(jdbcTemplate);
-        accountDao.create2(member, memberDao.getMemberCount());
+        accountDao.create(member, memberDao.getMemberCount());
 
         accountDao.delete2(memberId);
 

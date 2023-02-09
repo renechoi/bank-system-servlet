@@ -13,7 +13,8 @@ public class LoginCommand implements Command {
 
     @Override
     public BankResult doBankJob(Bank bank) {
-        return bank.login(requestMemberId(), requestMemberPassword());
+//        return bank.login(requestMemberId(), requestMemberPassword());
+        return null;
     }
 
     private String requestMemberId() {

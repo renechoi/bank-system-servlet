@@ -21,10 +21,12 @@ public class BankFrontControllerServlet extends HttpServlet {
 
     public BankFrontControllerServlet() {
 
+        controllerMap2.put("/bank/create-account-form", new CreateAccountFormBankController());
         controllerMap2.put("/bank/deposit-form", new DepositFormBankController());
         controllerMap2.put("/bank/withdraw-form", new WithdrawFormBankController());
         controllerMap2.put("/bank/transfer-form", new TransferFormBankController());
 
+        controllerMap2.put("/bank/create-account-result", new CreateAccountResultBankController());
         controllerMap2.put("/bank/deposit-result", new DepositResultBankController());
         controllerMap2.put("/bank/withdraw-result", new WithdrawResultBankController());
         controllerMap2.put("/bank/transfer-result", new TransferResultBankController());

@@ -38,6 +38,9 @@
 
 
 <body>
+<button>
+    <a onclick="createAccount()"> 임시 계좌 생성 </a>
+</button>
 
 
 <%

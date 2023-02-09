@@ -32,7 +32,7 @@
 로그아웃 되었습니다. <br>
 
 
-<jsp:include page="bankCheckStatus.jsp" />
+<jsp:include page="memberCheckStatus.jsp" />
 
 
 <br>

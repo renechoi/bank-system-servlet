@@ -94,7 +94,7 @@
 
 
 <br>
-<jsp:include page="bankCheckStatus.jsp"/>
+<jsp:include page="memberCheckStatus.jsp"/>
 <button onclick="goHome()">홈으로 가기</button>
 
 </body>

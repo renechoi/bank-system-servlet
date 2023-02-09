@@ -6,6 +6,7 @@ import com.example.banksystemservlet.domain.member.Member;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 public class AccountDao {
     public static final int initialAmount = 1000;
@@ -18,16 +19,16 @@ public class AccountDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    public void create2(Member member, int memberCount) throws SQLException {
-        Account account = new Account(generateAccountNumber(memberCount), initialAmount, member.getMemberId());
+    public Account create(String memberId) throws SQLException {
+        Account account = new Account(generateAccountNumber(), initialAmount, memberId);
 
         jdbcTemplate.executeInsert("INSERT INTO account VALUES (?, ?, ?)", preparedStatement -> {
-            // TODO : 사실 위에서 정의한 value들을 사용하는 것이기 때문에 이것을 이렇게 꺼내오는 방식이 맞을지 고민
             preparedStatement.setInt(1, account.getAccountNumber());
             preparedStatement.setInt(2, account.getBalance());
             preparedStatement.setString(3, account.getMemberId());
         });
+
+        return account;
     }
 
     public void delete2(String currentlyLogin) throws SQLException {
@@ -57,8 +58,10 @@ public class AccountDao {
         });
     }
 
-    private static int generateAccountNumber(int memberCount) {
-        return 1111 + ((memberCount - 1) * 1000);
+    private static int generateAccountNumber() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(10);
+        return 1111 + ((randomNumber - 1) * 1000);
     }
 
     private Account getAccount2(Member member) throws SQLException {
