@@ -25,9 +25,6 @@ public class BankFrontControllerServlet extends HttpServlet {
         controllerMap2.put("/bank/withdraw-form", new WithdrawFormBankController());
         controllerMap2.put("/bank/transfer-form", new TransferFormBankController());
 
-        controllerMap2.put("/bank/register-result", new RegisterResultBankController());
-        controllerMap2.put("/bank/login-result", new LoginResultBankController());
-        controllerMap2.put("/bank/logout-result", new LogoutResultBankController());
         controllerMap2.put("/bank/deposit-result", new DepositResultBankController());
         controllerMap2.put("/bank/withdraw-result", new WithdrawResultBankController());
         controllerMap2.put("/bank/transfer-result", new TransferResultBankController());
