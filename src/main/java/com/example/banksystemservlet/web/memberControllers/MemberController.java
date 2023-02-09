@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface MemberController {
 
-    MemberModelView process(MemberManager memberManager, Map<String, String> parameterMap, Object result);
+    MemberModelView process(MemberManager memberManager, Map<String, String> parameterMap);
 }

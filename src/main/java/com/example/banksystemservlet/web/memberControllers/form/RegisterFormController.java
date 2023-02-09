@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class RegisterFormController implements MemberController {
     @Override
-    public MemberModelView process(MemberManager memberManager, Map<String, String> parameterMap, Object result) {
+    public MemberModelView process(MemberManager memberManager, Map<String, String> parameterMap) {
         return new MemberModelView("register-page");
     }
 }

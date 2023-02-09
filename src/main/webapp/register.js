@@ -18,7 +18,7 @@ function login() {
 }
 
 function logout() {
-    location.href = "/bank/logout-result"
+    location.href = "/member/logout-result"
 }
 
 function deposit() {

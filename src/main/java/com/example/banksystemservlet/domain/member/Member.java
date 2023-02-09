@@ -9,6 +9,7 @@ public class Member {
     private String password;
     private String email;
     private String address;
+    private boolean loginStatus;
 
     public Member(String name, String memberId, String password ) {
         this.name = name;
@@ -23,18 +24,36 @@ public class Member {
         this.password = password;
     }
 
+    public Member(int memberNumber, String name, String memberId, String password, String email, String address) {
+        this(memberNumber, name, memberId, password, email, address, false);
+    }
+
     public Member(String name, String memberId, String password, String email, String address) {
+        this(name, memberId, password, email, address, false);
+    }
+
+    public Member(String name, String memberId, String password, String email, String address, boolean loginStatus) {
         this.name = name;
         this.memberId = memberId;
         this.password = password;
         this.email = email;
         this.address = address;
+        this.loginStatus = loginStatus;
+    }
+
+    public Member(int memberNumber, String name, String memberId, String password, String email, String address, boolean loginStatus) {
+        this.memberNumber = memberNumber;
+        this.name = name;
+        this.memberId = memberId;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.loginStatus = loginStatus;
     }
 
     public boolean matchId(String requestedId) {
         return memberId.equals(requestedId);
     }
-
 
     public boolean matchIdAndPassword(String requestedId, String requestedPassword) {
         return memberId.equals(requestedId) && password.equals(requestedPassword);
@@ -62,6 +81,14 @@ public class Member {
 
     public String getAddress() {
         return address;
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
+    public boolean isLoginStatus() {
+        return loginStatus;
     }
 
     @Override

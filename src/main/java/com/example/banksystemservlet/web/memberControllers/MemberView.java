@@ -21,7 +21,7 @@ public class MemberView {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
         requestDispatcher.forward(request,response);
     }
-
+    //reuslt를 전달해준다 => memberResult - result
     private static void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         model.forEach(session::setAttribute);

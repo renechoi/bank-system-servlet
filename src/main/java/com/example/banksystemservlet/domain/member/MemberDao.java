@@ -83,6 +83,28 @@ public class MemberDao {
         ));
     }
 
+    public Member getMember(String memberId, String password) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT membernumber, name, memberid, password, email, address
+                        FROM member
+                        WHERE memberId = ? and password = ?
+                        """,
+                preparedStatement -> {
+                    preparedStatement.setString(1, memberId);
+                    preparedStatement.setInt(2, Integer.parseInt(password));
+                });
+
+        return matchMember(resultSet, resultSet2 -> new Member(
+                resultSet2.getInt("membernumber"),
+                resultSet2.getString("name"),
+                resultSet2.getString("memberid"),
+                resultSet2.getString("password"),
+                resultSet2.getString("email"),
+                resultSet2.getString("address")
+
+        ));
+    }
+
     public int getMemberCount() throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                 select count(*)

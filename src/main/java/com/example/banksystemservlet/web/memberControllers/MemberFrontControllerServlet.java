@@ -50,7 +50,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
         Result result = BankResultRepository.result;
 
         Map<String, String> paramMap = createParamMap(request);
-        MemberModelView memberModelView = memberController.process(memberManager, paramMap, result);
+        MemberModelView memberModelView = memberController.process(memberManager, paramMap);
 
         MemberView memberView = viewResolver(memberModelView.getViewName());
         memberView.render(memberModelView.getModel(), request, response);
