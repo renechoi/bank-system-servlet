@@ -2,11 +2,9 @@ package com.example.banksystemservlet.domain.bank;
 
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
-import com.example.banksystemservlet.domain.member.MemberData;
-import com.example.banksystemservlet.result.BankResult2;
-import com.example.banksystemservlet.result.MemberResult;
-import com.example.banksystemservlet.result.BankResult;
 import com.example.banksystemservlet.repository.ResultRepository;
+import com.example.banksystemservlet.result.BankResult;
+import com.example.banksystemservlet.result.MemberResult;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -29,9 +27,9 @@ public class BankManager {
     public BankResult createAccount(String memberId, String password) {
         try {
             Account account = ACCOUNT_DAO.create(memberId);
-            return new BankResult("계좌 생성 성공하였습니다", true, null, account);
+            return new BankResult("계좌 생성 성공하였습니다", true, null);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("계좌 생성 실패하였습니다", false);
+            return new BankResult("계좌 생성 실패하였습니다", false, null);
         }
     }
 
@@ -39,9 +37,9 @@ public class BankManager {
         validateLoginOff();
         try {
             ACCOUNT_DAO.deposit2(getCurrentMemberId(), amount);
-            return new BankResult("입금에 성공하였습니다", true, memberData());
+            return new BankResult("입금에 성공하였습니다", true, null);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("입금에 실패하였습니다", false);
+            return new BankResult("입금에 실패하였습니다", false, null);
         }
     }
 
@@ -49,9 +47,9 @@ public class BankManager {
         validateLoginOff();
         try {
             ACCOUNT_DAO.withdraw2(getCurrentMemberId(), amount);
-            return new BankResult("출금에 성공하였습니다", true, memberData());
+            return new BankResult("출금에 성공하였습니다", true, null);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("출금에 실패하였습니다", false);
+            return new BankResult("출금에 실패하였습니다", false, null);
         }
     }
 
@@ -60,35 +58,19 @@ public class BankManager {
         try {
             ACCOUNT_DAO.withdraw2(getCurrentMemberId(), requestTransferAmount);
             ACCOUNT_DAO.deposit2(requestMemberId, requestTransferAmount);
-            return new BankResult("송금에 성공하였습니다", true, memberData());
+            return new BankResult("송금에 성공하였습니다", true, null);
         } catch (RuntimeException | SQLException e) {
-            return new BankResult("송금에 실패하였습니다", false);
+            return new BankResult("송금에 실패하였습니다", false, null);
         }
     }
 
-    public BankResult2 checkBalance() {
+    public BankResult checkBalance() {
         try {
-            return new BankResult2("조회에 성공하였습니다", true, memberAccountMap());
+            return new BankResult("조회에 성공하였습니다", true, memberAccountMap());
         } catch (SQLException e) {
             System.out.println("e.getMessage() = " + e.getMessage());
-            return new BankResult2("조회에 실패하였습니다", false, null);
+            return new BankResult("조회에 실패하였습니다", false, null);
         }
-    }
-
-    private MemberData memberData() throws SQLException {
-
-        String currentMemberId = getCurrentMemberId();
-        Member member = MEMBER_DAO.getMemberCurrentlyLogin(getCurrentMemberId());
-
-        return MemberData.of(
-                currentMemberId,
-                member.getMemberNumber(),
-                member.getName(),
-                member.getMemberId(),
-                member.getPassword(),
-                ACCOUNT_DAO.getAccountNumber2(member),
-                ACCOUNT_DAO.getBalance2(member)
-        );
     }
 
     private Map<Member, Account> memberAccountMap() throws SQLException {

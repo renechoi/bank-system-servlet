@@ -9,7 +9,6 @@
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 <%@ page import="com.example.banksystemservlet.domain.bank.Account" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="com.example.banksystemservlet.result.BankResult2" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -36,7 +35,7 @@
 
 
 <%
-    BankResult2 bankResult1 = (BankResult2) session.getAttribute("bankResult");
+    BankResult bankResult1 = (BankResult) session.getAttribute("bankResult");
     Map<Member, Account> memberAccountMap = bankResult1.memberWithAccount();
 
     pageContext.setAttribute("memberAndAccount", memberAccountMap.entrySet());

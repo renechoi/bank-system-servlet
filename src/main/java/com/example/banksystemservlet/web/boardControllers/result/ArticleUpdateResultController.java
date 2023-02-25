@@ -27,7 +27,4 @@ public class ArticleUpdateResultController implements BoardController {
         return boardModelView;
     }
 
-    private static MemberData getBankData(BankResult result) {
-        return result.getData();
-    }
 }
