@@ -1,6 +1,7 @@
 package com.example.banksystemservlet.domain.board;
 
 import com.example.banksystemservlet.domain.member.*;
+import com.example.banksystemservlet.repository.ResultRepository;
 import com.example.banksystemservlet.result.BoardResult;
 
 import java.sql.SQLException;
@@ -12,12 +13,13 @@ public class BoardManager {
 
     private static final BoardManager instance = new BoardManager();
 
-    public BoardResult post(String title, String content, MemberData bankMemberData) {
+    public BoardResult post(String title, String content, Member member) {
         try {
-            validate(bankMemberData);
-            ARTICLE_DAO.writeArticle(title, content, bankMemberData);
+            validate(member);
+            ARTICLE_DAO.writeArticle(title, content, member);
             return new BoardResult("글쓰기 성공하였습니다", true);
         } catch (RuntimeException | SQLException e) {
+            System.out.println("e = " + e.getMessage());
             return new BoardResult("글쓰기 실패하였습니다", false);
         }
     }
@@ -52,7 +54,7 @@ public class BoardManager {
         }
     }
 
-    public BoardResult update(){
+    public BoardResult update() {
         try {
             ARTICLE_DAO.update();
             return new BoardResult("게시글 업데이트 성공하였습니다", true);
@@ -61,7 +63,7 @@ public class BoardManager {
         }
     }
 
-    public BoardResult delete(String articleId){
+    public BoardResult delete(String articleId) {
         try {
             ARTICLE_DAO.delete(articleId);
             return new BoardResult("게시글 삭제 성공하였습니다", true);
@@ -70,7 +72,7 @@ public class BoardManager {
         }
     }
 
-    public BoardResult getArticleAndComments(String articleId){
+    public BoardResult getArticleAndComments(String articleId) {
         try {
             Article article = ARTICLE_DAO.getArticleById(articleId);
             List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(articleId);
@@ -80,21 +82,21 @@ public class BoardManager {
         }
     }
 
-    public BoardResult getPrevOrNextArticleAndComments(String articleId, String value){
+    public BoardResult getPrevOrNextArticleAndComments(String articleId, String value) {
         try {
             String prevOrNextArticleId = ARTICLE_DAO.getPrevOrNextArticleId(articleId, value);
             Article article = ARTICLE_DAO.getArticleById(prevOrNextArticleId);
             List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(prevOrNextArticleId);
-            return new BoardResult(String.format("이전/이후 게시글 불러오기 성공하였습니다",value), true, article, comments);
+            return new BoardResult(String.format("이전/이후 게시글 불러오기 성공하였습니다", value), true, article, comments);
         } catch (RuntimeException | SQLException e) {
             System.out.println("실패 e = " + e);
-            return new BoardResult(String.format("이전/이후 게시글 불러오기 실패하였습니다",value), false);
+            return new BoardResult(String.format("이전/이후 게시글 불러오기 실패하였습니다", value), false);
         }
     }
 
-    public BoardResult writeComment(MemberData memberData, String content, String articleId) {
+    public BoardResult writeComment(String content, String articleId, Member member) {
         try {
-            Article article = ARTICLE_DAO.writeComment(articleId, content, memberData);
+            Article article = ARTICLE_DAO.writeComment(articleId, content, member);
             List<ArticleComment> comments = ARTICLE_DAO.getAllCommentsByArticleId(articleId);
             return new BoardResult("댓글 작성 성공하였습니다", true, article, comments);
         } catch (RuntimeException | SQLException e) {
@@ -102,9 +104,9 @@ public class BoardManager {
         }
     }
 
-    private void validate(MemberData bankMemberdata){
-        if ("not login".equals(bankMemberdata.currentlyLogin())){
-            throw new IllegalArgumentException("not login");
+    private void validate(Member member) {
+        if (!member.isLoginStatus()) {
+            throw new IllegalArgumentException("member not login");
         }
     }
 

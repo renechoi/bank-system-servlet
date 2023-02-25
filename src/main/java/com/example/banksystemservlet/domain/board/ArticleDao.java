@@ -1,8 +1,10 @@
 package com.example.banksystemservlet.domain.board;
 
+import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.jdbc.JdbcTemplate;
 import com.example.banksystemservlet.jdbc.RowMapper;
 import com.example.banksystemservlet.domain.member.MemberData;
+import com.example.banksystemservlet.repository.ResultRepository;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -16,18 +18,19 @@ public class ArticleDao {
 
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
-    public void writeArticle(String title, String content, MemberData bankMemberData) throws SQLException {
+    public void writeArticle(String title, String content, Member member) throws SQLException {
+
         jdbcTemplate.executeInsert("INSERT INTO article VALUES (article_id_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
 //            preparedStatement.setLong(1, assignArticleNumber());
-            preparedStatement.setString(1, bankMemberData.currentlyLogin());
-            preparedStatement.setString(2, bankMemberData.name());
+            preparedStatement.setString(1, member.getMemberId());
+            preparedStatement.setString(2,  member.getName());
             preparedStatement.setString(3, title);
             preparedStatement.setString(4, content);
             preparedStatement.setString(5, "hashtag1");
             preparedStatement.setDate(6, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(7, bankMemberData.name());
+            preparedStatement.setString(7,  member.getName());
             preparedStatement.setDate(8, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(9, bankMemberData.name());
+            preparedStatement.setString(9,  member.getName());
         });
     }
 
@@ -195,17 +198,16 @@ public class ArticleDao {
         ));
     }
 
-    public Article writeComment(String articleId, String content, MemberData bankMemberData) throws SQLException {
+    public Article writeComment(String articleId, String content, Member member) throws SQLException {
         jdbcTemplate.executeInsert("INSERT INTO article_comment VALUES (article_comment_id_sequence.nextval, ?, ?, ?, ?, ?, ?, ?, ?)", preparedStatement -> {
-//            preparedStatement.setLong(1, 1);
             preparedStatement.setString(1, articleId);
-            preparedStatement.setString(2, bankMemberData.memberId());
-            preparedStatement.setString(3, bankMemberData.name());
+            preparedStatement.setString(2, member.getMemberId());
+            preparedStatement.setString(3, member.getName());
             preparedStatement.setString(4, content);
             preparedStatement.setDate(5, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(6, bankMemberData.name());
+            preparedStatement.setString(6, member.getName());
             preparedStatement.setDate(7, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(8, bankMemberData.name());
+            preparedStatement.setString(8, member.getName());
         });
 
         return getArticleById(articleId);

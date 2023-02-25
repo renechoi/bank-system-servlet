@@ -1,5 +1,6 @@
 package com.example.banksystemservlet.web.boardControllers.result;
 
+import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.result.MemberResult;
 import com.example.banksystemservlet.repository.BankResultRepository;
 import com.example.banksystemservlet.result.BankResult;
@@ -19,13 +20,9 @@ public class ArticleUpdateResultController implements BoardController {
         String title = parameterMap.get("title");
         String content = parameterMap.get("content");
 
-//        MemberData bankMemberData = getBankData((BankResult) result);
-        MemberData bankMemberData = ((BankResult) BankResultRepository.result).getData();
+        Member member = ResultRepository.getMemberResult().member();  // TODO : null 값 에러 처리
 
-        MemberResult memberResult = ResultRepository.getMemberResult();
-        memberResult.member();
-
-        BoardResult boardResult = boardManager.post(title, content, bankMemberData);
+        BoardResult boardResult = boardManager.post(title, content, member);
 
         BoardModelView boardModelView = new BoardModelView("article-save-result");
         boardModelView.getModel().put("boardResult", boardResult);
