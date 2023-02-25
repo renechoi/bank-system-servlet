@@ -38,12 +38,15 @@ public class MemberManager {
 
     public MemberResult login(String requestedId, String requestedPassword) {
         try {
+            System.out.println("로그인 시도");
             validateLoginOn();
             Member member = getMember(requestedId, requestedPassword);
             member.setLoginStatus(true);
             this.currentlyLogin = validateLoginIdAndPassword(requestedId, requestedPassword);
+            System.out.println(currentlyLogin);
             return new MemberResult("로그인에 성공하였습니다", true, member);
         } catch (RuntimeException | SQLException e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
             return new MemberResult("로그인에 실패하였습니다 \n" + e.getMessage(), false);
         }
     }

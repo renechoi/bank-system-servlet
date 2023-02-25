@@ -63,6 +63,6 @@ public class MemberFrontControllerServlet extends HttpServlet {
     }
 
     private static void saveRepository(MemberModelView memberModelView){
-        ResultRepository.saveBankResult(memberModelView.getModel());
+        ResultRepository.saveMemberResult(memberModelView.getModel());
     }
 }
