@@ -2,7 +2,6 @@ $("body").prepend("<header></header>");
 // $("header").load("./frontpage/header.html header");
 $("header").load("/header.html header");
 
-
 function goHome() {
     location.href='/'
     // location.href = '../bank/register-page.jsp'

@@ -1,11 +1,4 @@
-<%@ page import="com.example.banksystemservlet.result.BankResult" %>
-<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
-  Created by IntelliJ IDEA.
-  User: Rene
-  Date: 2023/02/02
-  Time: 4:12 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

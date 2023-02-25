@@ -3,8 +3,6 @@ package com.example.banksystemservlet.domain.board;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.jdbc.JdbcTemplate;
 import com.example.banksystemservlet.jdbc.RowMapper;
-import com.example.banksystemservlet.domain.member.MemberData;
-import com.example.banksystemservlet.repository.ResultRepository;
 
 import java.sql.Date;
 import java.sql.ResultSet;

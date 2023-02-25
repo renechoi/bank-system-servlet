@@ -1,14 +1,4 @@
-<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.example.banksystemservlet.result.BankResult" %>
-<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
-  Created by IntelliJ IDEA.
-  User: Rene
-  Date: 2023/02/02
-  Time: 9:39 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

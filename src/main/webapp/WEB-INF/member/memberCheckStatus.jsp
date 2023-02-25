@@ -1,5 +1,4 @@
-<%@ page import="com.example.banksystemservlet.result.BankResult" %>
-<%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
+
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 <%@ page import="com.example.banksystemservlet.result.MemberResult" %>
