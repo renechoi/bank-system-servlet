@@ -1,4 +1,4 @@
-<%@ page import="com.example.banksystemservlet.domain.board.BoardResult" %>
+<%@ page import="com.example.banksystemservlet.result.BoardResult" %>
 <%@ page import="com.example.banksystemservlet.domain.board.Article" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.banksystemservlet.domain.board.ArticleComment" %>

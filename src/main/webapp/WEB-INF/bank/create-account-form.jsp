@@ -1,5 +1,5 @@
 <%@ page import="java.util.Arrays" %>
-<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.result.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene

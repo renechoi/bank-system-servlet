@@ -1,10 +1,8 @@
 package com.example.banksystemservlet.web.memberControllers.result;
 
-import com.example.banksystemservlet.domain.bank.BankResult;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberManager;
-import com.example.banksystemservlet.domain.member.MemberResult;
-import com.example.banksystemservlet.web.bankControllers.BankModelView;
+import com.example.banksystemservlet.result.MemberResult;
 import com.example.banksystemservlet.web.memberControllers.MemberController;
 import com.example.banksystemservlet.web.memberControllers.MemberModelView;
 

@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.jdbc;
+package com.example.banksystemservlet.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,7 +1,7 @@
 package com.example.banksystemservlet.web.boardControllers.result;
 
 import com.example.banksystemservlet.domain.board.BoardManager;
-import com.example.banksystemservlet.domain.board.BoardResult;
+import com.example.banksystemservlet.result.BoardResult;
 import com.example.banksystemservlet.web.boardControllers.BoardController;
 import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 

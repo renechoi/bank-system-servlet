@@ -1,4 +1,6 @@
-package com.example.banksystemservlet.domain.board;
+package com.example.banksystemservlet.result;
+
+import com.example.banksystemservlet.domain.board.Pagination;
 
 public class BoardResult {
 

@@ -1,4 +1,4 @@
-<%@ page import="com.example.banksystemservlet.domain.board.BoardResult" %><%--
+<%@ page import="com.example.banksystemservlet.result.BoardResult" %><%--
   Created by IntelliJ IDEA.
   User: Rene
   Date: 2023/02/06

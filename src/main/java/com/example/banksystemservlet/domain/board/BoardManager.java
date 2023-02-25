@@ -1,6 +1,7 @@
 package com.example.banksystemservlet.domain.board;
 
 import com.example.banksystemservlet.domain.member.*;
+import com.example.banksystemservlet.result.BoardResult;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -2,8 +2,8 @@ package com.example.banksystemservlet.domain.member;
 
 import com.example.banksystemservlet.domain.bank.Account;
 import com.example.banksystemservlet.domain.bank.AccountDao;
-import com.example.banksystemservlet.domain.jdbc.JdbcTemplate;
-import com.example.banksystemservlet.domain.jdbc.RowMapper;
+import com.example.banksystemservlet.jdbc.JdbcTemplate;
+import com.example.banksystemservlet.jdbc.RowMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

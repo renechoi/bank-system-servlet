@@ -1,6 +1,7 @@
-package com.example.banksystemservlet.result;
+package com.example.banksystemservlet.repository;
 
-import com.example.banksystemservlet.domain.bank.BankResult;
+import com.example.banksystemservlet.result.BankResult;
+import com.example.banksystemservlet.result.Result;
 
 import java.util.Map;
 

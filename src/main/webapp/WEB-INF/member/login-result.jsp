@@ -1,7 +1,7 @@
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.result.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %><%--
   Created by IntelliJ IDEA.
   User: Rene

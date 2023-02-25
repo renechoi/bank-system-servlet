@@ -1,8 +1,8 @@
 package com.example.banksystemservlet.web.boardControllers;
 
-import com.example.banksystemservlet.result.Result;
-import com.example.banksystemservlet.result.BankResultRepository;
+import com.example.banksystemservlet.result.BankResult;
 import com.example.banksystemservlet.domain.board.BoardManager;
+import com.example.banksystemservlet.repository.ResultRepository;
 import com.example.banksystemservlet.web.boardControllers.result.*;
 import com.example.banksystemservlet.web.boardControllers.form.ArticleWriteFormController;
 
@@ -47,11 +47,10 @@ public class BoardFrontControllerServlet extends HttpServlet {
         }
 
         BoardManager boardManager = new BoardManager();
-
-        Result result = BankResultRepository.result;
+        BankResult bankResult = ResultRepository.getBankResult();
 
         Map<String, String> paramMap = createParamMap(request);
-        BoardModelView BoardModelView = boardController.process(boardManager, paramMap, result);
+        BoardModelView BoardModelView = boardController.process(boardManager, paramMap, bankResult);
 
         BoardView boardView = viewResolver(BoardModelView.getViewName());
         boardView.render(BoardModelView.getModel(), request, response);

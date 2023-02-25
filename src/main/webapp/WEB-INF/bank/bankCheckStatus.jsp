@@ -1,8 +1,8 @@
-<%@ page import="com.example.banksystemservlet.domain.bank.BankResult" %>
+<%@ page import="com.example.banksystemservlet.result.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.example.banksystemservlet.domain.bank.Account" %>
-<%@ page import="com.example.banksystemservlet.domain.member.MemberResult" %>
+<%@ page import="com.example.banksystemservlet.result.MemberResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,7 +26,11 @@
         printWriter.println("<--- 관리자 확인용 --->\n\n");
         printWriter.println(e.getMessage());
     }
+    %>
 
+<br>
+
+    <%
     try {
         BankResult bankResult = (BankResult) session.getAttribute("bankResult");
         Account account = bankResult.getAccount();

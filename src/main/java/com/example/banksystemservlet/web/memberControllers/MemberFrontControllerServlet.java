@@ -1,9 +1,7 @@
 package com.example.banksystemservlet.web.memberControllers;
 
 import com.example.banksystemservlet.domain.member.MemberManager;
-import com.example.banksystemservlet.result.MemberResultRepository;
-import com.example.banksystemservlet.result.Result;
-import com.example.banksystemservlet.result.ResultRepository;
+import com.example.banksystemservlet.repository.ResultRepository;
 import com.example.banksystemservlet.web.memberControllers.form.LoginFormController;
 import com.example.banksystemservlet.web.memberControllers.form.RegisterFormController;
 import com.example.banksystemservlet.web.memberControllers.result.LoginResultController;

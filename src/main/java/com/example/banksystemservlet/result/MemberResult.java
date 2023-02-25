@@ -1,4 +1,6 @@
-package com.example.banksystemservlet.domain.member;
+package com.example.banksystemservlet.result;
+
+import com.example.banksystemservlet.domain.member.Member;
 
 public record MemberResult(String message, boolean result, Member member) {
 

@@ -1,6 +1,6 @@
-package com.example.banksystemservlet.domain.bank;
+package com.example.banksystemservlet.result;
 
-import com.example.banksystemservlet.result.Result;
+import com.example.banksystemservlet.domain.bank.Account;
 import com.example.banksystemservlet.domain.member.MemberData;
 
 import java.util.Objects;

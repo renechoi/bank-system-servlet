@@ -1,4 +1,4 @@
-package com.example.banksystemservlet.domain.jdbc;
+package com.example.banksystemservlet.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

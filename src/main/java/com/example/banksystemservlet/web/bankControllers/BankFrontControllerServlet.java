@@ -1,7 +1,8 @@
 package com.example.banksystemservlet.web.bankControllers;
 
-import com.example.banksystemservlet.result.BankResultRepository;
 import com.example.banksystemservlet.domain.bank.Bank;
+import com.example.banksystemservlet.repository.BankResultRepository;
+import com.example.banksystemservlet.repository.ResultRepository;
 import com.example.banksystemservlet.web.bankControllers.form.*;
 import com.example.banksystemservlet.web.bankControllers.result.*;
 
@@ -47,14 +48,15 @@ public class BankFrontControllerServlet extends HttpServlet {
 
         Map<String, String> paramMap = createParamMap(request);
         BankModelView bankModelView = bankController.process(bank, paramMap);
-        saveResult(bankModelView.getModel());
+        saveRepository(bankModelView);
 
         BankView bankView = viewResolver(bankModelView.getViewName());
         bankView.render(bankModelView.getModel(), request, response);
     }
 
-    private static void saveResult(Map<String, Object> model) {
-        BankResultRepository.saveBankResult(model);
+    private static void saveRepository(BankModelView bankModelView) {
+        ResultRepository.saveBankResult(bankModelView.getModel());
+        BankResultRepository.saveBankResult(bankModelView.getModel());   // TODO : 지우고 하나로 통합하는 거 필요
     }
 
     private static BankView viewResolver(String viewName) {

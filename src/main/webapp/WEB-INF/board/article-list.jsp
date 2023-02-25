@@ -1,6 +1,6 @@
 <%@ page import="com.example.banksystemservlet.domain.board.Article" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.banksystemservlet.domain.board.BoardResult" %>
+<%@ page import="com.example.banksystemservlet.result.BoardResult" %>
 <%@ page import="static sun.java2d.cmm.ColorTransform.Out" %>
 <%@ page import="com.example.banksystemservlet.domain.board.Pagination" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

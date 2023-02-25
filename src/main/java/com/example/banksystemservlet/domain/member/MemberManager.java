@@ -1,5 +1,7 @@
 package com.example.banksystemservlet.domain.member;
 
+import com.example.banksystemservlet.result.MemberResult;
+
 import java.sql.SQLException;
 
 public class MemberManager {
