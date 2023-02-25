@@ -1,5 +1,6 @@
 package com.example.banksystemservlet.domain.member;
 
+import com.example.banksystemservlet.domain.bank.BankManager;
 import com.example.banksystemservlet.jdbc.JdbcTemplate;
 import com.example.banksystemservlet.jdbc.RowMapper;
 
@@ -9,9 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDao {
+    private static final MemberDao instance = new MemberDao();
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
     public MemberDao() {
+    }
+
+    public static MemberDao getInstance() {
+        return instance;
     }
 
     public MemberDao(JdbcTemplate jdbcTemplate) {

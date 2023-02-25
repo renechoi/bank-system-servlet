@@ -25,8 +25,4 @@ public class CommentWriteResultController implements BoardController {
         boardModelView.getModel().put("boardResult", boardResult);
         return boardModelView;
     }
-
-    private static MemberData getBankData(BankResult result) {
-        return result.getData();
-    }
 }

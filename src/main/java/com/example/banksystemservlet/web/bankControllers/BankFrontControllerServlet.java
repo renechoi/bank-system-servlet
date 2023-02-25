@@ -1,9 +1,11 @@
 package com.example.banksystemservlet.web.bankControllers;
 
-import com.example.banksystemservlet.domain.bank.Bank;
-import com.example.banksystemservlet.repository.BankResultRepository;
+import com.example.banksystemservlet.domain.bank.BankManager;
 import com.example.banksystemservlet.repository.ResultRepository;
-import com.example.banksystemservlet.web.bankControllers.form.*;
+import com.example.banksystemservlet.web.bankControllers.form.CreateAccountFormBankController;
+import com.example.banksystemservlet.web.bankControllers.form.DepositFormBankController;
+import com.example.banksystemservlet.web.bankControllers.form.TransferFormBankController;
+import com.example.banksystemservlet.web.bankControllers.form.WithdrawFormBankController;
 import com.example.banksystemservlet.web.bankControllers.result.*;
 
 import javax.servlet.ServletException;
@@ -44,10 +46,10 @@ public class BankFrontControllerServlet extends HttpServlet {
             return;
         }
 
-        Bank bank = Bank.getInstance();
+        BankManager bankManager = BankManager.getInstance();
 
         Map<String, String> paramMap = createParamMap(request);
-        BankModelView bankModelView = bankController.process(bank, paramMap);
+        BankModelView bankModelView = bankController.process(bankManager, paramMap);
         saveRepository(bankModelView);
 
         BankView bankView = viewResolver(bankModelView.getViewName());
@@ -56,7 +58,7 @@ public class BankFrontControllerServlet extends HttpServlet {
 
     private static void saveRepository(BankModelView bankModelView) {
         ResultRepository.saveBankResult(bankModelView.getModel());
-        BankResultRepository.saveBankResult(bankModelView.getModel());   // TODO : 지우고 하나로 통합하는 거 필요
+//        BankResultRepository.saveBankResult(bankModelView.getModel());   // TODO : 지우고 하나로 통합하는 거 필요
     }
 
     private static BankView viewResolver(String viewName) {

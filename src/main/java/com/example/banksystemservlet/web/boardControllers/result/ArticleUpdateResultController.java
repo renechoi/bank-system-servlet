@@ -1,13 +1,11 @@
 package com.example.banksystemservlet.web.boardControllers.result;
 
-import com.example.banksystemservlet.domain.member.Member;
-import com.example.banksystemservlet.result.MemberResult;
-import com.example.banksystemservlet.repository.BankResultRepository;
-import com.example.banksystemservlet.result.BankResult;
 import com.example.banksystemservlet.domain.board.BoardManager;
-import com.example.banksystemservlet.result.BoardResult;
+import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberData;
 import com.example.banksystemservlet.repository.ResultRepository;
+import com.example.banksystemservlet.result.BankResult;
+import com.example.banksystemservlet.result.BoardResult;
 import com.example.banksystemservlet.web.boardControllers.BoardController;
 import com.example.banksystemservlet.web.boardControllers.BoardModelView;
 

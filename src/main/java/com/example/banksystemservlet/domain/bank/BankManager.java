@@ -9,17 +9,17 @@ import com.example.banksystemservlet.repository.ResultRepository;
 
 import java.sql.SQLException;
 
-public class Bank {
+public class BankManager {
 
-    private final MemberDao MEMBER_DAO = new MemberDao();
-    private final AccountDao ACCOUNT_DAO = new AccountDao();
+    private static final BankManager instance = new BankManager();
 
-    private static final Bank instance = new Bank();
+    private final MemberDao MEMBER_DAO = MemberDao.getInstance();
+    private final AccountDao ACCOUNT_DAO = AccountDao.getInstance();
 
-    public Bank() {
+    public BankManager() {
     }
 
-    public static Bank getInstance() {
+    public static BankManager getInstance() {
         return instance;
     }
 
@@ -31,7 +31,6 @@ public class Bank {
             return new BankResult("계좌 생성 실패하였습니다", false);
         }
     }
-
 
     public BankResult deposit(int amount) {
         validateLoginOff();

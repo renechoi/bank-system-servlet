@@ -12,7 +12,13 @@ public class AccountDao {
     public static final int initialAmount = 1000;
     private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
+    private static final AccountDao instance = new AccountDao();
+
     public AccountDao() {
+    }
+
+    public static AccountDao getInstance() {
+        return instance;
     }
 
     public AccountDao(JdbcTemplate jdbcTemplate) {

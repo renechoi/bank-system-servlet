@@ -1,4 +1,4 @@
-<%@ page import="com.example.banksystemservlet.domain.bank.AccountDao" %>
+<%@ page import="com.example.banksystemservlet.domain.bankManager.AccountDao" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page errorPage="../index.html" %>
@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<a href="index.jsp">bank </a> <br>
+<a href="index.jsp">bankManager </a> <br>
 
 
 현황 보여주기

@@ -1,7 +1,6 @@
 <%@ page import="com.example.banksystemservlet.result.BankResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.example.banksystemservlet.domain.bank.Account" %>
 <%@ page import="com.example.banksystemservlet.result.MemberResult" %>
 <%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 
@@ -30,23 +29,22 @@
 
 <br>
 
-    <%
-    try {
-        BankResult bankResult = (BankResult) session.getAttribute("bankResult");
-        Account account = bankResult.getAccount();
-        printWriter.println("\n");
-        printWriter.println("\n<--- 관리자 확인용 (account) --->\n");
-        printWriter.println(account);
-    } catch (Exception e){
-        printWriter.println("<--- 관리자 확인용 --->\n\n");
-        printWriter.println(e.getMessage());
-    }
+<%--    <%--%>
+<%--    try {--%>
+<%--        BankResult bankResult = (BankResult) session.getAttribute("bankResult");--%>
+<%--        Account account = bankResult.getAccount();--%>
+<%--        printWriter.println("\n");--%>
+<%--        printWriter.println("\n<--- 관리자 확인용 (account) --->\n");--%>
+<%--        printWriter.println(account);--%>
+<%--    } catch (Exception e){--%>
+<%--        printWriter.println("<--- 관리자 확인용 --->\n\n");--%>
+<%--        printWriter.println(e.getMessage());--%>
+<%--    }--%>
 
 
 
 
 
-%>
 
 <%--<--- 관리자 확인용 ---> <br>--%>
 <%--성공 여부 : <%=bankResult.getMessage()%> <%=bankResult.isSuccess()%><br>--%>
