@@ -57,7 +57,7 @@ public class BankFrontControllerServlet extends HttpServlet {
     }
 
     private static void saveRepository(BankModelView bankModelView) {
-        ResultRepository.saveBankResult(bankModelView.getModel());
+//        ResultRepository.saveBankResult(bankModelView.getModel());
 //        BankResultRepository.saveBankResult(bankModelView.getModel());   // TODO : 지우고 하나로 통합하는 거 필요
     }
 

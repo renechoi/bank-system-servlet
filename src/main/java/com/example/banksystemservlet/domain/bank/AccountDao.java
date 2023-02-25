@@ -70,7 +70,7 @@ public class AccountDao {
         return 1111 + ((randomNumber - 1) * 1000);
     }
 
-    private Account getAccount2(Member member) throws SQLException {
+    public Account getAccount(Member member) throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                         SELECT accountnumber, balance, memberid
                         FROM account
@@ -86,11 +86,11 @@ public class AccountDao {
     }
 
     public int getAccountNumber2(Member member) throws SQLException {
-        return getAccount2(member).getAccountNumber();
+        return getAccount(member).getAccountNumber();
     }
 
     public int getBalance2(Member member) throws SQLException {
-        return getAccount2(member).getBalance();
+        return getAccount(member).getBalance();
     }
 
     private Account matchAccount(ResultSet resultSet, RowMapper rowMapper) throws SQLException {

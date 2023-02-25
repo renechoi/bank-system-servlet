@@ -5,13 +5,16 @@
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="com.example.banksystemservlet.domain.member.MemberData" %>
 <%@ page import="com.example.banksystemservlet.result.BankResult" %>
-<%@ page import="com.example.banksystemservlet.result.BankResult" %><%--
-  Created by IntelliJ IDEA.
-  User: Rene
-  Date: 2023/02/02
-  Time: 4:12 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.banksystemservlet.result.BankResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
+<%@ page import="com.example.banksystemservlet.domain.bank.Account" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.example.banksystemservlet.result.BankResult2" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -33,35 +36,35 @@
 
 
 <%
-    BankResult bankResult = (BankResult) session.getAttribute("bankResult");
-    MemberData memberData = bankResult.getData();
+    BankResult2 bankResult1 = (BankResult2) session.getAttribute("bankResult");
+    Map<Member, Account> memberAccountMap = bankResult1.memberWithAccount();
+
+    pageContext.setAttribute("memberAndAccount", memberAccountMap.entrySet());
 %>
 
 <body>
 
 잔액 조회하기 <br>
-
-<table>
+<table border="1">
     <tr>
         <th>고객번호</th>
+        <th>고객명</th>
         <th>계좌번호</th>
-        <th>계좌명</th>
-        <th>아이디</th>
         <th>잔액</th>
     </tr>
 
-    <tr>
-        <%--        프로퍼티 접근법 : ${} 안써지는 이유는 ? --%>
-        <td><%=memberData.memberNumber()%></td>
-        <td><%=memberData.accountNumber()%></td>
-        <td><%=memberData.name()%></td>
-        <td><%=memberData.memberId()%></td>
-        <td><%=memberData.balance()%></td>
-    </tr>
+    <c:forEach var="item" items="${pageScope.memberAndAccount}">
+        <tr>
+            <td>${item.getKey().getMemberId()}</td>
+            <td>${item.getKey().getName()}</td>
+            <td>${item.getValue().getAccountNumber()}</td>
+            <td>${item.getValue().getBalance()}</td>
+        </tr>
+    </c:forEach>
 </table>
 
 
-<jsp:include page="bankCheckStatus.jsp" />
+<jsp:include page="bankCheckStatus.jsp"/>
 
 
 <br>
