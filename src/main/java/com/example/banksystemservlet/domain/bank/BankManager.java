@@ -3,11 +3,14 @@ package com.example.banksystemservlet.domain.bank;
 import com.example.banksystemservlet.domain.member.Member;
 import com.example.banksystemservlet.domain.member.MemberDao;
 import com.example.banksystemservlet.domain.member.MemberData;
+import com.example.banksystemservlet.result.BankResult2;
 import com.example.banksystemservlet.result.MemberResult;
 import com.example.banksystemservlet.result.BankResult;
 import com.example.banksystemservlet.repository.ResultRepository;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BankManager {
 
@@ -63,12 +66,12 @@ public class BankManager {
         }
     }
 
-    public BankResult checkBalance() {
+    public BankResult2 checkBalance() {
         try {
-            return new BankResult("조회에 성공하였습니다", true, memberData());
+            return new BankResult2("조회에 성공하였습니다", true, memberAccountMap());
         } catch (SQLException e) {
             System.out.println("e.getMessage() = " + e.getMessage());
-            return new BankResult("조회에 실패하였습니다", false);
+            return new BankResult2("조회에 실패하였습니다", false, null);
         }
     }
 
@@ -86,6 +89,14 @@ public class BankManager {
                 ACCOUNT_DAO.getAccountNumber2(member),
                 ACCOUNT_DAO.getBalance2(member)
         );
+    }
+
+    private Map<Member, Account> memberAccountMap() throws SQLException {
+        Map<Member, Account> memberAccountMap = new HashMap<>();
+        Member member = MEMBER_DAO.getMemberCurrentlyLogin(getCurrentMemberId());
+        Account account = ACCOUNT_DAO.getAccount(member);
+        memberAccountMap.put(member, account);
+        return memberAccountMap;
     }
 
     private static String getCurrentMemberId() {

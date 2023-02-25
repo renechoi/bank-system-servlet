@@ -33,24 +33,8 @@ public class BankResult implements Result {
         this.account = account;
     }
 
-    public boolean isSuccess() {
-        return result;
-    }
-
     public MemberData getData() {
         return memberData;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void show() {
-        System.out.println(message + "\n");
-    }
-
-    public boolean isQuit() {
-        return message.equals("종료합니다");
     }
 
     public Account getAccount() {
