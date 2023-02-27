@@ -1,6 +1,8 @@
 $("body").prepend("<header></header>");
-// $("header").load("./frontpage/header.html header");
-$("header").load("/header.html header");
+// $("header").load("/header.html header");
+// $("header").load("./include/header.jsp header");
+
+
 
 function goHome() {
     location.href='/'

@@ -2,8 +2,9 @@
 <%@ page import="com.example.banksystemservlet.domain.board.Article" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.banksystemservlet.result.BoardResult" %>
-<%@ page import="static sun.java2d.cmm.ColorTransform.Out" %>
 <%@ page import="com.example.banksystemservlet.domain.board.Pagination" %>
+<%@ page import="com.example.banksystemservlet.result.MemberResult" %>
+<%@ page import="com.example.banksystemservlet.domain.member.Member" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -29,18 +30,16 @@
     <!-- Custom styles for this template -->
     <link href="headers.css" rel="stylesheet">
     <link href="body-stats.css" rel="stylesheet">
-    <link href="body-note.css.css" rel="stylesheet">
+    <link href="body-note.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script defer src='register.js'></script>
-    <script defer src='body-note.js.js'></script>
+    <script defer src='body-note.js'></script>
 </head>
 
 
-
 <body>
-<%--<button>--%>
-<%--    <a onclick="createAccount()"> 임시 계좌 생성 </a>--%>
-<%--</button>--%>
+
+
 
 
 <%
@@ -54,6 +53,24 @@
 
     System.out.println(pagination);
 %>
+
+<%
+    MemberResult memberResult = (MemberResult) session.getAttribute("memberResult");
+    if (memberResult == null) {
+        Member member = null;
+        System.out.println("member = " + member);
+    } else {
+        Member member = memberResult.member();
+        pageContext.setAttribute("member", member);
+        System.out.println("member = " + member);
+    }
+
+%>
+
+<div id="container">
+    <c:import url="include/header.jsp"></c:import>
+</div>
+
 
 
 <%--<JSP 파일>--%>
@@ -337,10 +354,7 @@
 <%--</div>--%>
 
 
-
 <br>
-
-
 
 
 <main class="container">
@@ -401,7 +415,9 @@
             <tbody>
             <c:forEach var="item" items="${pageScope.boardData}">
                 <tr>
-                    <td class="title"><a onclick="articleShow(${item.id()})" href = "/board/article-content?id=${item.id()}"  style="cursor:hand">${item.title()}</a></td>
+                    <td class="title"><a onclick="articleShow(${item.id()})"
+                                         href="/board/article-content?id=${item.id()}"
+                                         style="cursor:hand">${item.title()}</a></td>
                     <td class="hashtag"><span class="badge text-bg-secondary mx-1"><a
                             class="text-reset">#java</a></span></td>
                     <td class="user-id">${item.memberName()}</td>
@@ -417,16 +433,14 @@
 
     <div class="row">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-<%--            <a class="btn btn-primary me-md-2" role="button" href="/board/article-write-form" id="write-article">글쓰기</a>--%>
-            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result?page=default" id="article-list-submit2">목록보기</a>
+            <%--            <a class="btn btn-primary me-md-2" role="button" href="/board/article-write-form" id="write-article">글쓰기</a>--%>
+            <a class="btn btn-primary me-md-2" role="button" href="/board/article-read-result?page=default"
+               id="article-list-submit2">목록보기</a>
         </div>
     </div>
 
 
 </main>
-
-
-
 
 
 <footer>

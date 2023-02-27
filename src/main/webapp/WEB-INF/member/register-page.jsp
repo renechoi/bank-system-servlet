@@ -17,6 +17,7 @@
     <link href="/member.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script defer src='/register.js'></script>
+    <script src="../js/app-ajax.js" type="text/javascript"></script>
 
 </head>
 <body>

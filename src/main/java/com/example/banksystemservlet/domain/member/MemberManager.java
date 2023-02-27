@@ -62,6 +62,18 @@ public class MemberManager {
         }
     }
 
+    public MemberResult validateDuplicateId(String memberId) {
+        try {
+            boolean exist = MEMBER_DAO.exist(memberId);
+            System.out.println("id exist = " + exist);
+            return exist ?
+                    new MemberResult("true", true, new Member(memberId)) :
+                    new MemberResult("false", true, new Member(memberId)) ;
+        } catch (RuntimeException | SQLException e) {
+            return new MemberResult("false", false, null);
+        }
+    }
+
     private Member getMember(String requestedId, String requestedPassword) throws SQLException {
         return MEMBER_DAO.getMember(requestedId, requestedPassword);
     }
@@ -101,5 +113,4 @@ public class MemberManager {
         }
         return requestedId;
     }
-
 }

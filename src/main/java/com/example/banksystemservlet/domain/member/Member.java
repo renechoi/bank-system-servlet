@@ -11,6 +11,10 @@ public class Member {
     private String address;
     private boolean loginStatus;
 
+    public Member(String memberId) {
+        this.memberId = memberId;
+    }
+
     public Member(String name, String memberId, String password ) {
         this.name = name;
         this.memberId = memberId;

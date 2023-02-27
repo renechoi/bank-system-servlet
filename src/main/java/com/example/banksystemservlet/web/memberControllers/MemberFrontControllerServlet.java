@@ -4,6 +4,7 @@ import com.example.banksystemservlet.domain.member.MemberManager;
 import com.example.banksystemservlet.repository.ResultRepository;
 import com.example.banksystemservlet.web.memberControllers.form.LoginFormController;
 import com.example.banksystemservlet.web.memberControllers.form.RegisterFormController;
+import com.example.banksystemservlet.web.memberControllers.result.GetUserServletController;
 import com.example.banksystemservlet.web.memberControllers.result.LoginResultController;
 import com.example.banksystemservlet.web.memberControllers.result.LogoutResultController;
 import com.example.banksystemservlet.web.memberControllers.result.RegisterResultController;
@@ -30,6 +31,7 @@ public class MemberFrontControllerServlet extends HttpServlet {
         controllerMap.put("/member/register-result", new RegisterResultController());
         controllerMap.put("/member/login-result", new LoginResultController());
         controllerMap.put("/member/logout-result", new LogoutResultController());
+//        controllerMap.put("/member/check-id", new GetUserServletController());
     }
 
     @Override

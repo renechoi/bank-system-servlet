@@ -73,6 +73,16 @@ public class MemberDao {
         return resultSet.next();
     }
 
+    public boolean exist(String memberId) throws SQLException {
+        ResultSet resultSet = jdbcTemplate.executeQuery("""
+                        SELECT memberId
+                        FROM member
+                        WHERE memberId = ?
+                        """,
+                preparedStatement -> preparedStatement.setString(1, memberId));
+        return resultSet.next();
+    }
+
     public Member getMemberCurrentlyLogin(String currentlyLogin) throws SQLException {
         ResultSet resultSet = jdbcTemplate.executeQuery("""
                         SELECT membernumber, name, memberid, password
@@ -138,4 +148,5 @@ public class MemberDao {
         }
         return null;
     }
+
 }
