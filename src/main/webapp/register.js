@@ -1,5 +1,5 @@
 $("body").prepend("<header></header>");
-// $("header").load("/header.html header");
+$("header").load("/header.html header");
 // $("header").load("./include/header.jsp header");
 
 

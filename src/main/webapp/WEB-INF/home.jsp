@@ -67,9 +67,36 @@
 
 %>
 
-<div id="container">
-    <c:import url="include/header.jsp"></c:import>
+<%--<div id="container">--%>
+<%--    <c:import url="include/header.jsp"></c:import>--%>
+<%--</div>--%>
+
+
+
+
+<div class="px-3 py-2 border-bottom mb-3">
+    <div class="container d-flex flex-wrap justify-content-center">
+
+        <div class="text-end">
+            <c:choose>
+                <c:when test="${member == null }">
+                    <button onclick="login()" id="login" type="button" class="btn btn-light text-dark me-2">
+                        로그인
+                    </button>
+                    <button onclick="register()" id="register" type="button" class="btn btn-primary">회원가입
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <h2> ${member.name}님 안녕하세요.</h2>
+                    <button style = "float: right" onclick="logout()" id="logout" type="button" class="btn btn-primary">
+                        로그아웃
+                    </button>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
 </div>
+
 
 
 
